@@ -11,3 +11,5 @@ Goal: provide tools to implement Design-by-Contract in NodeJS/TypeScript environ
 Generic Adapter is used by Looks application to create the contract documentation. Generic Adapter takes the OAS JSON definitions and provides the standardized interface for consumers like Looks application.
 
 ![Big Picture](./.docs/bigger-picture.svg)
+
+<object type="image/svg+xml" data="./.docs/bigger-picture.svg" width="100%" height="auto"></object>
