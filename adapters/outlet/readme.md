@@ -1,4 +1,4 @@
-## Contract Outlet
+## The OAS Contract Outlet Adapter
 
 Purpose: provide the tool to create the concrete contract outlets to be used in consumer applications (backends, front-ends).
 

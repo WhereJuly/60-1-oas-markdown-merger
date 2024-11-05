@@ -1,4 +1,4 @@
-## The OAS Generic Adapter Package
+## The OAS Contract Generic Adapter Package
 
 ### Meaning & Naming 
 
