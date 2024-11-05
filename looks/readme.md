@@ -1,6 +1,8 @@
-## OAS Looks
+## OAS Contract Looks
 
-The Looks package provides the OAS definitions visual representations. Basically in a form of a contract documentation site.
+The Looks package provides the OAS definitions visual representations. Basically in a form of a contract documentation site. Probably as a set of decoupled primitives to construct the concrete Look.
+
+---
 
 **`OAS Looks`** is a catchy and modern name for your application that presents OAS contract definitions as a documentation website. Here are some thoughts on this name:
 

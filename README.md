@@ -2,5 +2,5 @@
 
 TBW later.
 
-- OAS Looks
+- OAS Contract Looks
 - OAS Adapters: generic, contract outlet (with generator)
