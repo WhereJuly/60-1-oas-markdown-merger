@@ -10,6 +10,7 @@
 - [The Big Picture](#the-big-picture)
 - [Operations](#operations)
   - [Development](#development)
+    - [Tooling](#tooling)
     - [The Repository Structure](#the-repository-structure)
   - [CI/CD](#cicd)
     - [Composed Git Workflows](#composed-git-workflows)
@@ -60,6 +61,10 @@ The Concrete Contract Outlet adapter is used in backends to create the endpoints
 
 ### Development
 
+#### Tooling
+
+TypeScript, NodeJS, Vitest.
+
 #### The Repository Structure
 
 The repository is a monorepo (using `npm workspaces`) with independent packages deployment.
@@ -69,6 +74,8 @@ The monorepo root only serves as the common packages and scripts storage as well
 Each actual package is developed, built and deployed independently. When the monorepo package depends on its siblings it manages the dependency on its own.
 
 ### CI/CD
+
+The process enforces quality via automated tests, commit messages rules, release rules and IaC scripts.
 
 #### Composed Git Workflows
 
