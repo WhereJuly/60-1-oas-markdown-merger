@@ -3,6 +3,7 @@
     "description": "The OpenAPI Design-by-Contract Suite Monorepo",
     "author": "valentineshi.dev@gmail.com",
     "version": "0.1.0",
+    "type": "module",
     "workspaces": [
         "adapters/*",
         "looks"
@@ -20,7 +21,8 @@
         "@typescript-eslint/eslint-plugin": "^8.13.0",
         "@typescript-eslint/parser": "^8.13.0",
         "husky": "^8.0.3",
-        "tsx": "^4.19.2"
+        "tsx": "^4.19.2",
+        "vitest": "^2.1.4"
     },
     "dependencies": {
         "@dotenvx/dotenvx": "^1.22.0",

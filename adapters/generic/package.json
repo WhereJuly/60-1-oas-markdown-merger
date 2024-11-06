@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "The OAS DbC Generic Adapter Package",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "development:serve": "nodemon --watch ./src --ext ts,json --exec \"npm run check-types && dotenvx run -- tsx ./src/index.ts\" --errors=true",
         "check-types": "npx tsc --noEmit --project .",
