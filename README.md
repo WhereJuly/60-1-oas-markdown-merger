@@ -1,8 +1,8 @@
 # The OpenAPI Design-by-Contract Suite
 
-<small>#typescript #nodejs #openapi #contract #backend #front-end #documentation</small>
+<small>`#typescript` `#nodejs` `#openapi` `#contract` `#backend` `#front-end` `#documentation`</small>
 
----
+**Contents**
 
 - [Design by Contract](#design-by-contract)
 - [The Basic Motivation](#the-basic-motivation)
