@@ -2,6 +2,8 @@
 
 <small>#typescript #nodejs #openapi #contract #backend #front-end #documentation</small>
 
+---
+
 - [Design by Contract](#design-by-contract)
 - [The Basic Motivation](#the-basic-motivation)
 - [The Goal](#the-goal)
