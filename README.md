@@ -1,15 +1,48 @@
-# The OAS Contract Packages
+# The OpenAPI Design-by-Contract Suite
 
-TBW later.
+<small>#typescript #nodejs #openapi #contract #backend #front-end #documentation</small>
 
-Goal: provide tools to implement Design-by-Contract in NodeJS/TypeScript environment.
+- [Design by Contract](#design-by-contract)
+- [The Basic Motivation](#the-basic-motivation)
+- [The Goal](#the-goal)
+- [The Big Picture](#the-big-picture)
 
-- Present: OAS Contract Looks
-- Use: OAS Contract Adapters: generic, contract outlet (with generator)
-- Create: external packages to be used;
+## Design by Contract
 
-Generic Adapter is used by Looks application to create the contract documentation. Generic Adapter takes the OAS JSON definitions and provides the standardized interface for consumers like Looks application.
+**IMPORTANT**: The Suite provides the tools to implement [Design-by-Contract](https://en.wikipedia.org/wiki/Design_by_contract) (DbC, [^1]) along the entire workflow of a software product creation.
+
+In our context external to the Suite, DbC starts at requirements formalization and obtains the concrete contract definitions.
+
+Then DbC gets to the contracts automated enforcement onto various parts of the software product (backends, front-ends). Finally DbC arrives at need to present the contract in a human-readable form generally.The two last ones is what our Suite concerns with.
+
+## The Basic Motivation
+
+Initially I needed the versatile and flexible OpenAPI documentation website tool that could be modular and easily adaptable to show the concrete OpenAPI contracts in a human-readable form. I.e. a website.
+
+The existing solutions were either not flexible enough to adopt my functional and visual design requirements or paid.
+
+Starting from that idea I am on the way to create better solution as I see it.
+
+## The Goal
+
+> TBW. this is just a draft. it will show itself with the time.
+
+The packages in the repository aim to provide tools to implement Design-by-Contract in NodeJS/TypeScript environments.
+
+- Create contracts: external packages to be used; Not sure if I have to describe it further here or at all;
+- Use contracts: OAS Contract Adapters: generic, contract outlet (with generator);
+- Present: OAS Contract Looks;
+
+## The Big Picture
+
+> TBW. this is just a draft. it will show itself with the time.
+
+Contract Outlet Adapter is used as a standalone package in the Concrete contract definition repositories. It should be provided with OAS JSON definitions to generated the Concrete Contract Outlet adapter. The generated adapter then is imported in the backend or front-ends like Fastify or Vue applications. 
+
+The Concrete Contract Outlet adapter is used in backends to create the endpoints (taking verbs, routes) and validate request and response. On front-ends the Outlet is used to organize the inputs validation with packages like `ajv`.
 
 <div align="center">
   <img src="./.docs/bigger-picture-actual.svg" width="70%"/>
 </div>
+
+[^1]: For people new to DbC approach here are some useful links to start from Stoplight Blog [API-First vs. API Design-First: A Comprehensive Guide](https://blog.stoplight.io/api-first-vs-api-design-first-a-comprehensive-guide) or Contract-First Development Internet search [results](https://duckduckgo.com/?q=Contract-First+Development).
