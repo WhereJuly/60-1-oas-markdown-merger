@@ -1,24 +1,26 @@
 {
-  "name": "generic-adapter",
-  "version": "0.0.1",
-  "description": "The OAS DbC Generic Adapter Package",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dcoupld/oas.git"
-  },
-  "keywords": [
-    "openapi",
-    "typescript",
-    "design-by-contract"
-  ],
-  "author": "valentineshi.dev@gmail.com",
-  "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/dcoupld/oas/issues"
-  },
-  "homepage": "https://github.com/dcoupld/oas#readme"
+    "name": "@dcoupld/oas-generic-adapter",
+    "version": "0.0.1",
+    "description": "The OAS DbC Generic Adapter Package",
+    "main": "index.js",
+    "scripts": {
+        "development:serve": "nodemon --watch ./src --ext ts,json --exec \"npm run check-types && dotenvx run -- tsx ./src/index.ts\" --errors=true",
+        "check-types": "npx tsc --noEmit --project .",
+        "test:foundation": "npm run check-types && cross-env NODE_ENV=test vitest run --config tests/foundation/.ancillary/config/vitest.config.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dcoupld/oas.git"
+    },
+    "keywords": [
+        "openapi",
+        "typescript",
+        "design-by-contract"
+    ],
+    "author": "valentineshi.dev@gmail.com",
+    "license": "UNLICENSED",
+    "bugs": {
+        "url": "https://github.com/dcoupld/oas/issues"
+    },
+    "homepage": "https://github.com/dcoupld/oas/tree/master/adapters/generic#readme"
 }

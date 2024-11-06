@@ -1,0 +1,29 @@
+{
+    "extends": "@tsconfig/node18/tsconfig.json",
+    "compilerOptions": {
+        "incremental": true /* Save .tsbuildinfo files to allow for incremental compilation of projects. */,
+        "tsBuildInfoFile": "./.delivery/.temp/.tsbuildinfo" /* Specify the path to .tsbuildinfo incremental compilation file. */,
+        "target": "es2022",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "baseUrl": ".",
+        "paths": {
+            "@root/*": ["../../*"],
+            "@src/*": ["./src/*"]
+        },
+        "resolveJsonModule": true,
+        "declaration": true,
+        "outDir": "./.delivery/dist" /* Specify an output folder for all emitted files. */,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noUncheckedIndexedAccess": true /* Add 'undefined' to a type when accessed using an index. */,
+        "skipLibCheck": true
+    },
+
+    "include": ["./src", "./tests/foundation/**/*.ts", "./tests/foundation/integration/.external/**/*.ts", "./tests/foundation/.ancillary/**/*.*"],
+    "exclude": ["node_modules"]
+}
