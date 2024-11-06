@@ -9,11 +9,13 @@
 
 ## Design by Contract
 
-**IMPORTANT**: The Suite provides the tools to implement [Design-by-Contract](https://en.wikipedia.org/wiki/Design_by_contract) (DbC, [^1]) along the entire workflow of a software product creation.
+**IMPORTANT**: The Suite provides the tools to implement [Design-by-Contract](https://en.wikipedia.org/wiki/Design_by_contract) (**DbC**, [^1]) along the entire workflow of a software product creation.
 
-In our context external to the Suite, DbC starts at requirements formalization and obtains the concrete contract definitions.
+In our context but external to the Suite, **DbC** starts at requirements formalization and obtains the concrete contract definitions.
 
-Then DbC gets to the contracts automated enforcement onto various parts of the software product (backends, front-ends). Finally DbC arrives at need to present the contract in a human-readable form generally.The two last ones is what our Suite concerns with.
+Then **DbC** gets to the contracts automated enforcement onto various parts of the software product (backends, front-ends). Finally **DbC** arrives at need to present the contract in a human-readable form e.g. a contract documentation webs site.
+
+The two last ones is what our Suite concerns with.
 
 ## The Basic Motivation
 
@@ -45,4 +47,4 @@ The Concrete Contract Outlet adapter is used in backends to create the endpoints
   <img src="./.docs/bigger-picture-actual.svg" width="70%"/>
 </div>
 
-[^1]: For people new to DbC approach here are some useful links to start from Stoplight Blog [API-First vs. API Design-First: A Comprehensive Guide](https://blog.stoplight.io/api-first-vs-api-design-first-a-comprehensive-guide) or Contract-First Development Internet search [results](https://duckduckgo.com/?q=Contract-First+Development).
+[^1]: For people new to DbC approach on top of the above mentioned [wiki](https://en.wikipedia.org/wiki/Design_by_contract) link here are some useful links to start from. Stoplight Blog [API-First vs. API Design-First: A Comprehensive Guide](https://blog.stoplight.io/api-first-vs-api-design-first-a-comprehensive-guide), Contract-First Development Internet search [results](https://duckduckgo.com/?q=Contract-First+Development).
