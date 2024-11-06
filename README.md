@@ -8,6 +8,9 @@
 - [The Basic Motivation](#the-basic-motivation)
 - [The Goal](#the-goal)
 - [The Big Picture](#the-big-picture)
+- [Development](#development)
+  - [CI/CD](#cicd)
+    - [Composed Git Workflows](#composed-git-workflows)
 
 ## Design by Contract
 
@@ -50,3 +53,13 @@ The Concrete Contract Outlet adapter is used in backends to create the endpoints
 </div>
 
 [^1]: For people new to DbC approach on top of the above mentioned [wiki](https://en.wikipedia.org/wiki/Design_by_contract) link here are some useful links to start from. Stoplight Blog [API-First vs. API Design-First: A Comprehensive Guide](https://blog.stoplight.io/api-first-vs-api-design-first-a-comprehensive-guide), Contract-First Development Internet search [results](https://duckduckgo.com/?q=Contract-First+Development).
+
+## Development
+
+### CI/CD
+
+#### Composed Git Workflows
+
+The packages within Suite with the time will implement my [Composed Git Workflow](https://github.com/progressing-explorations/shared/tree/master/composed-git-workflows#composed-git-workflows).
+
+Specifically it will include the daily development management and release management.

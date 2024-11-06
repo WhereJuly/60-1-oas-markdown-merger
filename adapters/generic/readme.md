@@ -1,4 +1,4 @@
-## The OAS Contract Generic Adapter Package
+## The OAS DbC Generic Adapter Package
 
 ### Meaning & Naming 
 
