@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "In pre-merge commit"
+echo "In pre-merge"
 
 npm run dummy
