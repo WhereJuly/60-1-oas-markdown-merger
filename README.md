@@ -8,7 +8,10 @@
 - [The Basic Motivation](#the-basic-motivation)
 - [The Goal](#the-goal)
 - [The Big Picture](#the-big-picture)
-- [Development](#development)
+- [Operations](#operations)
+  - [Development](#development)
+    - [Tooling](#tooling)
+    - [The Repository Structure](#the-repository-structure)
   - [CI/CD](#cicd)
     - [Composed Git Workflows](#composed-git-workflows)
 
@@ -36,15 +39,15 @@ Starting from that idea I am on the way to create better solution as I see it.
 
 The packages in the repository aim to provide tools to implement Design-by-Contract in NodeJS/TypeScript environments.
 
-- Create contracts: external packages to be used; Not sure if I have to describe it further here or at all;
-- Use contracts: OAS Contract Adapters: generic, contract outlet (with generator);
-- Present: OAS Contract Looks;
+-   Create contracts: external packages to be used; Not sure if I have to describe it further here or at all;
+-   Use contracts: OAS Contract Adapters: generic, contract outlet (with generator);
+-   Present: OAS Contract Looks;
 
 ## The Big Picture
 
 > TBW. this is just a draft. it will show itself with the time.
 
-Contract Outlet Adapter is used as a standalone package in the Concrete contract definition repositories. It should be provided with OAS JSON definitions to generated the Concrete Contract Outlet adapter. The generated adapter then is imported in the backend or front-ends like Fastify or Vue applications. 
+Contract Outlet Adapter is used as a standalone package in the Concrete contract definition repositories. It should be provided with OAS JSON definitions to generated the Concrete Contract Outlet adapter. The generated adapter then is imported in the backend or front-ends like Fastify or Vue applications.
 
 The Concrete Contract Outlet adapter is used in backends to create the endpoints (taking verbs, routes) and validate request and response. On front-ends the Outlet is used to organize the inputs validation with packages like `ajv`.
 
@@ -54,9 +57,25 @@ The Concrete Contract Outlet adapter is used in backends to create the endpoints
 
 [^1]: For people new to DbC approach on top of the above mentioned [wiki](https://en.wikipedia.org/wiki/Design_by_contract) link here are some useful links to start from. Stoplight Blog [API-First vs. API Design-First: A Comprehensive Guide](https://blog.stoplight.io/api-first-vs-api-design-first-a-comprehensive-guide), Contract-First Development Internet search [results](https://duckduckgo.com/?q=Contract-First+Development).
 
-## Development
+## Operations
+
+### Development
+
+#### Tooling
+
+TypeScript, NodeJS, Vitest.
+
+#### The Repository Structure
+
+The repository is a monorepo (using `npm workspaces`) with independent packages deployment.
+
+The monorepo root only serves as the common packages and scripts storage as well as centralized documentation (where appropriate) and GitHub side matters (issues, projects, merges etc.).
+
+Each actual package is developed, built and deployed independently. When the monorepo package depends on its siblings it manages the dependency on its own.
 
 ### CI/CD
+
+The process enforces quality via automated tests, commit messages rules, release rules and IaC scripts.
 
 #### Composed Git Workflows
 
