@@ -65,9 +65,14 @@ class ProcessPrePush {
             }
 
             try {
+                const cwd = process.cwd();
+                // NB: For packages in nested folders to remove slashes
+                const packageNameAsFilenamePart = packageName.replace(/[\/._]+/g, '-'); 
+
                 console.log(`* Processing package "${packageName}" pre-push script...`);
-                console.log(`See logs in './.ci/.logs/pre-push-${packageName}-${timestamp}.log file\n---`);
-                const output = execSync(`cd ${packageName} && npm run pre-push > ../.ci/.logs/pre-push-${packageName}-${timestamp}.log && cd ..`).toString();
+                console.log(`See logs in './.ci/.logs/pre-push-${packageNameAsFilenamePart}-${timestamp}.log file\n---`);
+                
+                const output = execSync(`cd ${packageName} && npm run pre-push > ${cwd}/.ci/.logs/pre-push-${packageNameAsFilenamePart}-${timestamp}.log && cd ..`).toString();
                 console.log(output);
             } catch (error) {
                 console.error(`Command failed: ${error}`);
