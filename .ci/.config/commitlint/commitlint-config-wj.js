@@ -21,7 +21,7 @@ const configuration = {
          */
         // 'scope-enum': [2, 'always', ['icidd', '']],
     },
-    parserPreset: './parser-preset-multirepo.js'
+    parserPreset: './parser-preset-monorepo.js'
 };
 
 console.dir(configuration);
