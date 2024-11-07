@@ -7,7 +7,8 @@
     "scripts": {
         "development:serve": "nodemon --watch ./src --ext ts,json --exec \"npm run check-types && dotenvx run -- tsx ./src/index.ts\" --errors=true",
         "check-types": "npx tsc --noEmit --project .",
-        "test:foundation": "npm run check-types && cross-env NODE_ENV=test vitest run --config tests/foundation/.ancillary/config/vitest.config.ts"
+        "test:foundation": "npm run check-types && cross-env NODE_ENV=test vitest run --config tests/foundation/.ancillary/config/vitest.config.ts",
+        "pre-push": "echo \"This is the dummy pre-push script for adapters/generic package. Replace with actual command when needed.\" && exit 0"
     },
     "repository": {
         "type": "git",

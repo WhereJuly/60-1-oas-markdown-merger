@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+remote="$1"
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+# If the remote branch does not exist, "|| exit 0" avoids the script erroring
+# and allows pushing to remote to create it.
+# @see https://stackoverflow.com/a/22010339/6597265
+files_await_pushing=$(git diff --name-only --staged "$remote/$branch") || exit 0
+
+# Transform into strings delimited by comma by replacing line ends with commas
+files_await_pushing=$(printf "%s" "${files_await_pushing[@]}" | tr '\n' ',')
+
+# ---
+# WARNING: The error message `The command line is too long` is issued by Windows.
+# when `files_await_pushing` length for the following command adds to greater than
+# 8191 characters length.
+# 
+# The quick solution is to ensure tests pass with `npm run test:foundation`
+# (that what the packages pre-push hooks run by pre-push.ts do)
+# 
+# The permanent solution can be @see ./example-solution.sh. It provides the list of
+# folders at once, not passing the list of files. This would require to update
+# `pre-push.ts
+# ---
+npx tsx "$(dirname -- "$0")/scripts/ts/pre-push.ts" "$files_await_pushing" "$remote/$branch"
+
+# exit 1

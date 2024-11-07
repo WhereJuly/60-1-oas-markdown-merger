@@ -3,7 +3,6 @@
     "description": "The OpenAPI Design-by-Contract Suite Monorepo",
     "author": "valentineshi.dev@gmail.com",
     "version": "0.1.0",
-    "type": "module",
     "workspaces": [
         "adapters/*",
         "looks"

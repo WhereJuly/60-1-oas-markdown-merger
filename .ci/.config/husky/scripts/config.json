@@ -1,0 +1,4 @@
+{
+    "monorepo": ["adapters/generic"],
+    "branches": ["development", "master"]
+}
