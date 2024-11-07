@@ -15,6 +15,12 @@
                 "tabWidth": 2,
                 "useTabs": false
             }
+        },
+        {
+            "files": "*.md",
+            "options": {
+                "tabWidth": 1
+            }
         }
     ]
 }

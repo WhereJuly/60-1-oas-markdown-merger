@@ -39,9 +39,9 @@ Starting from that idea I am on the way to create better solution as I see it.
 
 The packages in the repository aim to provide tools to implement Design-by-Contract in NodeJS/TypeScript environments.
 
--   Create contracts: external packages to be used; Not sure if I have to describe it further here or at all;
--   Use contracts: OAS Contract Adapters: generic, contract outlet (with generator);
--   Present: OAS Contract Looks;
+- Create contracts: external packages to be used; Not sure if I have to describe it further here or at all;
+- Use contracts: OAS Contract Adapters: generic, contract outlet (with generator);
+- Present: OAS Contract Looks;
 
 ## The Big Picture
 

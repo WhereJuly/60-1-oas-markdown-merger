@@ -16,7 +16,8 @@
  * NB: I will see the correct paths as have to implement more functionality here.
  */
 
-import config from '../config.json';
+// DEBUG: Not debugged yet
+import config from '../../../ci.config.json';
 import { execSync } from 'child_process';
 
 type Config = { monorepo: string[] | false; branches?: string[]; };
@@ -67,11 +68,11 @@ class ProcessPrePush {
             try {
                 const cwd = process.cwd();
                 // NB: For packages in nested folders to remove slashes
-                const packageNameAsFilenamePart = packageName.replace(/[\/._]+/g, '-'); 
+                const packageNameAsFilenamePart = packageName.replace(/[\/._]+/g, '-');
 
                 console.log(`* Processing package "${packageName}" pre-push script...`);
                 console.log(`See logs in './.ci/.logs/pre-push-${packageNameAsFilenamePart}-${timestamp}.log file\n---`);
-                
+
                 const output = execSync(`cd ${packageName} && npm run pre-push > ${cwd}/.ci/.logs/pre-push-${packageNameAsFilenamePart}-${timestamp}.log && cd ..`).toString();
                 console.log(output);
             } catch (error) {
