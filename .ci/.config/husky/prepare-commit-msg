@@ -4,3 +4,4 @@
 npm run commitlint ${1}
 
 # Now test this hook
+# npx --no-install commitlint --edit 
