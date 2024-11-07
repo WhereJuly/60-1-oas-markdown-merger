@@ -1,5 +1,4 @@
-
----
+## Ignore Some Defaults
 
 Setting `defaultIgnores: false` in your `commitlint.config.js` means that **commitlint will no longer ignore any default Git commit messages**, including merge commits, revert commits, and other automatically generated messages. This setup can bring up a few considerations:
 
