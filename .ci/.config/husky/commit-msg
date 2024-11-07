@@ -7,3 +7,4 @@ npm run commitlint ${1}
 # Similar to this:
 # npx --no -- commitlint --edit "$1"
 # Test merge lint again
+# Test simple message again
