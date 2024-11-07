@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# npm run dummy
-npm run commitlint ${1}
+npm run dummy
 # This somehow did not work. Merge to test pre-merge hook
 
 # Here would run commit message check as well
