@@ -8,7 +8,8 @@ const configuration = {
         'body-max-line-length': [2, 'always', 400],
         'header-max-length': [2, 'always', 130],
         'type-enum': [2, 'always', ['Breaking!', 'Feature!', 'Fix!', 'Release', 'Implement', 'Add', 'Remove', 'Refactor', 'Update', 'Deprecate', 'Cleanup']],
-        'type-case': [2, 'always', 'sentence-case']
+        'type-case': [2, 'always', 'sentence-case'],
+        'monorepo-message-format': [2, 'always', 'third-argument']
 
         /**
          * So far does not work.
