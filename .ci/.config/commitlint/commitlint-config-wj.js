@@ -2,6 +2,10 @@
 
 // const parserPresets = require('./parser-preset');
 
+const MonorepoMessageFormat = require('./MonorepoMessageFormat');
+
+const plugin = new MonorepoMessageFormat();
+
 const configuration = {
     extends: ['@commitlint/config-conventional'],
     rules: {
@@ -9,7 +13,7 @@ const configuration = {
         'header-max-length': [2, 'always', 130],
         'type-enum': [2, 'always', ['Breaking!', 'Feature!', 'Fix!', 'Release', 'Implement', 'Add', 'Remove', 'Refactor', 'Update', 'Deprecate', 'Cleanup']],
         'type-case': [2, 'always', 'sentence-case'],
-        'monorepo-message-format': [2, 'always', 'third-argument']
+        [plugin.name]: [2, 'always', 'third-argument']
 
         /**
          * So far does not work.
@@ -32,10 +36,7 @@ const configuration = {
     plugins: [
         {
             rules: {
-                'monorepo-message-format': (args) => {
-                    console.log(args);
-                    return [true, 'Monorepo Message Format is OK'];
-                }
+                [plugin.name]: plugin.process
             }
         }
     ]
