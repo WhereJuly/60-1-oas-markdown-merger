@@ -2,13 +2,20 @@
 
 // const parserPresets = require('./parser-preset');
 
+const ignores = require('./custom-ignores');
 const MonorepoMessageFormat = require('./MonorepoMessageFormat');
-
 const plugin = new MonorepoMessageFormat();
 
 const configuration = {
     extends: ['@commitlint/config-conventional'],
+
+    /**
+     * NB: Required to force check the specific auto-generated merge commit messages 
+     * See inside `./custom-ignores.js`.
+     */
     defaultIgnores: false,
+    ignores: ignores,
+    
     rules: {
         'body-max-line-length': [2, 'always', 400],
         'header-max-length': [2, 'always', 130],
