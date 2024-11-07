@@ -8,6 +8,7 @@ const plugin = new MonorepoMessageFormat();
 
 const configuration = {
     extends: ['@commitlint/config-conventional'],
+    defaultIgnores: false,
     rules: {
         'body-max-line-length': [2, 'always', 400],
         'header-max-length': [2, 'always', 130],
