@@ -10,3 +10,4 @@ npm run commitlint ${1}
 # Test merge lint again
 # Test simple message again
 # Test merge again
+# Test merge again #4
