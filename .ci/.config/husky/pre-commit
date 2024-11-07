@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+echo "In pre-commit"
+echo "Param: ${1}"
+
 # npm run commitlint ${1}
 
 # npm test
