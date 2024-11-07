@@ -2,3 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm run commitlint ${1}
+
+# Now test this hook
