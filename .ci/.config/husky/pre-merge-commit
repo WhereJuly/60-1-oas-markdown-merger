@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "In prepare-commit-msg"
+echo "In pre-merge-commit"
 npm run commitlint ${1}
 
-# Now test this hook
+# npx --no-install commitlint --edit 
