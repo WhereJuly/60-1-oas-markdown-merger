@@ -21,7 +21,20 @@ const configuration = {
          */
         // 'scope-enum': [2, 'always', ['icidd', '']],
     },
-    parserPreset: './parser-preset-monorepo.js'
+    
+    // @see https://commitlint.js.org/reference/configuration.html#parser-presets
+    parserPreset: './parser-preset-monorepo.js',
+    
+    /**
+     * @see [commitlint-local-plugins] https://commitlint.js.org/reference/plugins.html#local-plugins 
+     */
+    plugins: [
+        {
+            rules: {
+                'monorepo-message-format': () => {}
+            }
+        }
+    ]
 };
 
 console.dir(configuration);
