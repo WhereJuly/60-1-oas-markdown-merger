@@ -8,3 +8,4 @@ npm run commitlint ${1}
 # npx --no -- commitlint --edit "$1"
 # Test merge lint again
 # Test simple message again
+# Test merge again
