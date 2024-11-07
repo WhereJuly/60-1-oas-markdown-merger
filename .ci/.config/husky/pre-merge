@@ -3,5 +3,6 @@
 
 # npm run dummy
 npm run commitlint ${1}
+# This somehow did not work. Merge to test pre-merge hook
 
 # Here would run commit message check as well
