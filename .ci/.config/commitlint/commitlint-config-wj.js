@@ -1,12 +1,14 @@
 'use strict';
 
-const Configuration = {
+// const parserPresets = require('./parser-preset');
+
+const configuration = {
     extends: ['@commitlint/config-conventional'],
     rules: {
         'body-max-line-length': [2, 'always', 400],
         'header-max-length': [2, 'always', 130],
         'type-enum': [2, 'always', ['Breaking!', 'Feature!', 'Fix!', 'Release', 'Implement', 'Add', 'Remove', 'Refactor', 'Update', 'Deprecate', 'Cleanup']],
-        'type-case': [2, 'always', 'sentence-case'],
+        'type-case': [2, 'always', 'sentence-case']
 
         /**
          * So far does not work.
@@ -19,7 +21,12 @@ const Configuration = {
          */
         // 'scope-enum': [2, 'always', ['icidd', '']],
     },
-    parserPreset: './parser-preset.js',
+    parserPreset: './parser-preset.js'
+    // parserPreset: {
+    //     parserOpts: parserPresets.multirepo
+    // }
 };
 
-module.exports = Configuration;
+console.dir(configuration);
+
+module.exports = configuration;
