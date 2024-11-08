@@ -7,11 +7,11 @@ import { readFile } from 'fs/promises';
 
 import OASJSONDefinitionsRetrieveService from '@src/OASJSONDefinitionsRetrieve.service.js';
 
-vi.mock('fs/promises', () => ({
-    readFile: vi.fn(),
-}));
+// vi.mock('fs/promises', () => ({
+//     readFile: vi.fn(),
+// }));
 
-const filename = './tests/foundation/.ancillary/fixtures/definitions/valid.json';
+const filename = './tests/foundation/.ancillary/fixtures/definitions/valid-oas.json';
 
 // 'packages/adapters/generic/tests/foundation/.ancillary/fixtures/definitions/valid.json'
 
@@ -28,9 +28,9 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
 
     describe('+retrieve(): Should retrieve definitions from local file or remote url', () => {
 
-        it('+retrieve(): local file successfully', async () => {
+        it('+retrieve() #1: local file successfully', async () => {
             const fixture = valid_oas;
-            (readFile as Mock).mockResolvedValue(fixture);
+            // (readFile as Mock).mockResolvedValue(fixture);
             const service = new OASJSONDefinitionsRetrieveService();
 
             const actual = await service.retrieve(filename);
@@ -38,6 +38,10 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
             expect(actual).toEqual(fixture);
 
             console.dir(actual);
+        });
+
+        it.todo('+retrieve() #2: local file error', async () => {
+            console.log('data provider: fill in all the expected error on local file clause');
         });
 
         // Assert retrieve throws for see {@link https://lean-web-enterprise.atlassian.net/browse/DCPLDOAS-9/}
