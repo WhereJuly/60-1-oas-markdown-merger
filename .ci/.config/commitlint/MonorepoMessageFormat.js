@@ -35,7 +35,7 @@ class MonorepoMessageFormat {
      * ```
      */
     process({ packages }) {
-        console.log(packages);
+        // console.log(packages);
         const isValid = this.includesRequiredPackages(packages);
         const message = isValid ? '' : `Only the required packages "${config.monorepo}" from ci.config.json[monorepo] or just 'monorepo' must be presented. "${packages} given"`;
         return [isValid, message];
