@@ -1,8 +1,8 @@
 'use strict';
 
-import { valid_oas } from '@fixtures/definitions/index.js';
+import { valid_oas, valid_json } from '@fixtures/definitions/index.js';
 
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import nock from 'nock';
 
 import OASJSONDefinitionsRetrieveService from '@src/OASJSONDefinitionsRetrieve.service.js';
@@ -47,11 +47,6 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
             expect(actual).toEqual(fixture);
         });
 
-        // ERRORS:
-        // WRITE: Assert retrieve throws for non-existent URL (404)
-        // WRITE: Assert throws for network error
-        // WRITE: Assert throws invalid OAS JSON
-
     });
 
     describe('+retrieve() #2: Should fail for local file name', () => {
@@ -71,7 +66,7 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
         }
     });
 
-    describe('+retrieve() #2: Should fail for local file content', () => {
+    describe('+retrieve() #3: Should fail for local file content', () => {
 
         it.each(dataProvider_invalid_content())('Case #%# $name', async (data) => {
             const service = new OASJSONDefinitionsRetrieveService();
@@ -89,6 +84,32 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
                 { name: 'JSON is not a valid OAS', content: { dummy: 123 }, errorContains: 'is not a valid OpenAPI v3.1.0 document' },
             ];
         }
+
+    });
+
+    describe.todo('+retrieve() #4: Should fail for loading from a URL', () => {
+
+        beforeAll(() => {
+            server.get('/errors/network').replyWithError('Network error');  // Simulates network failure
+            server.get('/errors/404').reply(404);
+            server.get('/errors/404').reply(200,);
+        });
+
+        it.each(dataProvider_invalid_loading_from_url())('Case #%# $name', async (data) => {
+
+        });
+
+        function dataProvider_invalid_loading_from_url() {
+            return [
+                // { name: 'Not a potential JSON string (1)', content: '{', errorContains: 'neither string nor object' },
+                { name: 'JSON is not a valid OAS', content: valid_json, errorContains: 'is not a valid OpenAPI v3.1.0 document' },
+            ];
+        }
+        
+        // ERRORS:
+        // WRITE: Assert retrieve throws for non-existent URL (404)
+        // WRITE: Assert throws for network error
+        // WRITE: Assert throws invalid OAS JSON
 
     });
 
