@@ -12,19 +12,19 @@ type TActualRetrieveReturnType = Promise<string>;
 export default class OASJSONDefinitionsRetrieveService {
 
     constructor() {
-
+        this.retrieveFile = this.retrieveFile.bind(this);
     }
 
     public async retrieve(source: string): Promise<OpenAPIV3_1.Document> {
         const isURL = this.isURL(source);
-        const isLocalFile = this.isLocalFile(source);
+        const isMaybePath = path.normalize(source);
 
-        if (!isURL && !isLocalFile) {
-            throw new OASDBCException(`The source "${source}" must either be a local file (relative or absolute path) with '.json' extension or a valid URL.`);
+        if (!isURL && !isMaybePath) {
+            throw new OASDBCException(`The source "${source}" must either be a local file path (relative or absolute path) with '.json' extension or a valid URL.`);
         }
 
-        const actualRetrieveMethod = this.getActualRetrieveMethod(isURL);
-        const content = await actualRetrieveMethod(source);
+        const concreteRetrieveMethod = this.getActualRetrieveMethod(isURL);
+        const content = await concreteRetrieveMethod(source);
 
         const json = this.parseOrThrow(content);
         return this.getValidOASDefinitionsOrThrow(json);
@@ -34,7 +34,7 @@ export default class OASJSONDefinitionsRetrieveService {
         return URL.canParse(url);
     }
 
-    private isLocalFile(filePath: string): boolean {
+    private isActualLocalFile(filePath: string): boolean {
         const absoluteFilePath = this.getAbsoluteFilePath(filePath);
         const isJSONExtension = path.extname(absoluteFilePath) === '.json';
 
@@ -61,35 +61,47 @@ export default class OASJSONDefinitionsRetrieveService {
     }
 
     private getActualRetrieveMethod(isURL: boolean): (source: string) => TActualRetrieveReturnType {
-        return isURL ? this.retrieveRemote : this.retrieveLocal;
+        return isURL ? this.retrieveURL : this.retrieveFile;
     }
 
-    private async retrieveLocal(absoluteFilePath: string): TActualRetrieveReturnType {
+    private async retrieveFile(source: string): TActualRetrieveReturnType {
+        if (!this.isActualLocalFile(source)) {
+            throw new OASDBCException(`The source "${source}" must be a local file path (relative or absolute path) with '.json' extension.`);
+        }
+
+        const absoluteFilePath = this.getAbsoluteFilePath(source);
         return await readFile(absoluteFilePath, 'utf-8');
     }
 
-    private async retrieveRemote(): TActualRetrieveReturnType {
+    private async retrieveURL(url: string): TActualRetrieveReturnType {
+        console.log('here...');
+
         return await new Promise(() => { return true; });
     }
 
     private parseOrThrow(content: string | Record<string, any>): OpenAPIV3_1.Document {
+        const isObject = (value: unknown): value is object => { return typeof value === "object" && value !== null; };
+        if (!this.isStringMaybeJSON(content) && !isObject(content)) {
+            throw new OASDBCException('The given content is neither string nor object.');
+        }
+
         try {
-            return this.isJSONString(content) ? JSON.parse(content as string) : content;
+            return this.isStringMaybeJSON(content) ? JSON.parse(content as string) : content;
         } catch (_err) {
             const error = _err as Error;
-            throw new OASDBCException('Could not parse the given content.', error);
+            throw new OASDBCException('Could not parse the given content as JSON.', error);
         }
     }
 
     private getValidOASDefinitionsOrThrow(json: OpenAPIV3_1.Document): OpenAPIV3_1.Document {
         if (json.openapi !== '3.1.0') {
             const extract = JSON.stringify(json).slice(0, 20);
-            throw new OASDBCException(`The given json "${extract}" is not a valid OpenAPI v.3.1 document`);
+            throw new OASDBCException(`The given json "${extract}" is not a valid OpenAPI v3.1.0 document.`);
         }
         return json;
     }
 
-    private isJSONString(value: unknown): boolean {
+    private isStringMaybeJSON(value: unknown): boolean {
         const isString = typeof value === 'string';
         return isString && value.length >= 2; // NB: Meaning '{}'|'[]' are the shortest valid JSON string. 
     }
