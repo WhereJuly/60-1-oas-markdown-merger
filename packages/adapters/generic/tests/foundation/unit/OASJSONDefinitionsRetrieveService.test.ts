@@ -2,20 +2,21 @@
 
 import { valid_oas } from '@fixtures/definitions/index.js';
 
-import { afterAll, beforeAll, describe, expect, it, Mock, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import nock from 'nock';
-import { readFile } from 'fs/promises';
-
 
 import OASJSONDefinitionsRetrieveService from '@src/OASJSONDefinitionsRetrieve.service.js';
 
-
 const filename = './tests/foundation/.ancillary/fixtures/definitions/valid-oas.json';
-const url = 'http://localhost/json/valid';
+const url = 'http://127.0.0.1:5000/json/valid';
+
+const server = nock('http://127.0.0.1:5000');
 
 describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
 
-    console.warn('TBW: There should be also an integration test for local and remote loading');
+    afterEach(() => {
+        nock.cleanAll();
+    });
 
     it('+constructor(): Should create OASJSONDefinitionsRetrieveService expected object', () => {
         const actual = new OASJSONDefinitionsRetrieveService();
@@ -35,19 +36,21 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
             expect(actual).toEqual(fixture);
         });
 
-        it.skip('Should retrieve JSON from remote url successfully', async () => {
+        it('Should retrieve JSON from remote url successfully', async () => {
+            const fixture = valid_oas;
             const service = new OASJSONDefinitionsRetrieveService();
 
-            nock('http://localhost')
-                .get('/json/valid')
-                .reply(200, { data: valid_oas });
+            server.get('/json/valid').reply(200, fixture);
 
             const actual = await service.retrieve(url);
 
-            console.dir(actual);
+            expect(actual).toEqual(fixture);
         });
 
-        // Assert retrieve throws for see {@link https://lean-web-enterprise.atlassian.net/browse/DCPLDOAS-9/}
+        // ERRORS:
+        // WRITE: Assert retrieve throws for non-existent URL (404)
+        // WRITE: Assert throws for network error
+        // WRITE: Assert throws invalid OAS JSON
 
     });
 

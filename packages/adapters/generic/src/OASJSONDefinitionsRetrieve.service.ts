@@ -15,6 +15,24 @@ export default class OASJSONDefinitionsRetrieveService {
         this.retrieveFile = this.retrieveFile.bind(this);
     }
 
+    /**
+     * Retrieves and parses OpenAPI JSON definitions from a given source.
+     * 
+     * This method can handle both local file paths and URLs. It performs the following steps:
+     * 1. Validates the source as either a URL or a file path.
+     * 2. Retrieves the content from the source.
+     * 3. Parses the content as JSON.
+     * 4. Validates the parsed content as a valid OpenAPI v3.1.0 document.
+     *
+     * @param {string} source - The source of the OpenAPI JSON definitions.
+     * Can be either a local file path (relative or absolute) with '.json' extension or a valid URL.
+     * 
+     * @throws {OASDBCException} Throws an exception if the source is neither a valid file 
+     * path nor a URL, or if the content cannot be retrieved, parsed, or validated.
+     * 
+     * @returns {Promise<OpenAPIV3_1.Document>} A promise that resolves to the parsed and
+     * validated OpenAPI document.
+     */
     public async retrieve(source: string): Promise<OpenAPIV3_1.Document> {
         const isURL = this.isURL(source);
         const isMaybePath = path.normalize(source);
@@ -28,6 +46,51 @@ export default class OASJSONDefinitionsRetrieveService {
 
         const json = this.parseOrThrow(content);
         return this.getValidOASDefinitionsOrThrow(json);
+    }
+
+    /**
+     * Retrieves the content of a JSON file from a local file system.
+     * 
+     * This method checks if the provided source is a valid local file path, converts it to an 
+     * absolute path if necessary, and then reads the file content.
+     * 
+     * @param {string} source - The path to the JSON file. Can be either a relative or absolute path.
+     * @throws {OASDBCException} Throws an exception if the source is not a valid local file path with '.json' extension.
+     * @return {TActualRetrieveReturnType}
+     */
+    private async retrieveFile(source: string): TActualRetrieveReturnType {
+        if (!this.isActualLocalFile(source)) {
+            throw new OASDBCException(`The source "${source}" must be a local file path (relative or absolute path) with '.json' extension.`);
+        }
+
+        const absoluteFilePath = this.getAbsoluteFilePath(source);
+        return await readFile(absoluteFilePath, 'utf-8');
+    }
+
+    /**
+     * Retrieves the content of a JSON file from a given URL.
+     * 
+     * This method fetches the content from the provided URL and returns it as a string.
+     * If there's an error during the fetch operation, it throws an OASDBCException.
+     *
+     * @param {string} url - The URL from which to retrieve the JSON content.
+     * 
+     * @throws {OASDBCException} Throws an exception if there's an error fetching the URL 
+     * or if the response is not OK.
+     * 
+     * @returns {Promise<string>} A promise that resolves to the content of the URL as a string.
+     */
+    private async retrieveURL(url: string): TActualRetrieveReturnType {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) { throw new OASDBCException(`There was an error fetching the URL "${url}": ${response.statusText}.`); }
+
+            return await response.text();
+        } catch (_err) {
+            console.dir(_err);
+
+            throw new OASDBCException(`There was an error fetching the URL "${url}".`, _err as Error);
+        }
     }
 
     private isURL(url: string): boolean {
@@ -62,21 +125,6 @@ export default class OASJSONDefinitionsRetrieveService {
 
     private getActualRetrieveMethod(isURL: boolean): (source: string) => TActualRetrieveReturnType {
         return isURL ? this.retrieveURL : this.retrieveFile;
-    }
-
-    private async retrieveFile(source: string): TActualRetrieveReturnType {
-        if (!this.isActualLocalFile(source)) {
-            throw new OASDBCException(`The source "${source}" must be a local file path (relative or absolute path) with '.json' extension.`);
-        }
-
-        const absoluteFilePath = this.getAbsoluteFilePath(source);
-        return await readFile(absoluteFilePath, 'utf-8');
-    }
-
-    private async retrieveURL(url: string): TActualRetrieveReturnType {
-        console.log('here...');
-
-        return await new Promise(() => { return true; });
     }
 
     private parseOrThrow(content: string | Record<string, any>): OpenAPIV3_1.Document {
