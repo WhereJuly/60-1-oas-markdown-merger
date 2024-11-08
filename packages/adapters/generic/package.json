@@ -24,5 +24,8 @@
     "bugs": {
         "url": "https://github.com/dcoupld/oas/issues"
     },
-    "homepage": "https://github.com/dcoupld/oas/tree/master/adapters/generic#readme"
+    "homepage": "https://github.com/dcoupld/oas/tree/master/adapters/generic#readme",
+    "devDependencies": {
+        "openapi-types": "^12.1.3"
+    }
 }

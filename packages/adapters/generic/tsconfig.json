@@ -11,7 +11,9 @@
         "baseUrl": ".",
         "paths": {
             "@root/*": ["../../*"],
-            "@src/*": ["./src/*"]
+            "@src/*": ["./src/*"],
+            "@tests/*": ["./tests/*"],
+            "@fixtures/*": ["./tests/foundation/.ancillary/fixtures/*"]
         },
         "resolveJsonModule": true,
         "declaration": true,
