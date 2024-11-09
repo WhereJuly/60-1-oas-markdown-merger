@@ -50,6 +50,6 @@ const configuration = {
     ]
 };
 
-console.dir(configuration);
+// console.dir(configuration);
 
 module.exports = configuration;
