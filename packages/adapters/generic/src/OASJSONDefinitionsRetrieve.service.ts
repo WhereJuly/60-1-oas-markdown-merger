@@ -83,13 +83,14 @@ export default class OASJSONDefinitionsRetrieveService {
     private async retrieveURL(url: string): TActualRetrieveReturnType {
         try {
             const response = await fetch(url);
-            if (!response.ok) { throw new OASDBCException(`There was an error fetching the URL "${url}": ${response.statusText}.`); }
+
+            if (!response.ok) {
+                throw new OASDBCException(`Unexpected response from the URL "${url}": ${response.statusText}.`);
+            }
 
             return await response.text();
         } catch (_err) {
-            console.dir(_err);
-
-            throw new OASDBCException(`There was an error fetching the URL "${url}".`, _err as Error);
+            throw new OASDBCException(`There was a network error fetching the URL "${url}".`, _err as Error);
         }
     }
 

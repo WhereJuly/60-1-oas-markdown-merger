@@ -2,15 +2,16 @@
 
 import { valid_oas, valid_json } from '@fixtures/definitions/index.js';
 
-import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import nock from 'nock';
 
 import OASJSONDefinitionsRetrieveService from '@src/OASJSONDefinitionsRetrieve.service.js';
 
 const filename = './tests/foundation/.ancillary/fixtures/definitions/valid-oas.json';
-const url = 'http://127.0.0.1:5000/json/valid';
+// const url = 'http://127.0.0.1:5000/json/valid';
 
-const server = nock('http://127.0.0.1:5000');
+const base = 'http://127.0.0.1:5000';
+const server = nock(base);
 
 describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
 
@@ -40,9 +41,10 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
             const fixture = valid_oas;
             const service = new OASJSONDefinitionsRetrieveService();
 
-            server.get('/json/valid').reply(200, fixture);
+            const path = '/json/valid';
+            server.get(path).reply(200, fixture);
 
-            const actual = await service.retrieve(url);
+            const actual = await service.retrieve(`${base}${path}`);
 
             expect(actual).toEqual(fixture);
         });
@@ -87,30 +89,34 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
 
     });
 
-    describe.todo('+retrieve() #4: Should fail for loading from a URL', () => {
+    describe('+retrieve() #4: Should fail for loading from a URL', () => {
 
-        beforeAll(() => {
+        beforeEach(() => {
+            // REFACTOR: Have to re-create all the mocks for each test as `nock` unexpectedly resets those even they are not used.
+            // The docs are not clear about this.
             server.get('/errors/network').replyWithError('Network error');  // Simulates network failure
             server.get('/errors/404').reply(404);
-            server.get('/errors/404').reply(200,);
+            server.get('/errors/invalid-oas').reply(200, valid_json);
         });
 
         it.each(dataProvider_invalid_loading_from_url())('Case #%# $name', async (data) => {
+            const service = new OASJSONDefinitionsRetrieveService();
+            const actual = async () => { await service.retrieve(`${base}/errors/${data.url}`); };
 
+            await expect(() => actual()).rejects.toThrowError(data.errorContains);
         });
 
         function dataProvider_invalid_loading_from_url() {
             return [
-                // { name: 'Not a potential JSON string (1)', content: '{', errorContains: 'neither string nor object' },
-                { name: 'JSON is not a valid OAS', content: valid_json, errorContains: 'is not a valid OpenAPI v3.1.0 document' },
+                { name: 'Network error', content: null, url: 'network', errorContains: 'Network error' },
+                { name: 'Invalid URL (404)', content: null, url: '404', errorContains: 'Not Found' },
+                { name: 'JSON is not a valid OAS', content: valid_json, url: 'invalid-oas', errorContains: 'is not a valid OpenAPI v3.1.0 document' },
             ];
         }
-        
-        // Just to check connection with Jira
-        // ERRORS:
-        // WRITE: Assert retrieve throws for non-existent URL (404)
-        // WRITE: Assert throws for network error
-        // WRITE: Assert throws invalid OAS JSON
+
+        afterAll(() => {
+            nock.cleanAll();
+        });
 
     });
 
