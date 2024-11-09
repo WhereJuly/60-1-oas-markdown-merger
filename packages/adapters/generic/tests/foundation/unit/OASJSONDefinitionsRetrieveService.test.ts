@@ -106,6 +106,7 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
             ];
         }
         
+        // Just to check connection with Jira
         // ERRORS:
         // WRITE: Assert retrieve throws for non-existent URL (404)
         // WRITE: Assert throws for network error
