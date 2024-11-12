@@ -1,6 +1,6 @@
 'use strict';
 
-import { valid_oas, valid_json } from '@fixtures/definitions/index.js';
+import { smallest_oas, valid_json } from '@fixtures/definitions/index.js';
 
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import nock from 'nock';
@@ -29,7 +29,7 @@ describe('OASJSONDefinitionsRetrieveServiceTest', () => {
     describe('+retrieve() #1: Should retrieve definitions from local file or remote url', () => {
 
         it('Should retrieve local file successfully', async () => {
-            const fixture = valid_oas;
+            const fixture = smallest_oas;
             const service = new OASJSONDefinitionsRetrieveService();
 
             const actual = await service.retrieve(filename);
@@ -38,7 +38,7 @@ describe('OASJSONDefinitionsRetrieveServiceTest', () => {
         });
 
         it('Should retrieve JSON from remote url successfully', async () => {
-            const fixture = valid_oas;
+            const fixture = smallest_oas;
             const service = new OASJSONDefinitionsRetrieveService();
 
             const path = '/json/valid';
