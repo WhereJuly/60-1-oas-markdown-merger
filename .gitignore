@@ -4,3 +4,4 @@ logs
 .builds
 .tsbuildinfo
 .temp
+.coverage
