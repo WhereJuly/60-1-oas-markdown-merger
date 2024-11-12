@@ -2,10 +2,11 @@
 
 import { describe, expect, it } from 'vitest';
 
+import { OpenAPIV3_1 } from 'openapi-types';
+
 import OASOperationVO from '@src/OASOperation.valueobject.js';
 import { operations } from '../.ancillary/fixtures/definitions/index.js';
 import { EHTTPVerb } from '@src/types.js';
-import { OpenAPIV3_1 } from 'openapi-types';
 
 describe('OASOperationVOTest', () => {
 
