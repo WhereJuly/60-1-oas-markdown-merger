@@ -1,0 +1,12 @@
+{
+    "most-basic": {
+        "verb": "post",
+        "route": "/dictionary/initialize",
+        "operation": {
+            "summary": "Initialize the dictionary",
+            "description": "Initialize the user food dictionary with content from Model Food Dictionary.\n\rA spare endpoint to forcefully trigger the initialization in case it did not work via RabbitMQ somehow.",
+            "operationId": "initializeUserFoodDictionary",
+            "tags": ["A tag"]
+        }
+    }
+}
