@@ -5,13 +5,14 @@ import { describe, expect, it } from 'vitest';
 import OASOperationVO from '@src/OASOperation.valueobject.js';
 import { operations } from '../.ancillary/fixtures/definitions/index.js';
 import { EHTTPVerb } from '@src/types.js';
+import { OpenAPIV3_1 } from 'openapi-types';
 
 describe('OASOperationVOTest', () => {
 
-    it('+constructor() #1: Should create OASOperation the expected value object', () => {
+    it('+constructor() #1: Should create the expected OASOperation basic value object', () => {
         const fixture = operations['most-basic'];
 
-        const actual = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation);
+        const actual = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject);
 
         expect(actual).toBeInstanceOf(OASOperationVO);
         expect(actual.verb).toEqual(fixture.verb);
@@ -20,7 +21,6 @@ describe('OASOperationVOTest', () => {
         expect(actual.summary).toEqual(fixture.operation.summary);
         expect(actual.description).toEqual(fixture.operation.description);
         expect(actual.tags).toEqual(fixture.operation.tags);
-
     });
 
     describe('+constructor() #2: Should generate the expected operation ID instead of missing one', () => {
@@ -30,8 +30,7 @@ describe('OASOperationVOTest', () => {
             fixture.route = data.route;
             fixture.operation.operationId = undefined as any;
 
-            const operation = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation);
-
+            const operation = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject);
             const actual = operation.operationID;
 
             expect(actual).toEqual(data.expected);
@@ -46,6 +45,33 @@ describe('OASOperationVOTest', () => {
             ];
         }
 
+    });
+
+    it('+constructor() #3: Should create the expected OASOperation value object parameters field', () => {
+        const fixture = operations['most-basic'];
+
+        const actual = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject);
+
+        expect(actual.parameters).toEqual(fixture.operation.parameters);
+    });
+
+    it('+constructor() #4: Should create the expected OASOperation value object request body and responses fields', () => {
+        const fixture = operations['most-basic'];
+
+        const actual = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject);
+
+        expect(actual.parameters).toEqual(fixture.operation.parameters);
+        expect(actual.body).toEqual(fixture.operation.requestBody);
+        expect(actual.responses).toEqual(fixture.operation.responses);
+    });
+
+    it('+constructor() #5: Should throw for non de-referenced operations object', () => {
+        const fixture = operations['most-basic'];
+        fixture.operation.parameters.push({ '$ref': '#/some/ref' } as any);
+
+        const actual = () => { new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject); };
+
+        expect(actual).toThrowError('Only de-referenced operations allowed');
     });
 
 });
