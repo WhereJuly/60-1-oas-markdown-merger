@@ -7,7 +7,7 @@ import nock from 'nock';
 
 import OASJSONDefinitionsRetrieveService from '@src/OASJSONDefinitionsRetrieve.service.js';
 
-const filename = './tests/foundation/.ancillary/fixtures/definitions/valid-oas.json';
+const filename = './tests/foundation/.ancillary/fixtures/definitions/smallest.oas.json';
 // const url = 'http://127.0.0.1:5000/json/valid';
 
 const base = 'http://127.0.0.1:5000';
