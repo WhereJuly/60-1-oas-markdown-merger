@@ -13,7 +13,7 @@ const filename = './tests/foundation/.ancillary/fixtures/definitions/valid-oas.j
 const base = 'http://127.0.0.1:5000';
 const server = nock(base);
 
-describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
+describe('OASJSONDefinitionsRetrieveServiceTest', () => {
 
     afterEach(() => {
         nock.cleanAll();
