@@ -1,4 +1,4 @@
 {
-    "monorepo": ["packages/adapters/generic"],
+    "monorepo": ["packages/adapters/generic", "packages/looks"],
     "branches": ["develop", "master"]
 }
