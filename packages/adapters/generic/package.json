@@ -2,13 +2,16 @@
     "name": "@dcoupld/oas-generic-adapter",
     "version": "0.0.1",
     "description": "The OAS DbC Generic Adapter Package",
-    "main": "index.js",
     "type": "module",
+    "main": "./code/index.js",
+    "module": "./code/index.js",
+    "types": "./types/index.d.ts",
     "scripts": {
         "development:serve": "nodemon --watch ./src --ext ts,json --exec \"npm run check-types && dotenvx run -- tsx ./src/index.ts\" --errors=true",
         "check-types": "npx tsc --noEmit --project .",
         "test:foundation": "npm run check-types && cross-env NODE_ENV=test vitest run --config tests/foundation/.ancillary/config/vitest.config.ts",
-        "pre-push": "npm run test:foundation"
+        "pre-push": "npm run test:foundation",
+        "package:build": "npm run test:foundation && rimraf ./.delivery/.builds/dist && tsc -p ./.delivery/configuration/tsconfig.json && cpy ./package.json ./.delivery/.builds/dist"
     },
     "repository": {
         "type": "git",
