@@ -5,6 +5,7 @@
 latest_commit_msg=$(git log -1 --pretty=%B)
 echo "$latest_commit_msg" | npm run commitlint --stdin
 
+# NB: Actually prepare push
 remote="$1"
 branch=$(git rev-parse --abbrev-ref HEAD)
 
