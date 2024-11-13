@@ -11,7 +11,8 @@
         "check-types": "npx tsc --noEmit --project .",
         "test:foundation": "npm run check-types && cross-env NODE_ENV=test vitest run --config tests/foundation/.ancillary/config/vitest.config.ts",
         "pre-push": "npm run test:foundation",
-        "package:build": "npm run test:foundation && rimraf ./.delivery/.builds/dist && tsc -p ./.delivery/configuration/tsconfig.json && cpy ./package.json ./.delivery/.builds/dist"
+        "package:build": "npm run test:foundation && rimraf ./.delivery/.builds/dist && tsc -p ./.delivery/configuration/tsconfig.json && cpy ./package.json ./.delivery/.builds/dist",
+        "package:publish": "cd ./.delivery/.builds/dist && npm publish"
     },
     "repository": {
         "type": "git",
