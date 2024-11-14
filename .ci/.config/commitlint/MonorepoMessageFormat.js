@@ -8,7 +8,9 @@ class MonorepoMessageFormat {
     constructor() {
         this.config = config;
         this.name = NAME;
-        this.requiredPackages = [...this.config.monorepo, 'monorepo'];
+
+        // NB: Stringify packages array to easily check if required packages are present in this.includesRequiredPackages()
+        this.requiredPackages = [...this.config.monorepo, 'monorepo'].toString(); 
 
         this.process = this.process.bind(this);
     }
@@ -35,16 +37,16 @@ class MonorepoMessageFormat {
      * ```
      */
     process({ packages }) {
-        // console.log(packages);
         const isValid = this.includesRequiredPackages(packages);
-        const message = isValid ? '' : `Only the required packages "${config.monorepo}" from ci.config.json[monorepo] or just 'monorepo' must be presented. "${packages} given"`;
+        const message = isValid ? '' : `Only the required packages "${config.monorepo}" from ci.config.json[monorepo] or just 'monorepo' must be presented. "${packages}" given`;
+
         return [isValid, message];
     }
 
     /**
      * Check if the `packages` token value includes the allowed packages.
      * The default element - `monorepo` - can be omitted from the config.
-     * 
+     *
      * @params {String | null} packagesTokenValue Equals `null` if the parser did not find the token value.
      * @example `[monorepo, adapters/generic]`
      */
@@ -53,9 +55,13 @@ class MonorepoMessageFormat {
             return false;
         }
 
+        // Convert the token value to an array and split by comma or space.
         const packages = packagesTokenValue.replace(/[ \t]+/g, '').split(',');
+
         // NB: `package` is a reserved word.
-        return packages.every((_package) => this.requiredPackages.includes(_package));
+        return packages.every((_package) => {
+            return this.requiredPackages.includes(_package);
+        });
     }
 }
 
