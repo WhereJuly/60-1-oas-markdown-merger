@@ -1,6 +1,7 @@
 {
     "extends": "@vue/tsconfig/tsconfig.dom.json",
     "include": ["env.d.ts", "src/**/*.ts", "./src/**/*.json", "src/**/*.vue"],
+    "exclude": ["**/*.deprecated.ts"],
     "compilerOptions": {
         "composite": true,
         "experimentalDecorators": true,
@@ -8,8 +9,10 @@
         "tsBuildInfoFile": "./.delivery/.builds/temp/.tsbuildinfo",
         "baseUrl": ".",
         "paths": {
+            "@root/*": ["./*"],
             "@src/*": ["./src/*"],
             "@views/*": ["./src/views/*"]
-        }
+        },
+        "types": ["node", "jsdom"]
     }
 }
