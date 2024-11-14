@@ -1,17 +1,15 @@
 {
-    "files": [],
-    "references": [
-        {
-            "path": "./tsconfig.node.json"
-        },
-        {
-            "path": "./tsconfig.app.json"
-        },
-        {
-            "path": "./tsconfig.vitest.json"
-        }
-    ],
+    "extends": "@vue/tsconfig/tsconfig.dom.json",
+    "include": ["env.d.ts", "src/**/*.ts", "./src/**/*.json", "src/**/*.vue"],
     "compilerOptions": {
-        "module": "NodeNext"
+        "composite": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "tsBuildInfoFile": "./.delivery/.builds/temp/.tsbuildinfo",
+        "baseUrl": ".",
+        "paths": {
+            "@src/*": ["./src/*"],
+            "@views/*": ["./src/views/*"]
+        }
     }
 }
