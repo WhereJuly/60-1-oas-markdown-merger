@@ -13,8 +13,8 @@ const configuration = {
      * NB: Required to force check the specific auto-generated merge commit messages 
      * See inside `./custom-ignores.js`.
      */
-    defaultIgnores: false,
-    ignores: ignores,
+    // defaultIgnores: false,
+    // ignores: ignores, // WARNING: Using this array turns the lint off altogether somehow.
     
     rules: {
         'body-max-line-length': [2, 'always', 400],

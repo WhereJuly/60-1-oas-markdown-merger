@@ -1,0 +1,100 @@
+{
+    "most-basic": {
+        "verb": "post",
+        "route": "/dictionary/initialize",
+        "operation": {
+            "summary": "A summary",
+            "description": "A description",
+            "operationId": "anOperationID",
+            "tags": ["A tag"],
+            "parameters": [
+                {
+                    "name": "date",
+                    "in": "path",
+                    "required": true,
+                    "description": "The entry date",
+                    "example": "2023-08-15",
+                    "schema": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2023-08-15"
+                    }
+                },
+                {
+                    "name": "range",
+                    "in": "query",
+                    "description": "Expect to receive the existing records in a defined range including `start` and `end` dates. \n\rIf `start` is greater than `end` an empty array will be returned.",
+                    "schema": {
+                        "type": "string",
+                        "pattern": "^\\[\"\\d{4}-\\d{2}-\\d{2}\", \"\\d{4}-\\d{2}-\\d{2}\"\\]$"
+                    },
+                    "example": "[\"2024-10-05\", \"2024-11-24\"]",
+                    "required": true
+                }
+            ],
+            "requestBody": {
+                "description": "The entry to create or update",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "title": "[Journals] User Workouts Journal Entry",
+                            "description": "The user workouts journal entry represents a day with workouts. Combines zero or more workouts (Workout Items) for the specific date.",
+                            "type": "object",
+                            "required": ["date", "notes"],
+                            "properties": {
+                                "date": {
+                                    "description": "The journal entry date",
+                                    "type": "string",
+                                    "format": "date",
+                                    "example": "2023-08-15"
+                                },
+                                "notes": {
+                                    "description": "The user notes on the workouts journal entry i.e. the day of workouts. [TBC] May contain markdown or a result of some web WYSIWYG editor input.",
+                                    "example": "The workout went very well.",
+                                    "type": ["string", "null"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "The user girths entries list.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "description": "The list of [User Journals Girths Entry](/schemas/girths-journal-entry).",
+                                "minItems": 0,
+                                "items": {
+                                    "title": "[Journals] User Girths Journal Entry",
+                                    "description": "The user girths journal entry for a given date",
+                                    "type": "object",
+                                    "required": ["date", "waist", "hips", "chest", "underbust", "abdomen"],
+                                    "properties": {
+                                        "date": {
+                                            "description": "The metrics data record date.",
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2023-08-15"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Could not process the request due to invalid request content.",
+                    "title": "[System] Empty Response",
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

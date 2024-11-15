@@ -4,7 +4,7 @@
     "author": "valentineshi.dev@gmail.com",
     "version": "0.1.0",
     "workspaces": [
-        "packages/*"
+        "packages/looks"
     ],
     "scripts": {
         "test": "echo \"Success: this is the test dummy for husky pre-push hook\" && exit 0",
@@ -18,13 +18,15 @@
         "@types/node": "^22.9.0",
         "@typescript-eslint/eslint-plugin": "^8.13.0",
         "@typescript-eslint/parser": "^8.13.0",
+        "cpy-cli": "^5.0.0",
+        "cross-env": "^7.0.3",
         "husky": "^8.0.3",
+        "rimraf": "^5.0.10",
         "tsx": "^4.19.2",
         "vitest": "^2.1.4"
     },
     "dependencies": {
         "@dotenvx/dotenvx": "^1.22.0",
-        "cross-env": "^7.0.3",
         "eslint": "^9.14.0",
         "nodemon": "^3.1.7",
         "npm": "^10.3.0",

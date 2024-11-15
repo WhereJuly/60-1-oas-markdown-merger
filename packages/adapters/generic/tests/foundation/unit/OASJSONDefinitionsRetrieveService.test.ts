@@ -1,19 +1,19 @@
 'use strict';
 
-import { valid_oas, valid_json } from '@fixtures/definitions/index.js';
+import { smallest_oas, valid_json } from '@fixtures/definitions/index.js';
 
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import nock from 'nock';
 
 import OASJSONDefinitionsRetrieveService from '@src/OASJSONDefinitionsRetrieve.service.js';
 
-const filename = './tests/foundation/.ancillary/fixtures/definitions/valid-oas.json';
+const filename = './tests/foundation/.ancillary/fixtures/definitions/smallest.oas.json';
 // const url = 'http://127.0.0.1:5000/json/valid';
 
 const base = 'http://127.0.0.1:5000';
 const server = nock(base);
 
-describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
+describe('OASJSONDefinitionsRetrieveServiceTest', () => {
 
     afterEach(() => {
         nock.cleanAll();
@@ -29,7 +29,7 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
     describe('+retrieve() #1: Should retrieve definitions from local file or remote url', () => {
 
         it('Should retrieve local file successfully', async () => {
-            const fixture = valid_oas;
+            const fixture = smallest_oas;
             const service = new OASJSONDefinitionsRetrieveService();
 
             const actual = await service.retrieve(filename);
@@ -38,7 +38,7 @@ describe('[Unit] OASJSONDefinitionsRetrieveServiceTest', () => {
         });
 
         it('Should retrieve JSON from remote url successfully', async () => {
-            const fixture = valid_oas;
+            const fixture = smallest_oas;
             const service = new OASJSONDefinitionsRetrieveService();
 
             const path = '/json/valid';

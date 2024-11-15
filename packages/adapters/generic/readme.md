@@ -10,4 +10,33 @@
 
 ### Documenting
 
-> Add the generate in VS Code class diagram. Add the .vscode recommended extension - the class diagram generator. 
+> Add the generated in VS Code class diagram. Add the .vscode recommended extension - the class diagram generator. 
+
+### Publish Package
+
+To publish the package to the specific registry other than `npmjs` <u>from the build folder</u> with the npm scripts like
+
+```bash
+"package:publish": "cd ./.delivery/.builds/dist && npm publish"
+```
+
+the `npm publish` command has to find the `.npmrc` file. Thus it is  mandatory the to set the respective env variable to for the `.npmrc` file to be found. 
+
+```bash
+# Linux bash
+export NPM_CONFIG_USERCONFIG=/path/to/custom/.npmrc
+# Windows PowerShell
+$env:NPM_CONFIG_USERCONFIG="<the-full-actual-path-to-repository-root>\.npmrc"
+```
+
+The `package.json` `publishConfig` key is mostly for an information in this case.
+
+```json
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+```
+
+### Testing
+
+The good [source](https://github.com/readmeio/oas-examples) of OAS 3.1 JSON definitions examples. The [dereferenced](https://editor-next.swagger.io/) (references resolved) petstore [fixture](./tests/foundation/.ancillary/fixtures/definitions/petstore.oas.json) used in tests is taken from there.
