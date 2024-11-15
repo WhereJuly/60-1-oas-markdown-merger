@@ -4,7 +4,7 @@
     "author": "valentineshi.dev@gmail.com",
     "version": "0.1.0",
     "workspaces": [
-        "packages/*"
+        "packages/looks"
     ],
     "scripts": {
         "test": "echo \"Success: this is the test dummy for husky pre-push hook\" && exit 0",
