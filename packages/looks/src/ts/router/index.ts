@@ -1,5 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@views/HomeView.vue'
+'use strict';
+
+import { createRouter, createWebHistory } from 'vue-router';
+
+import HomeView from '@views/HomeView.vue';
+import OASOperationSpecificationView from '@src/views/content/OASOperationSpecification.view.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,7 +21,12 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('@views/AboutView.vue'),
     },
+    {
+      path: '/operations/:operationID',
+      component: OASOperationSpecificationView,
+      props: true
+    },
   ],
-})
+});
 
-export default router
+export default router;

@@ -9,7 +9,6 @@
         "tsBuildInfoFile": "./.delivery/.builds/temp/.tsbuildinfo",
         "baseUrl": ".",
         "paths": {
-            "@root/*": ["./*"],
             "@src/*": ["./src/*"],
             "@views/*": ["./src/views/*"]
         },

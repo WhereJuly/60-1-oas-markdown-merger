@@ -7,7 +7,9 @@
 
     <div class="looks-content-layout looks-container-fixed">
         <OASOperationsList:view />
-        <main>the context content: Contract info, an operation details, component details</main>
+        <main>
+            <router-view />
+        </main>
         <aside>code samples</aside>
     </div>
 
