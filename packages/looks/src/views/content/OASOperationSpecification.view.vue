@@ -12,7 +12,6 @@ export default {
     components: {
     },
     setup(props: { operationID: string; }) {
-
         console.log(props.operationID);
 
         return { operationID: props.operationID };

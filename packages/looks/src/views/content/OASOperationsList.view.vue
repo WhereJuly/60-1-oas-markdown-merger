@@ -3,7 +3,7 @@
     <aside>
         <h3>Endpoints</h3>
         <ul>
-            <li v-for="operation in vm.operations.items" v-bind:key="operation.operationID">
+            <li v-for="operation in operations.items" v-bind:key="operation.operationID">
                 <a v-bind:href="`/operations/${operation.operationID}`">
                     <dl class="looks-operations-list-link">
                         <dt v-text="operation.summary"></dt>
@@ -17,16 +17,15 @@
 </template>
 
 <script lang="ts">
-import OASOperationsListVM from '@src/ts/viewmodels/OASOperationsList.viewmodel';
+import { container } from 'tsyringe';
 
-import petstore from '@dcoupld/oas-generic-adapter/examples/oas/petstore.oas.json';
-import type { OpenAPIV3_1 } from 'openapi-types';
+import { OPERATIONS_COLLECTION } from '@src/ts/adapter/AdapterBootstrap.service';
 
 export default {
     setup() {
-        const vm = new OASOperationsListVM(petstore as unknown as OpenAPIV3_1.Document);
+        const operations = container.resolve(OPERATIONS_COLLECTION);
 
-        return { vm };
+        return { operations };
     },
 };
 
