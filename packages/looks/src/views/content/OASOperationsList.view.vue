@@ -6,8 +6,8 @@
             <li v-for="operation in operations.items" v-bind:key="operation.operationID">
                 <a v-bind:href="`/operations/${operation.operationID}`">
                     <dl class="looks-operations-list-link">
-                        <dt v-text="operation.summary"></dt>
-                        <dd v-text="operation.verb"></dd>
+                        <dt v-text="operation.verb"></dt>
+                        <dd v-text="operation.summary"></dd>
                     </dl>
                 </a>
             </li>
