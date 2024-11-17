@@ -28,7 +28,7 @@ export default class OASOperationVO {
      * in the context. The `request` could be a good key to combine `parameters` and `body` into
      * a single object.
      */
-    public body: OpenAPIV3_1.RequestBodyObject | {};
+    public body: OASRequestBodyVO;
 
     // NB: This expected to be be a de-referenced object hence no type union with OAS `ReferenceObject`. 
     public responses: Record<string, OpenAPIV3_1.ResponseObject>;
