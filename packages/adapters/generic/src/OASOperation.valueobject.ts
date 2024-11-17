@@ -1,6 +1,7 @@
 'use strict';
 
 import OASDBCException from './exceptions/ProgressingException.js';
+import OASRequestBodyVO from './OASRequestBody.valueobject.js';
 import { EHTTPVerb } from './types.js';
 
 import { OpenAPIV3_1 } from 'openapi-types';
@@ -41,8 +42,10 @@ export default class OASOperationVO {
         // NB: Do not accept references in operation.
         this.throwForNonDereferencedOperation(operation);
 
+        // IMPORTANT: The following code gets only de-referenced definitions.
+
         this.parameters = operation.parameters ? structuredClone(operation.parameters as OpenAPIV3_1.ParameterObject[]) : [];
-        this.body = operation.requestBody ? structuredClone(operation.requestBody) : {};
+        this.body = new OASRequestBodyVO(operation.requestBody as OpenAPIV3_1.RequestBodyObject | undefined);
         this.responses = operation.responses ? structuredClone(operation.responses as Record<string, OpenAPIV3_1.ResponseObject>) : {};
     }
 

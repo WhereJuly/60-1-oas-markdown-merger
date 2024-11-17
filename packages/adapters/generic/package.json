@@ -41,8 +41,11 @@
     },
     "homepage": "https://github.com/dcoupld/oas/tree/master/adapters/generic#readme",
     "devDependencies": {
+        "@types/lodash.get": "^4.4.9",
         "@vitest/coverage-v8": "^2.1.4",
-        "nock": "^14.0.0-beta.15"
+        "lodash.get": "^4.4.2",
+        "nock": "^14.0.0-beta.15",
+        "npm": "^10.9.0"
     },
     "dependencies": {
         "openapi-types": "^12.1.3"

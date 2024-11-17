@@ -7,6 +7,7 @@ import { OpenAPIV3_1 } from 'openapi-types';
 import OASOperationVO from '@src/OASOperation.valueobject.js';
 import { operations } from '../.ancillary/fixtures/definitions/index.js';
 import { EHTTPVerb } from '@src/types.js';
+import OASRequestBodyVO from '@src/OASRequestBody.valueobject.js';
 
 describe('OASOperationVOTest', () => {
 
@@ -54,7 +55,7 @@ describe('OASOperationVOTest', () => {
         const actual = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject);
 
         expect(actual.parameters).toEqual(fixture.operation.parameters);
-        expect(actual.body).toEqual(fixture.operation.requestBody);
+        expect(actual.body).toBeInstanceOf(OASRequestBodyVO);
         expect(actual.responses).toEqual(fixture.operation.responses);
     });
 
@@ -74,6 +75,13 @@ describe('OASOperationVOTest', () => {
         const actual = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject);
 
         expect(actual.summary).toEqual(actual.operationID);
+    });
+
+    it('+constructor() #6: Should create the expected OASOperation basic value object body as OASRequestBodyVO', () => {
+        const fixture = structuredClone(operations['most-basic']);
+        const actual = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject);
+
+        expect(actual.body).toBeInstanceOf(OASRequestBodyVO);
     });
 
 });
