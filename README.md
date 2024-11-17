@@ -9,7 +9,6 @@
 - [The Goal](#the-goal)
 - [The Big Picture](#the-big-picture)
 - [The Packages](#the-packages)
-  - [Adapters](#adapters)
 - [Operations](#operations)
   - [Development](#development)
     - [Tooling](#tooling)
@@ -61,10 +60,9 @@ The Concrete Contract Outlet adapter is used in backends to create the endpoints
 
 ## The Packages
 
-### Adapters
-
 - [Generic OAS Adapter](packages/adapters/generic);
 - [Contract Outlet Adapter](packages/adapters/outlet);
+
 - [Looks Theme](packages/looks);
 - [Looks Adapter](packages/looks);
 
