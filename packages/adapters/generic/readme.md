@@ -12,11 +12,9 @@
 
 UML Class Diagram
 
-![image](./.docs/plantuml-class-diagram.svg)
-
 [![](./.docs/plantuml-class-diagram.svg)](./.docs/plantuml-class-diagram.svg)
 
-[![](img.jpg)](img.jpg)
+[in mermaid](./.docs/class-diagram.md)
 
 ### Publish Package
 
