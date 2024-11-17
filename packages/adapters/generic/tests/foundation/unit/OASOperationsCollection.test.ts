@@ -29,4 +29,37 @@ describe('OASOperationsCollectionTest', () => {
         expect(actual.items[0]).toBeInstanceOf(OASOperationVO);
     });
 
+    it('+constructor() #3: Throws for non-unique operation ID', () => {
+        const fixture = structuredClone(petstore['paths'] as OpenAPIV3_1.PathsObject);
+        // Mock the duplicate operation ID
+        fixture['/pet']!['put']!['operationId'] = 'addPet';
+
+        const actual = () => { new OASOperationsCollection(fixture); };
+
+        expect(actual).toThrowError('Found unexpected duplicate operation');
+    });
+
+    describe('+findByOperationID() Should retrieve the operation', () => {
+
+        it.each(dataProvider_find_operation_by_id())('Case #%# $name', async (data) => {
+            const fixture = petstore['paths'] as OpenAPIV3_1.PathsObject;
+            const collection = new OASOperationsCollection(fixture);
+
+            const actual = collection.findByOperationID(data.operation);
+
+            expect(data.predicate(actual)).toEqual(true);
+        });
+
+        function dataProvider_find_operation_by_id() {
+            const foundPredicate = (actual: OASOperationVO | null) => { return actual instanceof OASOperationVO; };
+            const notFoundPredicate = (actual: OASOperationVO | null) => { return actual === null; };
+            
+            return [
+                { name: 'Found', operation: 'addPet', predicate: foundPredicate },
+                { name: 'Not found', operation: 'nonExistent', predicate: notFoundPredicate },
+            ];
+        }
+
+    });
+
 });
