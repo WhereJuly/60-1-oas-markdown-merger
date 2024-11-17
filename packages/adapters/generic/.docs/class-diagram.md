@@ -1,8 +1,8 @@
 ```mermaid
 classDiagram
     class OASDBCException {
-        - #originalError: Error | undefined
         + OASDBCException(message: string, originalError?: Error)
+        - #originalError: Error | undefined
     }
 
     class EHTTPVerb {
@@ -35,51 +35,66 @@ classDiagram
     }
 
     class OASOperationVO {
-        - verb: EHTTPVerb
-        - route: string
-        - operationID: string
-        - summary: string | null
-        - description: string | null
-        - tags: string[]
-        - parameters: OpenAPIV3_1.ParameterObject[]
-        - body: OpenAPIV3_1.RequestBodyObject
-        - responses: Record<string, OpenAPIV3_1.ResponseObject>
+        + OASOperationVO(verb: EHTTPVerb, route: string, operation: OpenAPIV3_1.OperationObject)
         + generateOperationID(route: string): string
         + throwForNonDereferencedOperation(operation: OpenAPIV3_1.OperationObject): void
+        + verb: EHTTPVerb
+        + route: string
+        + operationID: string
+        + summary: string | null
+        + description: string | null
+        + tags: string[]
+        + parameters: OpenAPIV3_1.ParameterObject[]
+        + body: OASRequestBodyVO
+        + responses: Record<string, OpenAPIV3_1.ResponseObject>
     }
 
     class OASRequestBodyVO {
-        - required: boolean
-        - description: string | null
-        - content: OASContentsCollection
-        + isEmpty: boolean
+        + OASRequestBodyVO(content: OpenAPIV3_1.RequestBodyObject['content'], required?: boolean, description?: string | null)
+        + get isEmpty: boolean 
+        + required: boolean
+        + description: string | null
+        + content: OASContentsCollection
     }
 
     class OASContentsCollection {
-        - items: OASMediaTypeVO[]
-        - types: EMediaType[] | string[]
-        + isEmpty: boolean
+        + OASContentsCollection(content?: OpenAPIV3_1.RequestBodyObject['content'])
+        + get isEmpty: boolean 
         + findType(type: EMediaType | string): OASMediaTypeVO | null
+        + items: OASMediaTypeVO[]
+        + types: EMediaType[] | string[]
     }
 
     class OASMediaTypeVO {
-        - type: EMediaType | string
-        - definition: OpenAPIV3_1.MediaTypeObject
-        - schema: OpenAPIV3_1.SchemaObject
-        - examples: Record<string, OpenAPIV3_1.ExampleObject>
+        + OASMediaTypeVO(type: EMediaType, definition: OpenAPIV3_1.MediaTypeObject)
+        + type: EMediaType | string
+        + definition: OpenAPIV3_1.MediaTypeObject
+        + schema: OpenAPIV3_1.SchemaObject
+        + examples: Record<string, OpenAPIV3_1.ExampleObject>
     }
 
     class OASJSONDefinitionsRetrieveService {
-        - retrieveFile(source: string): Promise<string>
-        - retrieveURL(url: string): Promise<string>
-        - isURL(url: string): boolean
-        - isActualLocalFile(filePath: string): boolean
-        - getAbsoluteFilePath(filePath: string): string
-        - checkFileExistsOrThrow(absoluteFilePath: string): true
-        - getActualRetrieveMethod(isURL: boolean): (source: string) => Promise<string>
-        - parseOrThrow(content: string | object): OpenAPIV3_1.Document
-        - getValidOASDefinitionsOrThrow(json: OpenAPIV3_1.Document): OpenAPIV3_1.Document
-        - isStringMaybeJSON(value: unknown): boolean
+        + OASJSONDefinitionsRetrieveService()
+        + retrieve(source: string): Promise<OpenAPIV3_1.Document>
+        + retrieveFile(source: string): Promise<string>
+        + retrieveURL(url: string): Promise<string>
+        + isURL(url: string): boolean
+        + isActualLocalFile(filePath: string): boolean
+        + getAbsoluteFilePath(filePath: string): string
+        + checkFileExistsOrThrow(absoluteFilePath: string): true
+        + getActualRetrieveMethod(isURL: boolean): (source: string) => Promise<string>
+        + parseOrThrow(content: string | object): OpenAPIV3_1.Document
+        + getValidOASDefinitionsOrThrow(json: OpenAPIV3_1.Document): OpenAPIV3_1.Document
+        + isStringMaybeJSON(value: unknown): boolean
+    }
+
+    class OASOperationsCollection {
+        + OASOperationsCollection(paths: OpenAPIV3_1.PathsObject)
+        + get items: OASOperationVO[]
+        + findByOperationID(operationID: string): OASOperationVO | null
+        + static isAllowedHTTPVerb(verb: string): boolean
+        + _items: OASOperationVO[]
+        - throwForDuplicateOperationIDs(): void
     }
 
     OASOperationVO --> OASRequestBodyVO : uses
@@ -88,5 +103,9 @@ classDiagram
     OASMediaTypeVO --> EMediaType : <<enumeration>>
     OASOperationVO --> EHTTPVerb : <<enumeration>>
     OASJSONDefinitionsRetrieveService --> OASDBCException : throws
-    OASJSONDefinitionsRetrieveService --> OpenAPIV3_1Document : validates
+    OASJSONDefinitionsRetrieveService --> OpenAPIV3_1.Document : validates
+    OASOperationsCollection --> OASOperationVO : contains
+    OASOperationsCollection --> EHTTPVerb : <<enumeration>>
+    OASOperationsCollection --> OASDBCException : throws
+
 ```
