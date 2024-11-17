@@ -14,7 +14,9 @@ UML Class Diagram
 
 ![image](./.docs/plantuml-class-diagram.svg)
 
-[ ![image](./.docs/plantuml-class-diagram.svg) ](./.docs/plantuml-class-diagram.svg)
+[![](./.docs/plantuml-class-diagram.svg)](./.docs/plantuml-class-diagram.svg)
+
+[![](img.jpg)](img.jpg)
 
 ### Publish Package
 
