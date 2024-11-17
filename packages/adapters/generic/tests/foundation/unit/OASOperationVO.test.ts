@@ -48,15 +48,7 @@ describe('OASOperationVOTest', () => {
 
     });
 
-    it('+constructor() #3: Should create the expected OASOperation value object parameters field', () => {
-        const fixture = operations['most-basic'];
-
-        const actual = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject);
-
-        expect(actual.parameters).toEqual(fixture.operation.parameters);
-    });
-
-    it('+constructor() #4: Should create the expected OASOperation value object request body and responses fields', () => {
+    it('+constructor() #3: Should create the expected OASOperation value object (parameters, body, responses fields)', () => {
         const fixture = operations['most-basic'];
 
         const actual = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject);
@@ -66,13 +58,22 @@ describe('OASOperationVOTest', () => {
         expect(actual.responses).toEqual(fixture.operation.responses);
     });
 
-    it('+constructor() #5: Should throw for non de-referenced operations object', () => {
-        const fixture = operations['most-basic'];
+    it('+constructor() #4: Should throw for non de-referenced operations object', () => {
+        const fixture = structuredClone(operations['most-basic']);
         fixture.operation.parameters.push({ '$ref': '#/some/ref' } as any);
 
         const actual = () => { new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject); };
 
         expect(actual).toThrowError('Only de-referenced operations allowed');
+    });
+
+    it('+constructor() #5: Should provide the default summary field', () => {
+        const fixture = structuredClone(operations['most-basic']);
+        fixture.operation.summary = undefined as any;
+        
+        const actual = new OASOperationVO(fixture.verb as EHTTPVerb, fixture.route, fixture.operation as OpenAPIV3_1.OperationObject);
+
+        expect(actual.summary).toEqual(actual.operationID);
     });
 
 });

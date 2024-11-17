@@ -34,7 +34,7 @@ export default class OASOperationVO {
 
         this.operationID = operation.operationId ?? this.generateOperationID(this.route);
 
-        this.summary = operation.summary ?? null;
+        this.summary = operation.summary ?? this.operationID;
         this.description = operation.description ?? null;
         this.tags = operation.tags ?? [];
 
