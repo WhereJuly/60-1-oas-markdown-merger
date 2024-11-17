@@ -62,7 +62,6 @@ The Concrete Contract Outlet adapter is used in backends to create the endpoints
 
 - [Generic OAS Adapter](packages/adapters/generic);
 - [Contract Outlet Adapter](packages/adapters/outlet);
-
 - [Looks Theme](packages/looks);
 - [Looks Adapter](packages/looks);
 

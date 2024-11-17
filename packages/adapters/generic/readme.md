@@ -13,12 +13,10 @@
 UML Class Diagram
 
 <div align="center">
-  <img src="./.docs/uml-class-diagram.png" width="80%">
-</div>
-
-<div align="center">
   <img src="./.docs/plantuml-class-diagram.svg" width="80%">
 </div>
+
+![image](./.docs/plantuml-class-diagram.svg)
 
 
 ### Publish Package
