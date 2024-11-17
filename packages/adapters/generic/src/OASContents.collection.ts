@@ -24,12 +24,18 @@ export default class OASContentsCollection {
     constructor(content?: OpenAPIV3_1.RequestBodyObject['content']) {
         this.items = content ? this.createItems(content) : [];
         this.types = this.items.map((item: OASMediaTypeVO) => {
-            return item.type as EMediaType;
+            return item.type as EMediaType | string;
         });
     }
 
     public get isEmpty(): boolean {
         return this.items.length < 1;
+    }
+
+    public findType(type: EMediaType | string): OASMediaTypeVO | null {
+        const found = this.items.find((item: OASMediaTypeVO) => { return item.type === type; });
+        
+        return found ? found : null;
     }
 
     private createItems(content: OpenAPIV3_1.RequestBodyObject['content']): OASMediaTypeVO[] {
