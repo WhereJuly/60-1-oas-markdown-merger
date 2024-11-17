@@ -6,6 +6,10 @@ import { EHTTPVerb } from './types.js';
 
 import { OpenAPIV3_1 } from 'openapi-types';
 
+/**
+ * Provides the interface to the concrete operation OAS JSON definitions in a convenient form
+ * for consumption. It exposes verb, route, operation ID and other operation definitions.
+ */
 export default class OASOperationVO {
 
     public verb: EHTTPVerb;
@@ -29,6 +33,12 @@ export default class OASOperationVO {
     // NB: This expected to be be a de-referenced object hence no type union with OAS `ReferenceObject`. 
     public responses: Record<string, OpenAPIV3_1.ResponseObject>;
 
+    /**
+     * Creates an instance of OASOperationVO.
+     * @param {EHTTPVerb} verb - The HTTP verb (GET, POST, etc.).
+     * @param {string} route - The route for the operation.
+     * @param {OpenAPIV3_1.OperationObject} operation - The operation object from OpenAPI spec.
+     */
     constructor(verb: EHTTPVerb, route: string, operation: OpenAPIV3_1.OperationObject) {
         this.verb = verb;
         this.route = route;

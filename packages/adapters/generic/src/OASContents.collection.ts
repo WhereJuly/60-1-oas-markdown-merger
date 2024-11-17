@@ -4,6 +4,18 @@ import { OpenAPIV3_1 } from 'openapi-types';
 import OASMediaTypeVO from './OASMediaType.valueobject.js';
 import { EMediaType } from './types.js';
 
+/**
+ * Provides and interface to a collection of OAS JSON media types.
+ * 
+ * @property {OASMediaTypeVO[]} items - An array of media type items content.
+ * Contains the schemas and examples for each media type.
+ * 
+ * @property {EMediaType[] | string[]} types - An array of media type types.
+ * Proxies the list of media types used in request body. Makes easier to iterate over
+ * the types at consumers. E.g., when need to show the dropdown list of media types.
+ * 
+ * @property {boolean} isEmpty - Returns true if the collection is empty.
+ */
 export default class OASContentsCollection {
 
     public items: OASMediaTypeVO[];
