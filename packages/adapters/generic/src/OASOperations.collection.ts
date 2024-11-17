@@ -30,11 +30,17 @@ export default class OASOperationsCollection {
         return this._items;
     }
 
+    public findByOperationID(operationID: string): OASOperationVO | null {
+        return this._items.find((item: OASOperationVO) => item.operationID === operationID) || null;
+    }
+
     private throwForDuplicateOperationIDs() {
         const counts = new Map<any, number>();
+
         this._items.forEach((item: OASOperationVO) => {
             counts.set(item.operationID, (counts.get(item.operationID) || 0) + 1);
         });
+
         const duplicates = [...counts].filter(([key, value]) => value > 1);
 
         if (duplicates.length > 0) {
