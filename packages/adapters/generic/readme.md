@@ -12,12 +12,9 @@
 
 UML Class Diagram
 
-<div align="center">
-  <img src="./.docs/plantuml-class-diagram.svg" width="80%">
-</div>
-
 ![image](./.docs/plantuml-class-diagram.svg)
 
+[ ![image](./.docs/plantuml-class-diagram.svg) ](./.docs/plantuml-class-diagram.svg)
 
 ### Publish Package
 
