@@ -8,6 +8,8 @@
 - [The Basic Motivation](#the-basic-motivation)
 - [The Goal](#the-goal)
 - [The Big Picture](#the-big-picture)
+- [The Packages](#the-packages)
+  - [Adapters](#adapters)
 - [Operations](#operations)
   - [Development](#development)
     - [Tooling](#tooling)
@@ -56,6 +58,17 @@ The Concrete Contract Outlet adapter is used in backends to create the endpoints
 </div>
 
 [^1]: For people new to DbC approach on top of the above mentioned [wiki](https://en.wikipedia.org/wiki/Design_by_contract) link here are some useful links to start from. Stoplight Blog [API-First vs. API Design-First: A Comprehensive Guide](https://blog.stoplight.io/api-first-vs-api-design-first-a-comprehensive-guide), Contract-First Development Internet search [results](https://duckduckgo.com/?q=Contract-First+Development).
+
+## The Packages
+
+### Adapters
+
+- [Generic OAS Adapter](packages/adapters/generic);
+- [Contract Outlet Adapter](packages/adapters/outlet);
+- [Looks Theme](packages/looks);
+- [Looks Adapter](packages/looks);
+
+So far Looks Adapter and Looks Theme are under implicit development as the entire Looks package. They will be extracted into the dedicated packages as soon as they reveal themselves.
 
 ## Operations
 
