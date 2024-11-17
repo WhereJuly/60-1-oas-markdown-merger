@@ -12,8 +12,6 @@
 
 UML Class Diagram
 
-[![](./.docs/plantuml-class-diagram.svg)](./.docs/plantuml-class-diagram.svg)
-
 [in mermaid](./.docs/class-diagram.md)
 
 ### Publish Package
