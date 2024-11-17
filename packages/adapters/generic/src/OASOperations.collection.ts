@@ -4,6 +4,7 @@ import { OpenAPIV3_1 } from 'openapi-types';
 
 import OASOperationVO from './OASOperation.valueobject.js';
 import { EHTTPVerb } from './types.js';
+import OASDBCException from './exceptions/ProgressingException.js';
 
 export default class OASOperationsCollection {
 
@@ -21,10 +22,24 @@ export default class OASOperationsCollection {
             .forEach((rawOperation: RawOperationVO) => {
                 this._items.push(new OASOperationVO(rawOperation.verb, rawOperation.route, rawOperation.operation));
             });
+
+        this.throwForDuplicateOperationIDs();
     }
 
     public get items(): OASOperationVO[] {
         return this._items;
+    }
+
+    private throwForDuplicateOperationIDs() {
+        const counts = new Map<any, number>();
+        this._items.forEach((item: OASOperationVO) => {
+            counts.set(item.operationID, (counts.get(item.operationID) || 0) + 1);
+        });
+        const duplicates = [...counts].filter(([key, value]) => value > 1);
+
+        if (duplicates.length > 0) {
+            throw new OASDBCException(`Found unexpected duplicate operation IDs: "${duplicates.toString()}". Please rename operationID's to remove duplicates.`);
+        }
     }
 
 }

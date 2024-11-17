@@ -29,4 +29,15 @@ describe('OASOperationsCollectionTest', () => {
         expect(actual.items[0]).toBeInstanceOf(OASOperationVO);
     });
 
+    it('+constructor() #3: Throws for non-unique operation ID', () => {
+        const fixture = structuredClone(petstore['paths'] as OpenAPIV3_1.PathsObject);
+        // Mock the duplicate operation ID
+        fixture['/pet']!['put']!['operationId'] = 'addPet';
+
+        const actual = () => { new OASOperationsCollection(fixture); };
+
+        expect(actual).toThrowError('Found unexpected duplicate operation');
+    });
+
+
 });
