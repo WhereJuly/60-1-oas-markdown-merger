@@ -1,10 +1,15 @@
 'use strict';
 
 import OASDBCException from './exceptions/ProgressingException.js';
+import OASRequestBodyVO from './OASRequestBody.valueobject.js';
 import { EHTTPVerb } from './types.js';
 
 import { OpenAPIV3_1 } from 'openapi-types';
 
+/**
+ * Provides the interface to the concrete operation OAS JSON definitions in a convenient form
+ * for consumption. It exposes verb, route, operation ID and other operation definitions.
+ */
 export default class OASOperationVO {
 
     public verb: EHTTPVerb;
@@ -28,21 +33,29 @@ export default class OASOperationVO {
     // NB: This expected to be be a de-referenced object hence no type union with OAS `ReferenceObject`. 
     public responses: Record<string, OpenAPIV3_1.ResponseObject>;
 
+    /**
+     * Creates an instance of OASOperationVO.
+     * @param {EHTTPVerb} verb - The HTTP verb (GET, POST, etc.).
+     * @param {string} route - The route for the operation.
+     * @param {OpenAPIV3_1.OperationObject} operation - The operation object from OpenAPI spec.
+     */
     constructor(verb: EHTTPVerb, route: string, operation: OpenAPIV3_1.OperationObject) {
         this.verb = verb;
         this.route = route;
 
         this.operationID = operation.operationId ?? this.generateOperationID(this.route);
 
-        this.summary = operation.summary ?? null;
+        this.summary = operation.summary ?? this.operationID;
         this.description = operation.description ?? null;
         this.tags = operation.tags ?? [];
 
         // NB: Do not accept references in operation.
         this.throwForNonDereferencedOperation(operation);
 
+        // IMPORTANT: The following code gets only de-referenced definitions.
+
         this.parameters = operation.parameters ? structuredClone(operation.parameters as OpenAPIV3_1.ParameterObject[]) : [];
-        this.body = operation.requestBody ? structuredClone(operation.requestBody) : {};
+        this.body = new OASRequestBodyVO(operation.requestBody as OpenAPIV3_1.RequestBodyObject | undefined);
         this.responses = operation.responses ? structuredClone(operation.responses as Record<string, OpenAPIV3_1.ResponseObject>) : {};
     }
 

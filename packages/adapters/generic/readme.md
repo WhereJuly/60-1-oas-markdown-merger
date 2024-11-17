@@ -10,7 +10,12 @@
 
 ### Documenting
 
-> Add the generated in VS Code class diagram. Add the .vscode recommended extension - the class diagram generator. 
+UML Class Diagram
+
+<div align="center">
+  <img src="./.docs/uml-class-diagram.png" width="80%">
+</div>
+
 
 ### Publish Package
 
