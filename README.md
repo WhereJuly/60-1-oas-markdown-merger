@@ -73,14 +73,6 @@ So far Looks Adapter and Looks Theme are under implicit development as the entir
 
 [Development Plan Overview](./.docs/development-plan-overview.pdf)
 
-<a href="./.docs/development-plan-overview.pdf" class="image fit">another link</a>
-
-<a href="./.docs/development-plan-overview.pdf">Development Plan Overview</a>
-
-<div align="center">
-  <img src="./.docs/development-plan-overview.pdf" width="70%"/>
-</div>
-
 #### Tooling
 
 TypeScript, NodeJS, Vitest.
