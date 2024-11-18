@@ -71,6 +71,12 @@ So far Looks Adapter and Looks Theme are under implicit development as the entir
 
 ### Development
 
+<object data="./.docs/development-plan-overview.pdf" type="application/pdf" width="100%">
+    <embed src="./.docs/development-plan-overview.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="./.docs/development-plan-overview.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
+
 #### Tooling
 
 TypeScript, NodeJS, Vitest.
