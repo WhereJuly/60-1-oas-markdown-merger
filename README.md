@@ -71,7 +71,11 @@ So far Looks Adapter and Looks Theme are under implicit development as the entir
 
 ### Development
 
-<a href="https://coggle.it/diagram/ZzrasnH5wJ7yTWod/t/oas/37c1aa8d2048f33deaada3bf2dba0cf80cd8137497bd005b025507e8ce35a2a9" target="_blank">Development Plan Overview</a>
+
+<a href="https://coggle.it/diagram/ZzrasnH5wJ7yTWod/t/oas/37c1aa8d2048f33deaada3bf2dba0cf80cd8137497bd005b025507e8ce35a2a9">
+  <div>Development Plan Overview</div>
+  <img src="./.docs/coggle.png" width="30%">
+</a>
 
 #### Tooling
 
