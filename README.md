@@ -75,6 +75,8 @@ So far Looks Adapter and Looks Theme are under implicit development as the entir
 
 <a href="https://coggle.it/diagram/ZzrasnH5wJ7yTWod/t/-/37c1aa8d2048f33deaada3bf2dba0cf80cd8137497bd005b025507e8ce35a2a9" target="_blank">Development Plan Overview</a>
 
+<iframe width='853' height='480' src='https://embed.coggle.it/diagram/ZzrasnH5wJ7yTWod/9e017f0e11eb29d61c5d70b0e3cb928ec86b69bf4a8e6053f9a6c6f3fd2e33d8' frameborder='0' allowfullscreen></iframe>
+
 #### Tooling
 
 TypeScript, NodeJS, Vitest.
