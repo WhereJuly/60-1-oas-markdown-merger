@@ -1,8 +1,11 @@
 'use strict';
 
 import { OpenAPIV3_1 } from 'openapi-types';
+
 import OASMediaTypeVO from './OASMediaType.valueobject.js';
 import { EMediaType } from './types.js';
+
+export type TContent = OpenAPIV3_1.RequestBodyObject['content'];
 
 /**
  * Provides and interface to a collection of OAS JSON media types.
@@ -21,7 +24,7 @@ export default class OASContentsCollection {
     public items: OASMediaTypeVO[];
     public types: EMediaType[] | string[];
 
-    constructor(content?: OpenAPIV3_1.RequestBodyObject['content']) {
+    constructor(content?: TContent) {
         this.items = content ? this.createItems(content) : [];
         this.types = this.items.map((item: OASMediaTypeVO) => {
             return item.type as EMediaType | string;
@@ -34,11 +37,11 @@ export default class OASContentsCollection {
 
     public findType(type: EMediaType | string): OASMediaTypeVO | null {
         const found = this.items.find((item: OASMediaTypeVO) => { return item.type === type; });
-        
+
         return found ? found : null;
     }
 
-    private createItems(content: OpenAPIV3_1.RequestBodyObject['content']): OASMediaTypeVO[] {
+    private createItems(content: TContent): OASMediaTypeVO[] {
         return Object.entries(content)
             .map(([type, definition]) => {
                 return new OASMediaTypeVO(type as EMediaType, definition as OpenAPIV3_1.MediaTypeObject);
