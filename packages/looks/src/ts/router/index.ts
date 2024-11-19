@@ -3,7 +3,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import HomeView from '@views/HomeView.vue';
-import OASOperationSpecificationView from '@src/views/content/OASOperationSpecification.view.vue';
+import OASOperationSpecificationView from '@src/views/content/operation/OASOperationSpecification.view.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

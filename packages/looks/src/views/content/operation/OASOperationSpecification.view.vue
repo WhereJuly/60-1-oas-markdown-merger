@@ -40,7 +40,7 @@ import { container } from 'tsyringe';
 
 import { OASDBCException, type OASOperationVO } from '@dcoupld/oas-generic-adapter';
 import { OPERATIONS_COLLECTION } from '@src/ts/adapter/AdapterBootstrap.service';
-import OASOperationContentTypePartial from './OASOperationContentTypes.partial.vue';
+import OASOperationContentTypePartial from './content/OASOperationContentTypes.partial.vue';
 
 export default {
     props: {
