@@ -34,6 +34,16 @@ UML Class Diagram
 
 [in mermaid](./.docs/class-diagram.md)
 
+The public interface code is documented (or in process of documenting) with [TypeDoc](https://typedoc.org/guides/overview/). The build destination is [./.delivery/.builds/typedoc](./.delivery/.builds/typedoc/index.html).
+
+Later I will decide where to publish it.
+
+The build commands available:
+
+```bash
+npm run typedoc:build # For basic theme 
+npx typedoc src --plugin typedoc-github-theme # For a little more structured theme
+```
 ### Development
 
 #### Meaning & Naming 
