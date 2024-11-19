@@ -88,7 +88,7 @@ classDiagram
     }
 
     class OASRequestBodyVO {
-        + OASRequestBodyVO(content: OpenAPIV3_1.RequestBodyObject['content'], required?: boolean, description?: string | null)
+        + OASRequestBodyVO(content: TContent, required?: boolean, description?: string | null)
         + get isEmpty: boolean
         + required: boolean
         + description: string | null
@@ -97,7 +97,7 @@ classDiagram
     }
 
     class OASContentsCollection {
-        + OASContentsCollection(content?: OpenAPIV3_1.RequestBodyObject['content'])
+        + OASContentsCollection(content?: TContent)
         + get isEmpty: boolean
         + findType(type: EMediaType | string): OASMediaTypeVO | null
         + items: OASMediaTypeVO[]
