@@ -6,8 +6,8 @@ import { describe, expect, it } from 'vitest';
 
 import { OpenAPIV3_1 } from 'openapi-types';
 
-import OASOperationVO from '@src/OASOperation.valueobject.js';
-import OASOperationsCollection from '@src/OASOperations.collection.js';
+import OASOperationsCollection from '@src/core/operation/OASOperations.collection.js';
+import OASOperationVO from '@src/core/operation/OASOperation.valueobject.js';
 
 describe('OASOperationsCollectionTest', () => {
 

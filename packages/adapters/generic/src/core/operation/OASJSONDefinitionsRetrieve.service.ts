@@ -2,10 +2,10 @@
 
 import { OpenAPIV3_1 } from 'openapi-types';
 import path from 'path';
-
-import OASDBCException from './exceptions/OASDBCException.js';
-import { accessSync, constants } from 'fs';
 import { readFile } from 'fs/promises';
+
+import { accessSync, constants } from 'fs';
+import OASDBCException from '@src/exceptions/OASDBCException.js';
 
 type TActualRetrieveReturnType = Promise<string>;
 

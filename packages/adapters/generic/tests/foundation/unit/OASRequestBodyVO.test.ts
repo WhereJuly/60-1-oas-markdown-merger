@@ -6,8 +6,8 @@ import { describe, expect, it } from 'vitest';
 
 import { OpenAPIV3_1 } from 'openapi-types';
 
-import OASRequestBodyVO from '@src/OASRequestBody.valueobject.js';
-import OASContentsCollection from '@src/OASContents.collection.js';
+import OASRequestBodyVO from '@src/core/operation/OASRequestBody.valueobject.js';
+import OASContentsCollection from '@src/core/operation/OASContents.collection.js';
 
 describe('OASRequestBodyVOTest', () => {
 

@@ -3,9 +3,9 @@
 import { smallest_oas, valid_json } from '@fixtures/definitions/index.js';
 
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import nock from 'nock';
 
-import OASJSONDefinitionsRetrieveService from '@src/OASJSONDefinitionsRetrieve.service.js';
+import nock from 'nock';
+import OASJSONDefinitionsRetrieveService from '@src/core/operation/OASJSONDefinitionsRetrieve.service.js';
 
 const filename = './tests/foundation/.ancillary/fixtures/definitions/smallest.oas.json';
 // const url = 'http://127.0.0.1:5000/json/valid';

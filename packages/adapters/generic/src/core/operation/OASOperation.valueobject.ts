@@ -1,10 +1,10 @@
 'use strict';
 
-import OASDBCException from './exceptions/OASDBCException.js';
-import OASRequestBodyVO from './OASRequestBody.valueobject.js';
-import { EHTTPVerb } from './types.js';
-
 import { OpenAPIV3_1 } from 'openapi-types';
+
+import OASRequestBodyVO from './OASRequestBody.valueobject.js';
+import { EHTTPVerb } from '../types.js';
+import OASDBCException from '@src/exceptions/OASDBCException.js';
 
 /**
  * Provides the interface to the concrete operation OAS JSON definitions in a convenient form

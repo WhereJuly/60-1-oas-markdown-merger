@@ -3,8 +3,8 @@
 import { OpenAPIV3_1 } from 'openapi-types';
 
 import OASOperationVO from './OASOperation.valueobject.js';
-import { EHTTPVerb } from './types.js';
-import OASDBCException from './exceptions/OASDBCException.js';
+import { EHTTPVerb } from '../types.js';
+import OASDBCException from '@src/exceptions/OASDBCException.js';
 
 /**
  * Represents a collection of OpenAPI operations, providing methods to retrieve and filter them.
