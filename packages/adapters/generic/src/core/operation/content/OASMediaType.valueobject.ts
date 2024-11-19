@@ -1,14 +1,17 @@
 'use strict';
 
 import { OpenAPIV3_1 } from 'openapi-types';
-import { EMediaType } from '../types.js';
+
+import { EMediaType } from '@src/core/types.js';
+
+export type TMediaType = EMediaType | string;
 
 /**
  * WRITE: Will be designed after the exploratory usage at consumer side.
  */
 export default class OASMediaTypeVO {
 
-    public type: EMediaType | string;
+    public type: TMediaType;
     public definition: OpenAPIV3_1.MediaTypeObject;
 
     // WRITE: Engineering the properties

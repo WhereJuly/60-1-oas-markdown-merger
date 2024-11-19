@@ -8,8 +8,8 @@ import { OpenAPIV3_1 } from 'openapi-types';
 import get from 'lodash.get';
 
 import { EMediaType } from '@src/core/types.js';
-import OASContentsCollection from '@src/core/operation/OASContents.collection.js';
-import OASMediaTypeVO from '@src/core/operation/OASMediaType.valueobject.js';
+import OASContentsCollection from '@src/core/operation/content/OASContents.collection.js';
+import OASMediaTypeVO from '@src/core/operation/content/OASMediaType.valueobject.js';
 
 describe('OASContentsCollectionTest', () => {
 

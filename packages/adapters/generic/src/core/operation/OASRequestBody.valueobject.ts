@@ -2,7 +2,7 @@
 
 import { OpenAPIV3_1 } from 'openapi-types';
 
-import OASContentsCollection from './OASContents.collection.js';
+import OASContentsCollection from './content/OASContents.collection.js';
 
 /**
  * Conveniently interfaces the OAS JSON request body.
