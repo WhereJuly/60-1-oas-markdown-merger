@@ -8,4 +8,5 @@ export { default as OASRequestBodyVO } from './core/operation/OASRequestBody.val
 export { default as OASContentsCollection } from './core/operation/content/OASContents.collection.js';
 export { default as OASMediaTypeVO } from './core/operation/content/OASMediaType.valueobject.js';
 
-export { EHTTPVerb, EMediaType } from './core/types.js';  
+export { EHTTPVerb, EMediaType } from './core/types/misc.types.js';
+export { EHTTPStatusCodes, THTTPStatuses } from './core/types/http-statuses.type.js';

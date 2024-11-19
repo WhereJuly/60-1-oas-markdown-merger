@@ -2,7 +2,7 @@
 
 import { OpenAPIV3_1 } from 'openapi-types';
 
-import { EMediaType } from '@src/core/types.js';
+import { EMediaType } from '@src/core/types/misc.types.js';
 
 export type TMediaType = EMediaType | string;
 

@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 import { OpenAPIV3_1 } from 'openapi-types';
 import get from 'lodash.get';
 
-import { EMediaType } from '@src/core/types.js';
+import { EMediaType } from '@src/core/types/misc.types.js';
 import OASContentsCollection from '@src/core/operation/content/OASContents.collection.js';
 import OASMediaTypeVO from '@src/core/operation/content/OASMediaType.valueobject.js';
 

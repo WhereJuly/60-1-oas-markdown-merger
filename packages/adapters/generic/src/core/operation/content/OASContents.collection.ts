@@ -2,7 +2,7 @@
 
 import { OpenAPIV3_1 } from 'openapi-types';
 
-import { EMediaType } from '../../types.js';
+import { EMediaType } from '../../types/misc.types.js';
 import OASMediaTypeVO from './OASMediaType.valueobject.js';
 
 export type TContent = OpenAPIV3_1.RequestBodyObject['content'];

@@ -3,7 +3,7 @@
 import { OpenAPIV3_1 } from 'openapi-types';
 
 import OASRequestBodyVO from './OASRequestBody.valueobject.js';
-import { EHTTPVerb } from '../types.js';
+import { EHTTPVerb } from '../types/misc.types.js';
 import OASDBCException from '@src/exceptions/OASDBCException.js';
 
 /**

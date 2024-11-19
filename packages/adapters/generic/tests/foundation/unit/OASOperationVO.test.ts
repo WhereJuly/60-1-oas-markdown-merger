@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { OpenAPIV3_1 } from 'openapi-types';
 
 import { operations } from '../.ancillary/fixtures/definitions/index.js';
-import { EHTTPVerb } from '@src/core/types.js';
+import { EHTTPVerb } from '@src/core/types/misc.types.js';
 import OASOperationVO from '@src/core/operation/OASOperation.valueobject.js';
 import OASRequestBodyVO from '@src/core/operation/OASRequestBody.valueobject.js';
 
