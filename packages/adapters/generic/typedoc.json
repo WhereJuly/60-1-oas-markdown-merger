@@ -6,5 +6,6 @@
         "includeGroups": true,
         "includeFolders": true
     },
-    "categorizeByGroup": true
+    "categorizeByGroup": true,
+    "groupOrder": ["Core", "Convenience", "*"]
 }

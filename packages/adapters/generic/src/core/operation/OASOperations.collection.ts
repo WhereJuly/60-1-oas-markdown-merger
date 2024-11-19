@@ -13,7 +13,7 @@ import OASDBCException from '@src/exceptions/OASDBCException.js';
  * It ensures that **no duplicate** `operationID`'s exists.
  * It filters operations by allowed HTTP verbs and wraps them in `OASOperationVO` instances.
  * 
- * @usage
+ * @example
  * ```typescript
  * const operations = new OASOperationsCollection(paths);
  * console.log(operations.items); // Output: [OASOperationVO]
