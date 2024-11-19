@@ -22,12 +22,6 @@ classDiagram
 
     note for OASGenericAdapterVO "The classes styled like this one are in development plans or under construction"
     note for OASOperationsCollection "The classes styled like this one are in development plans or under construction"
-    
-
-    class OASDBCException {
-        + OASDBCException(message: string, originalError?: Error)
-        - #originalError: Error | undefined
-    }
 
     class EHTTPVerb {
         <<enumeration>>
@@ -56,6 +50,26 @@ classDiagram
         IMAGE_JPEG
         APPLICATION_PDF
         APPLICATION_VENDOR_JSON
+    }
+
+    class OpenAPIV3_1_RequestBodyObject {
+        <<interface>>
+        + content: Content
+    }
+
+    class TContent {
+        <<interface>>
+    }
+
+    style OpenAPIV3_1_RequestBodyObject fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style TContent fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+
+    OpenAPIV3_1_RequestBodyObject <|-- TContent : extends
+    OASRequestBodyVO --() TContent : uses
+
+    class OASDBCException {
+        + OASDBCException(message: string, originalError?: Error)
+        - #originalError: Error | undefined
     }
 
     class OASOperationVO {
@@ -125,12 +139,12 @@ classDiagram
     OASOperationVO --> OASRequestBodyVO : uses
     OASRequestBodyVO --> OASContentsCollection : contains
     OASContentsCollection --> OASMediaTypeVO : contains
-    OASMediaTypeVO --> EMediaType : <<enumeration>>
-    OASOperationVO --> EHTTPVerb : <<enumeration>>
-    OASJSONDefinitionsRetrieveService --> OASDBCException : throws
-    OASJSONDefinitionsRetrieveService --> OpenAPIV3_1.Document : validates
+    OASMediaTypeVO --() EMediaType : <<enumeration>>
+    OASOperationVO --() EHTTPVerb : <<enumeration>>
+    OASJSONDefinitionsRetrieveService --() OASDBCException : throws
+    OASJSONDefinitionsRetrieveService --() OpenAPIV3_1.Document : validates
     OASOperationsCollection --> OASOperationVO : contains
-    OASOperationsCollection --> EHTTPVerb : <<enumeration>>
-    OASOperationsCollection --> OASDBCException : throws
+    OASOperationsCollection --() EHTTPVerb : <<enumeration>>
+    OASOperationsCollection --() OASDBCException : throws
 
 ```
