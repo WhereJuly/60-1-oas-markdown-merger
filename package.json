@@ -26,6 +26,7 @@
         "vitest": "^2.1.4"
     },
     "dependencies": {
+        "@dcoupld/oas-generic-adapter": "^0.0.3",
         "@dotenvx/dotenvx": "^1.22.0",
         "eslint": "^9.14.0",
         "nodemon": "^3.1.7",
