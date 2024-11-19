@@ -10,6 +10,8 @@ import OASContentsCollection from './content/OASContents.collection.js';
  * @property {boolean} isEmpty - Returns true if request body is empty 
  * (delegates to `OASContentsCollection`).
  * 
+ * @group Core
+ * @category Operation
  */
 export default class OASRequestBodyVO {
 

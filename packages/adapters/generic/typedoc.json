@@ -1,0 +1,10 @@
+{
+    "entryPoints": ["src/index.ts"],
+    "out": "./.delivery/.builds/typedoc",
+    "navigation": {
+        "includeCategories": true,
+        "includeGroups": true,
+        "includeFolders": true
+    },
+    "categorizeByGroup": true
+}

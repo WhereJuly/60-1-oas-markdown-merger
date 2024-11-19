@@ -9,6 +9,9 @@ import OASDBCException from '@src/exceptions/OASDBCException.js';
 /**
  * Provides the interface to the concrete operation OAS JSON definitions in a convenient form
  * for consumption. It exposes verb, route, operation ID and other operation definitions.
+ * 
+ * @group Core
+ * @category Operation
  */
 export default class OASOperationVO {
 

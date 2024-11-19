@@ -11,7 +11,7 @@ import OASContentsCollection from '@src/core/operation/content/OASContents.colle
 
 describe('OASRequestBodyVOTest', () => {
 
-    it.only('+constructor() #1: Should create the OASRequestBodyVO value null-object', () => {
+    it('+constructor() #1: Should create the OASRequestBodyVO value null-object', () => {
         const actual = new OASRequestBodyVO();
 
         expect(actual).toBeInstanceOf(OASRequestBodyVO);

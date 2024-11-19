@@ -1,27 +1,16 @@
 'use strict';
 
-export type THTTPStatus = {
-    code: number;
-    message: string;
-};
-
-// WRITE: Clarify the consuming use cases of these two later. Should it be publicly exposed.
-type StatusKey = keyof typeof THTTPStatuses; // 'SUCCESS' | 'ERROR' | 'NOT_FOUND'
-type StatusValue = (typeof THTTPStatuses)[StatusKey]; // { code: number; message: string }
-
-// WRITE: Clarify the consuming use cases of this. Should it be publicly exposed.
-export type StatusCollection<T extends Record<string, THTTPStatus>> = T;
-
-// WRITE: Clarify the consuming use cases of this. Should it be publicly exposed.
-type StatusCodes = {
-    [K in keyof typeof THTTPStatuses]: typeof THTTPStatuses[K]['code'];
-};
-
-// WRITE: Clarify the consuming use cases of this. Should it be publicly exposed.
-type StatusesMap = Record<EHTTPStatusCodes, THTTPStatus>;
-
 /**
- * Status codes enum.
+ * Convenience HTTP status codes enum.
+ * 
+ * @example
+ * ```typescript
+ * import { EHTTPStatusCodes } from '@dcoupld/oas-adapter-generic';
+ * const code = EHTTPStatusCodes.SUCCESS.code;  // 200
+ * ```
+ * 
+ * @group Convenience
+ * @category HTTP
  */
 export enum EHTTPStatusCodes {
     // 2xx Success
@@ -49,14 +38,31 @@ export enum EHTTPStatusCodes {
 }
 
 /**
- * A collection of status codes and their corresponding messages.
- * Can be extended with custom status codes and messages as per {@link AddCustomStatusesExample}
+ * The basic HTTP status object type.
+ * 
+ * @group Convenience
+ * @category HTTP
+ */
+export type THTTPStatus = {
+    code: number;
+    message: string;
+};
+
+/**
+ * A convenience collection of base status codes and their corresponding messages.
  * 
  * @example
  * ```typescript
  * const code = Statuses.SUCCESS.code;  // 200
  * const message = Statuses.SUCCESS.message;  // 'Operation successful'
  * ```
+ * 
+ * Can be extended with custom status codes and messages.
+ * 
+ * @see {@link readme.md/#http-statuses}, {@link src/core/types/example-extend-http-statuses.d.ts}
+ * 
+ * @group Convenience
+ * @category HTTP
  */
 export const THTTPStatuses = {
     // 2xx Success
@@ -84,8 +90,19 @@ export const THTTPStatuses = {
     GATEWAY_TIMEOUT: { code: EHTTPStatusCodes.GATEWAY_TIMEOUT, message: 'Gateway timeout' },
 } as const;
 
-console.log(THTTPStatuses); // 202
 
+// WRITE: Clarify the consuming use cases of these two later. Should it be publicly exposed.
+type StatusKey = keyof typeof THTTPStatuses; // 'SUCCESS' | 'ERROR' | 'NOT_FOUND'
+type StatusValue = (typeof THTTPStatuses)[StatusKey]; // { code: number; message: string }
 
+// WRITE: Clarify the consuming use cases of this. Should it be publicly exposed.
+type StatusCollection<T extends Record<string, THTTPStatus>> = T;
 
+// WRITE: Clarify the consuming use cases of this. Should it be publicly exposed.
+type StatusCodes = {
+    [K in keyof typeof THTTPStatuses]: typeof THTTPStatuses[K]['code'];
+};
+
+// WRITE: Clarify the consuming use cases of this. Should it be publicly exposed.
+type StatusesMap = Record<EHTTPStatusCodes, THTTPStatus>;
 

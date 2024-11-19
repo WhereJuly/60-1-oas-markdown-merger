@@ -18,9 +18,10 @@
         "check-types": "npx tsc --noEmit --project .",
         "test:foundation": "npm run check-types && cross-env NODE_ENV=test vitest run --config tests/foundation/.ancillary/config/vitest.config.ts",
         "pre-push": "npm run test:foundation",
-        "package:build": "npm run test:foundation && rimraf ./.delivery/.builds/dist && tsc -p ./.delivery/configuration/tsconfig.json && npm run package:bundle:copy",
-        "package:bundle:copy": "cpy ./package.json ./.delivery/.builds/dist && cpy ./tests/foundation/.ancillary/fixtures/definitions/petstore.oas.json ./.delivery/.builds/dist/examples --flat",
-        "package:publish": "cd ./.delivery/.builds/dist && npm publish"
+        "typedoc:build": "npx typedoc",
+        "package:build": "npm run test:foundation && rimraf ./.delivery/.builds/package && tsc -p ./.delivery/configuration/tsconfig.json && npm run package:bundle:copy",
+        "package:bundle:copy": "cpy ./package.json ./.delivery/.builds/package && cpy ./tests/foundation/.ancillary/fixtures/definitions/petstore.oas.json ./.delivery/.builds/package/examples --flat",
+        "package:publish": "cd ./.delivery/.builds/package && npm publish"
     },
     "repository": {
         "type": "git",
@@ -45,7 +46,8 @@
         "@vitest/coverage-v8": "^2.1.4",
         "lodash.get": "^4.4.2",
         "nock": "^14.0.0-beta.15",
-        "npm": "^10.9.0"
+        "npm": "^10.9.0",
+        "typedoc": "^0.26.11"
     },
     "dependencies": {
         "openapi-types": "^12.1.3"

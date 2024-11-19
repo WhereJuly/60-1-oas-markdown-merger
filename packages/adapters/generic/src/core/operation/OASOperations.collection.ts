@@ -12,6 +12,9 @@ import OASDBCException from '@src/exceptions/OASDBCException.js';
  * The `OASOperationsCollection` processes OpenAPI path operations. It ensures that no duplicate
  * `operationID` exists. It filters operations by allowed HTTP verbs and wraps them
  *  in `OASOperationVO` instances.
+ * 
+ * @group Core
+ * @category Operation
  */
 export default class OASOperationsCollection {
 

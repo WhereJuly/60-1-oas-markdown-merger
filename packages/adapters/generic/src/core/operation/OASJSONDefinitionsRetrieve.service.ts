@@ -9,6 +9,12 @@ import OASDBCException from '@src/exceptions/OASDBCException.js';
 
 type TActualRetrieveReturnType = Promise<string>;
 
+/**
+ * Service for retrieving and parsing OpenAPI JSON definitions.
+ * 
+ * @group Core
+ * @category Services
+ */
 export default class OASJSONDefinitionsRetrieveService {
 
     constructor() {

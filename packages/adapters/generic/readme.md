@@ -10,11 +10,11 @@
     - [Testing](#testing)
     - [Publish Package](#publish-package)
 
-### Public Interface
+### [Public Interface](#public-interface)
 
-#### Convenience
+#### [Convenience](#convenience)
 
-##### HTTP Statuses
+##### [HTTP Statuses](#http-statuses)
 
 The package exports the convenience `EHTTPCodes` enum and `THTTPStatuses` typed object. Here is the basic usage.
 
