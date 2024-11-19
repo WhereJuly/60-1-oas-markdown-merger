@@ -3,7 +3,7 @@
 import { OpenAPIV3_1 } from 'openapi-types';
 import path from 'path';
 
-import OASDBCException from './exceptions/ProgressingException.js';
+import OASDBCException from './exceptions/OASDBCException.js';
 import { accessSync, constants } from 'fs';
 import { readFile } from 'fs/promises';
 

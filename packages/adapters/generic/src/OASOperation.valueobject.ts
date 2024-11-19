@@ -1,6 +1,6 @@
 'use strict';
 
-import OASDBCException from './exceptions/ProgressingException.js';
+import OASDBCException from './exceptions/OASDBCException.js';
 import OASRequestBodyVO from './OASRequestBody.valueobject.js';
 import { EHTTPVerb } from './types.js';
 

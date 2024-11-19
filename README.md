@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="./.docs/banner.jpg" width="100%"/>
+</div>
+
 # The OpenAPI Design-by-Contract Suite
 
 <small>`#typescript` `#nodejs` `#openapi` `#contract` `#backend` `#front-end` `#documentation`</small>
