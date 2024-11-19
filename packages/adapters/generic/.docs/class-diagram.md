@@ -1,5 +1,29 @@
 ```mermaid
 classDiagram
+
+    namespace Under Construction {
+        class OASGenericAdapterVO
+        class OASInfoVO
+        class OASServerVO
+        class OASComponentsVO
+    }
+
+    style OASGenericAdapterVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style OASInfoVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style OASServerVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style OASComponentsVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+
+    OASGenericAdapterVO --> OASInfoVO : contains
+    OASGenericAdapterVO --> OASServerVO : contains
+    OASGenericAdapterVO --> OASOperationsCollection : contains
+    OASGenericAdapterVO --> OASComponentsVO : contains
+    
+    note "As soon as there private interface appears it will be marked with just white background and lighter text"
+
+    note for OASGenericAdapterVO "The classes styled like this one are in development plans or under construction"
+    note for OASOperationsCollection "The classes styled like this one are in development plans or under construction"
+    
+
     class OASDBCException {
         + OASDBCException(message: string, originalError?: Error)
         - #originalError: Error | undefined
@@ -51,15 +75,16 @@ classDiagram
 
     class OASRequestBodyVO {
         + OASRequestBodyVO(content: OpenAPIV3_1.RequestBodyObject['content'], required?: boolean, description?: string | null)
-        + get isEmpty: boolean 
+        + get isEmpty: boolean
         + required: boolean
         + description: string | null
         + content: OASContentsCollection
+
     }
 
     class OASContentsCollection {
         + OASContentsCollection(content?: OpenAPIV3_1.RequestBodyObject['content'])
-        + get isEmpty: boolean 
+        + get isEmpty: boolean
         + findType(type: EMediaType | string): OASMediaTypeVO | null
         + items: OASMediaTypeVO[]
         + types: EMediaType[] | string[]
