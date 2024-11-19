@@ -8,6 +8,11 @@ export type TMediaType = EMediaType | string;
 
 /**
  * WRITE: Will be designed after the exploratory usage at consumer side.
+ * 
+ * WRITE: Docs
+ * 
+ * @group Core
+ * @category Operation/Content
  */
 export default class OASMediaTypeVO {
 

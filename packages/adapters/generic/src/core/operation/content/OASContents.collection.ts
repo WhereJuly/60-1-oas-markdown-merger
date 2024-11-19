@@ -18,6 +18,9 @@ export type TContent = OpenAPIV3_1.RequestBodyObject['content'];
  * the types at consumers. E.g., when need to show the dropdown list of media types.
  * 
  * @property {boolean} isEmpty - Returns true if the collection is empty.
+ * 
+ * @group Core
+ * @category Operation/Content
  */
 export default class OASContentsCollection {
 

@@ -6,6 +6,12 @@ import OASResponseVO, { TCode } from './OASResponse.valueobject.js';
 
 export type TResponses = Record<string, OpenAPIV3_1.ResponseObject>;
 
+/**
+ * WRITE: Docs
+ * 
+ * @group Core
+ * @category Operation/Content
+ */
 export default class OASResponsesCollection {
 
     private _default: OASResponseVO | null;

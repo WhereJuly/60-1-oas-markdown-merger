@@ -38,9 +38,12 @@ export default class OASOperationVO {
 
     /**
      * Creates an instance of OASOperationVO.
+     * 
      * @param {EHTTPVerb} verb - The HTTP verb (GET, POST, etc.).
      * @param {string} route - The route for the operation.
      * @param {OpenAPIV3_1.OperationObject} operation - The operation object from OpenAPI spec.
+     * 
+     * @throws { OASDBCException } If the operation contains non-dereferenced definitions.
      */
     constructor(verb: EHTTPVerb, route: string, operation: OpenAPIV3_1.OperationObject) {
         this.verb = verb;
