@@ -2,7 +2,7 @@
 
 import { operations, petstore } from '../.ancillary/fixtures/definitions/index.js';
 
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { OpenAPIV3_1 } from 'openapi-types';
 import get from 'lodash.get';
@@ -14,6 +14,8 @@ import { EHTTPStatusCodes } from '@src/core/types/http-statuses.type.js';
 describe('OASResponsesCollectionTest', () => {
 
     it('+constructor() #1: Should create the empty OASResponsesCollection', () => {
+        const warnMock = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        
         const actual = new OASResponsesCollection();
 
         expect(actual).toBeInstanceOf(OASResponsesCollection);
@@ -22,6 +24,11 @@ describe('OASResponsesCollectionTest', () => {
         expect(actual.codes).toEqual([]);
         expect(actual.items).toEqual([]);
         expect(actual.findResponseByCode).toBeInstanceOf(Function);
+        
+        expect(warnMock).toHaveBeenCalledOnce();
+        expect(warnMock.mock.calls[0]![0]).toContain('OASDBCWarning: You see the warning because you try to access the default response');
+
+        warnMock.mockRestore();
     });
 
     it('+constructor() #2: Should create the expected OASResponsesCollection', () => {
