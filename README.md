@@ -9,6 +9,7 @@
 **Contents**
 
 - [Design by Contract](#design-by-contract)
+  - [The Suite Place in **DbC** Context](#the-suite-place-in-dbc-context)
 - [The Basic Motivation](#the-basic-motivation)
 - [The Goal](#the-goal)
 - [The Big Picture](#the-big-picture)
@@ -24,11 +25,21 @@
 
 **IMPORTANT**: The Suite provides the tools to implement [Design-by-Contract](https://en.wikipedia.org/wiki/Design_by_contract) (**DbC**, [^1]) along the entire workflow of a software product creation.
 
-In our context but external to the Suite, **DbC** starts at requirements formalization and obtains the concrete contract definitions.
+### The Suite Place in **DbC** Context
 
-Then **DbC** gets to the contracts automated enforcement onto various parts of the software product (backends, front-ends). Finally **DbC** arrives at need to present the contract in a human-readable form e.g. a contract documentation webs site.
+Here is the entire context the Suite packages operate in.
 
-The two last ones is what our Suite concerns with.
+- External to the Suite, initially **DbC** starts at requirements formalization and arrives at the concrete Contract definitions. Since the first definitions created the Contract becomes the single source of truth.
+
+- Then **DbC** gets to alternate the Contract definitions and implementation phases. The implementation phase clarifies product requirements that in turn drives Contract definitions to change. Then the cycle  repeats until the Contract stabilizes.
+
+- Since the first Contract definitions version **DbC** uses OpenAPI to document the concrete Contract. The Contract should be communicated among stakeholders in a human-readable form e.g. a contract documentation webs sites to ensure product quality.
+
+- On implementation phases **DbC** has to provided the Contracts automated enforcement onto various parts of the software product (backends, front-ends) to build the product quality into implementation.
+
+**The Suite Scope**
+
+The scope of the Suits is two last domains - Contract documentation websites adn Contract enforcement tools.
 
 ## The Basic Motivation
 
