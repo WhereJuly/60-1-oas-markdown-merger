@@ -5,7 +5,7 @@ import { OpenAPIV3_1 } from 'openapi-types';
 import { EMediaType } from '../../types/misc.types.js';
 import OASMediaTypeVO from './OASMediaType.valueobject.js';
 
-export type TContent = OpenAPIV3_1.RequestBodyObject['content'];
+export type TContent = { [media: string]: OpenAPIV3_1.MediaTypeObject; };
 
 /**
  * Provides and interface to a collection of OAS JSON media types.
