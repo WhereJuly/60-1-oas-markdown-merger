@@ -1,16 +1,15 @@
 'use strict';
 
-import { operations } from '../.ancillary/fixtures/definitions/index.js';
 import { petstore } from '../.ancillary/fixtures/definitions/index.js';
 
 import { describe, expect, it } from 'vitest';
 
 import { OpenAPIV3_1 } from 'openapi-types';
-
-import OASContentsCollection from '@src/OASContents.collection.js';
-import { EMediaType } from '@src/types.js';
-import OASMediaTypeVO from '@src/OASMediaType.valueobject.js';
 import get from 'lodash.get';
+
+import { EMediaType } from '@src/core/types/misc.types.js';
+import OASContentsCollection from '@src/core/operation/content/OASContents.collection.js';
+import OASMediaTypeVO from '@src/core/operation/content/OASMediaType.valueobject.js';
 
 describe('OASContentsCollectionTest', () => {
 

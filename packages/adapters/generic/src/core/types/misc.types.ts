@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @group Convenience
+ * @category HTTP
+ */
 export enum EHTTPVerb {
     head = 'HEAD',
     options = 'OPTIONS',
@@ -10,6 +14,10 @@ export enum EHTTPVerb {
     delete = 'DELETE'
 }
 
+/**
+ * @group Convenience
+ * @category OpenAPI 
+ */
 export enum EMediaType {
     // JSON-based types
     APPLICATION_JSON = "application/json",

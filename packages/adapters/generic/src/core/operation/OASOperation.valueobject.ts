@@ -1,14 +1,17 @@
 'use strict';
 
-import OASDBCException from './exceptions/OASDBCException.js';
-import OASRequestBodyVO from './OASRequestBody.valueobject.js';
-import { EHTTPVerb } from './types.js';
-
 import { OpenAPIV3_1 } from 'openapi-types';
+
+import OASRequestBodyVO from './OASRequestBody.valueobject.js';
+import { EHTTPVerb } from '../types/misc.types.js';
+import OASDBCException from '@src/exceptions/OASDBCException.js';
 
 /**
  * Provides the interface to the concrete operation OAS JSON definitions in a convenient form
  * for consumption. It exposes verb, route, operation ID and other operation definitions.
+ * 
+ * @group Core
+ * @category Operation
  */
 export default class OASOperationVO {
 
@@ -35,9 +38,12 @@ export default class OASOperationVO {
 
     /**
      * Creates an instance of OASOperationVO.
+     * 
      * @param {EHTTPVerb} verb - The HTTP verb (GET, POST, etc.).
      * @param {string} route - The route for the operation.
      * @param {OpenAPIV3_1.OperationObject} operation - The operation object from OpenAPI spec.
+     * 
+     * @throws { OASDBCException } If the operation contains non-dereferenced definitions.
      */
     constructor(verb: EHTTPVerb, route: string, operation: OpenAPIV3_1.OperationObject) {
         this.verb = verb;

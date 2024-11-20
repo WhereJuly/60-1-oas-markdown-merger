@@ -1,7 +1,9 @@
 'use strict';
 
 /**
- * @group Domain
+ * The application-specific exception.
+ * 
+ * @group Convenience
  * @category Exceptions
  */
 export default class OASDBCException extends Error {

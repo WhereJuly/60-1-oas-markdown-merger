@@ -6,12 +6,12 @@ import { describe, expect, it } from 'vitest';
 
 import { OpenAPIV3_1 } from 'openapi-types';
 
-import OASRequestBodyVO from '@src/OASRequestBody.valueobject.js';
-import OASContentsCollection from '@src/OASContents.collection.js';
+import OASRequestBodyVO from '@src/core/operation/OASRequestBody.valueobject.js';
+import OASContentsCollection from '@src/core/operation/content/OASContents.collection.js';
 
 describe('OASRequestBodyVOTest', () => {
 
-    it.only('+constructor() #1: Should create the OASRequestBodyVO value null-object', () => {
+    it('+constructor() #1: Should create the OASRequestBodyVO value null-object', () => {
         const actual = new OASRequestBodyVO();
 
         expect(actual).toBeInstanceOf(OASRequestBodyVO);

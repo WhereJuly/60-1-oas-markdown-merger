@@ -9,8 +9,9 @@
 **Contents**
 
 - [Design by Contract](#design-by-contract)
+  - [The DbC Process](#the-dbc-process)
+  - [The Suite Goals](#the-suite-goals)
 - [The Basic Motivation](#the-basic-motivation)
-- [The Goal](#the-goal)
 - [The Big Picture](#the-big-picture)
 - [The Packages](#the-packages)
 - [Operations](#operations)
@@ -24,11 +25,24 @@
 
 **IMPORTANT**: The Suite provides the tools to implement [Design-by-Contract](https://en.wikipedia.org/wiki/Design_by_contract) (**DbC**, [^1]) along the entire workflow of a software product creation.
 
-In our context but external to the Suite, **DbC** starts at requirements formalization and obtains the concrete contract definitions.
+### The DbC Process
 
-Then **DbC** gets to the contracts automated enforcement onto various parts of the software product (backends, front-ends). Finally **DbC** arrives at need to present the contract in a human-readable form e.g. a contract documentation webs site.
+The entire DbC process undergoes 3 phases: the concrete Contract definition, implementation (Contract realization in code) and application (consume Contract by other code). First two alternate between each other until the Contract stabilizes.
 
-The two last ones is what our Suite concerns with.
+The definition is made via OpenAPI specification. The implementation and application require the common tools (frameworks, packages etc.) and specific **DbC** tools to provide Contract documentation and enforcement.
+
+### The Suite Goals
+
+- Definition and implementation phases: deliver convenient and flexible Contract documentation website (Looks Package);
+- All three phases: provide Contract enforcement tools (Contract Outlet);
+
+> TBW. this is just a draft. it will show itself with the time.
+
+The packages in the repository aim to provide tools to implement Design-by-Contract in NodeJS/TypeScript environments.
+
+- Create contracts: external packages to be used; Not sure if I have to describe it further here or at all;
+- Use contracts: OAS Contract Adapters: generic, Concrete Contract Outlet Generator;
+- Present: OAS Contract Looks;
 
 ## The Basic Motivation
 
@@ -38,15 +52,7 @@ The existing solutions were either not flexible enough to adopt my functional an
 
 Starting from that idea I am on the way to create better solution as I see it.
 
-## The Goal
 
-> TBW. this is just a draft. it will show itself with the time.
-
-The packages in the repository aim to provide tools to implement Design-by-Contract in NodeJS/TypeScript environments.
-
-- Create contracts: external packages to be used; Not sure if I have to describe it further here or at all;
-- Use contracts: OAS Contract Adapters: generic, contract outlet (with generator);
-- Present: OAS Contract Looks;
 
 ## The Big Picture
 

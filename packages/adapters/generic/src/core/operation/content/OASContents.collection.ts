@@ -2,10 +2,16 @@
 
 import { OpenAPIV3_1 } from 'openapi-types';
 
+import { EMediaType } from '../../types/misc.types.js';
 import OASMediaTypeVO from './OASMediaType.valueobject.js';
-import { EMediaType } from './types.js';
 
-export type TContent = OpenAPIV3_1.RequestBodyObject['content'];
+/**
+ * The OAS type alias to provide a proxy for a map of media type objects.
+ * 
+ * @group Core
+ * @category Operation/Content
+ */
+export type TContent = { [media: string]: OpenAPIV3_1.MediaTypeObject; };
 
 /**
  * Provides and interface to a collection of OAS JSON media types.
@@ -18,6 +24,9 @@ export type TContent = OpenAPIV3_1.RequestBodyObject['content'];
  * the types at consumers. E.g., when need to show the dropdown list of media types.
  * 
  * @property {boolean} isEmpty - Returns true if the collection is empty.
+ * 
+ * @group Core
+ * @category Operation/Content
  */
 export default class OASContentsCollection {
 
