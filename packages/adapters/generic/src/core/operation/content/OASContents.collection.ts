@@ -5,6 +5,12 @@ import { OpenAPIV3_1 } from 'openapi-types';
 import { EMediaType } from '../../types/misc.types.js';
 import OASMediaTypeVO from './OASMediaType.valueobject.js';
 
+/**
+ * The OAS type alias to provide a proxy for a map of media type objects.
+ * 
+ * @group Core
+ * @category Operation/Content
+ */
 export type TContent = { [media: string]: OpenAPIV3_1.MediaTypeObject; };
 
 /**
