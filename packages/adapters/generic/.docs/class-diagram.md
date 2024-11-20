@@ -12,6 +12,8 @@ classDiagram
     style OASInfoVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
     style OASServerVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
     style OASComponentsVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style THeaders fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style TLinks fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
 
     OASGenericAdapterVO --> OASInfoVO : contains
     OASGenericAdapterVO --> OASServerVO : contains
