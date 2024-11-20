@@ -34,6 +34,8 @@ UML Class Diagram
 
 [in mermaid](./.docs/class-diagram.md)
 
+[quick in png](./.docs/quick-class-diagram.png)
+
 The public interface code is documented (or in process of documenting) with [TypeDoc](https://typedoc.org/guides/overview/). The build destination is [./.delivery/.builds/typedoc](./.delivery/.builds/typedoc/index.html).
 
 Later I will decide where to publish it.

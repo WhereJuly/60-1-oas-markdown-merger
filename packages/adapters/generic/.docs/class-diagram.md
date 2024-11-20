@@ -84,7 +84,7 @@ classDiagram
         + tags: string[]
         + parameters: OpenAPIV3_1.ParameterObject[]
         + body: OASRequestBodyVO
-        + responses: Record<string, OpenAPIV3_1.ResponseObject>
+        + responses: OASResponsesCollection
     }
 
     class OASRequestBodyVO {
@@ -93,7 +93,6 @@ classDiagram
         + required: boolean
         + description: string | null
         + content: OASContentsCollection
-
     }
 
     class OASContentsCollection {
@@ -137,8 +136,11 @@ classDiagram
     }
 
     OASOperationVO --> OASRequestBodyVO : uses
-    OASRequestBodyVO --> OASContentsCollection : contains
+    OASOperationVO --> OASResponsesCollection : uses
+    OASRequestBodyVO --() OASContentsCollection : contains
     OASContentsCollection --> OASMediaTypeVO : contains
+    OASResponsesCollection --> OASResponseVO : contains
+    OASResponseVO --() OASMediaTypeVO : contains
     OASMediaTypeVO --() EMediaType : <<enumeration>>
     OASOperationVO --() EHTTPVerb : <<enumeration>>
     OASJSONDefinitionsRetrieveService --() OASDBCException : throws
@@ -146,5 +148,47 @@ classDiagram
     OASOperationsCollection --> OASOperationVO : contains
     OASOperationsCollection --() EHTTPVerb : <<enumeration>>
     OASOperationsCollection --() OASDBCException : throws
+
+    class OASResponsesCollection {
+        - OASResponseVO~null~ _default
+        + OASResponseVO[] items
+        + TCode[] codes
+        + OASResponsesCollection(definitions?: TResponses)
+        + boolean isEmpty
+        + OASResponseVO~null~ default
+        + OASResponseVO~null~ findResponseByCode(code: TCode)
+        - void initialize(definitions: TResponses)
+    }
+    
+    class OASResponseVO {
+        + static DEFAULT_CODE: typeof DEFAULT_CODE
+        + TCode code
+        + string description
+        + THeaders headers
+        + OASContentsCollection content
+        + TLinks links
+        + OASResponseVO(code: TCode, definitions: OpenAPIV3_1.ResponseObject)
+    }
+
+    OASResponsesCollection "1..*" --> "1" OASResponseVO
+
+    class TCode {
+        <<type>>
+    }
+    class THeaders {
+        <<type>>
+    }
+    class TLinks {
+        <<type>>
+    }
+    class OASContentsCollection {
+        <<class>>
+    }
+
+    OASResponseVO --> TCode
+    OASResponseVO --> THeaders
+    OASResponseVO --> TLinks
+    OASResponseVO --> OASContentsCollection
+
 
 ```
