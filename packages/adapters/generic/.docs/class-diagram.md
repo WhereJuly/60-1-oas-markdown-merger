@@ -6,20 +6,20 @@ classDiagram
         class OASInfoVO
         class OASServerVO
         class OASComponentsVO
-    }
 
-    style OASGenericAdapterVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
-    style OASInfoVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
-    style OASServerVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
-    style OASComponentsVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
-    style THeaders fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
-    style TLinks fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+        class THeaders {
+            <<type>>
+        }
+        class TLinks {
+            <<type>>
+        }
+    }
 
     OASGenericAdapterVO --> OASInfoVO : contains
     OASGenericAdapterVO --> OASServerVO : contains
     OASGenericAdapterVO --> OASOperationsCollection : contains
     OASGenericAdapterVO --> OASComponentsVO : contains
-    
+
     note "As soon as there private interface appears it will be marked with just white background and lighter text"
 
     note for OASGenericAdapterVO "The classes styled like this one are in development plans or under construction"
@@ -161,7 +161,7 @@ classDiagram
         + OASResponseVO~null~ findResponseByCode(code: TCode)
         - void initialize(definitions: TResponses)
     }
-    
+
     class OASResponseVO {
         + static DEFAULT_CODE: typeof DEFAULT_CODE
         + TCode code
@@ -177,20 +177,17 @@ classDiagram
     class TCode {
         <<type>>
     }
-    class THeaders {
-        <<type>>
-    }
-    class TLinks {
-        <<type>>
-    }
-    class OASContentsCollection {
-        <<class>>
-    }
 
     OASResponseVO --> TCode
     OASResponseVO --> THeaders
     OASResponseVO --> TLinks
     OASResponseVO --> OASContentsCollection
 
+    style OASGenericAdapterVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style OASInfoVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style OASServerVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style OASComponentsVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style THeaders fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style TLinks fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
 
 ```
