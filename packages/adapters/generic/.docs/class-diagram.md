@@ -13,6 +13,12 @@ classDiagram
         class TLinks {
             <<type>>
         }
+
+        class OASHeadersCollection {
+        }
+
+        class OASLinksCollection {
+        }
     }
 
     OASGenericAdapterVO --> OASInfoVO : contains
@@ -189,5 +195,7 @@ classDiagram
     style OASComponentsVO fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
     style THeaders fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
     style TLinks fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style OASHeadersCollection fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
+    style OASLinksCollection fill:#fff,stroke:#888,stroke-width:2px,color:#000,stroke-dasharray: 5 5;
 
 ```
