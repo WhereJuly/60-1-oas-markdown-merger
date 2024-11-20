@@ -1,8 +1,12 @@
 'use strict';
 
+import { OpenAPIV3_1 } from 'openapi-types';
+
 import { EHTTPStatusCodes } from '@src/core/types/http-statuses.type.js';
 
-export type TCode = EHTTPStatusCodes | 'default';
+export type TCode = EHTTPStatusCodes | typeof DEFAULT_CODE;
+
+const DEFAULT_CODE = 'default';
 
 /**
  * WRITE: Docs
@@ -12,10 +16,12 @@ export type TCode = EHTTPStatusCodes | 'default';
  */
 export default class OASResponseVO {
 
+    public static DEFAULT_CODE = DEFAULT_CODE;
+
     public code: TCode;
 
-    constructor() {
-        this.code = 'default';
+    constructor(code: TCode, definitions: OpenAPIV3_1.ResponseObject) {
+        this.code = code;
     }
 
 }
