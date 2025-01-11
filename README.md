@@ -109,6 +109,8 @@ The Concrete Contract Outlet adapter is used in backends to create the endpoints
 - [Contract Outlet Adapter](packages/adapters/outlet);
 - [Looks Theme](packages/looks);
 - [Looks Adapter](packages/looks);
+- [Utilities](packages/utiliities);
+  + [Description Merger](packages/utiliities/description-merger)
 
 So far Looks Adapter and Looks Theme are under implicit development as the entire Looks package. They will be extracted into the dedicated packages as soon as they reveal themselves.
 
