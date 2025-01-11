@@ -6,13 +6,15 @@
 
 ---
 
+Here is the updated version of the description reflecting the markdown-to-HTML translation requirement:
+
 ### Classes
 
 1. **OASMarkdownMergerFacade**
 
    - **Responsibility:** The main orchestrator class that handles the entire process of merging descriptions from Markdown files into the OAS 3.1 JSON specification. This class interacts with the other components to load the spec, process descriptions, and write the updated OAS spec to a new file.
    - **Methods:**
-     - `merge(sourceFile: String, destinationFile: String)`: Orchestrates the entire merge process. It loads the OAS spec, processes the descriptions by merging the content from the specified Markdown files, and then writes the updated spec to the destination file.
+     - `merge(sourceFile: String, destinationFile: String)`: Orchestrates the entire merge process. It loads the OAS spec, processes the descriptions by merging the content from the specified Markdown files (after translating them to HTML), and then writes the updated spec to the destination file.
      - `writeOutputToFile(filePath: String, content: String)`: Writes the merged OAS spec to the destination file.
      - `checkDirectoryExistence(filePath: String)`: Checks if the specified directory exists.
      - `createDirectory(filePath: String)`: Creates the directory if it doesn't exist.
@@ -29,12 +31,12 @@
 
 3. **MarkdownMergeProcessor**
 
-   - **Responsibility:** Processes the description fields in the OAS spec and performs the merging operation with the content from external Markdown files.
+   - **Responsibility:** Processes the description fields in the OAS spec and performs the merging operation with the content from external Markdown files, translating the content to HTML before merging.
    - **Methods:**
      - `processDescriptions(spec: Object)`: Iterates over the description fields in the OAS spec and processes them for merging.
-     - `mergeContent(description: String, filePath: String)`: Merges the content of the description field with the content from the respective Markdown file.
+     - `mergeContent(description: String, filePath: String)`: Merges the content of the description field with the HTML-translated content from the respective Markdown file.
 
-4. **OASMergerException**
+4. **OASMarkdownMergerException**
    - **Responsibility:** A custom exception class that is thrown when errors occur during the OAS merging process (e.g., missing files, invalid spec format).
    - **Properties:**
      - `message`: The error message.
@@ -61,7 +63,7 @@
 
    - The `OASMarkdownMergerFacade` then passes the spec to the `MarkdownMergeProcessor`.
    - The `MarkdownMergeProcessor` iterates through each description field and checks if a merge command exists.
-   - For each description with a merge command, the `MarkdownMergeProcessor` loads the corresponding Markdown file and merges its content with the description.
+   - For each description with a merge command, the `MarkdownMergeProcessor` loads the corresponding Markdown file, translates its content to HTML, and merges it with the description.
 
 5. **Handling Errors:**
 
@@ -76,4 +78,4 @@
 
 ---
 
-This class hierarchy ensures that each component has a clear responsibility, follows the single responsibility principle, and allows for easy unit testing by decoupling the functionalities into separate classes. The facade (`OASMarkdownMergerFacade`) orchestrates the entire workflow, while the individual classes (`OASJSONSpecLoader`, `MarkdownMergeProcessor`) handle the loading, processing, and merging tasks.
+This class hierarchy ensures that each component has a clear responsibility, follows the single responsibility principle, and allows for easy unit testing by decoupling the functionalities into separate classes. The facade (`OASMarkdownMergerFacade`) orchestrates the entire workflow, while the individual classes (`OASJSONSpecLoader`, `MarkdownMergeProcessor`) handle the loading, processing, and merging tasks. Additionally, markdown content is now translated to HTML before being merged into the OAS spec.

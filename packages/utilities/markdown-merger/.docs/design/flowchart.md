@@ -17,13 +17,13 @@ flowchart TD
   G -->|Yes| H[Extract file name from merge command]
   H --> I[Read file]
   I --> J{Does file exist?}
-  J -->|Yes| K[Replace merge command with file content]
-  J -->|No| L[Throw error: File not found]
+  J -->|Yes| L1[Translate markdown to HTML]
+  L1 --> K[Replace merge command with HTML content]
   K --> M1[Continue to next description field]
+  J -->|No| L[Throw error: File not found]
   L --> M1
   G -->|No| M1[Skip to next description field]
   M1 --> E
   M1 --> N[Write updated OAS JSON to new file]
   N --> Stop
-
 ```
