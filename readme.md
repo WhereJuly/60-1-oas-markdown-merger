@@ -8,5 +8,6 @@
 - [The Class Diagram](/packages/utilities/markdown-merger/.docs/design/class-diagram.uml.md)
 - [Usages](/packages/utilities/markdown-merger/.docs/design/usages.md)
 - [Classes and Responsibilities](/packages/utilities/markdown-merger/.docs/design/classes-and-responsibilities.md)
+- [Transform Markdown to HTML](/packages/utilities/markdown-merger/.docs/design/transform-markdown-to-html.md)
 - [Logging and Exceptions](/packages/utilities/markdown-merger/.docs/design/logging-and-exceptions.md)
 - [Test Cases](/packages/utilities/markdown-merger/.docs/design/test-cases.md)
