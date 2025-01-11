@@ -9,6 +9,7 @@
 **Contents**
 
 - [Design by Contract](#design-by-contract)
+- [The Suite Goal](#the-suite-goal)
   - [The DbC Process](#the-dbc-process)
     - [Code-Contract Co-Design](#code-contract-co-design)
       - [The Solution](#the-solution)
@@ -27,11 +28,22 @@
 
 **IMPORTANT**: The Suite provides the tools to implement [Design-by-Contract](https://en.wikipedia.org/wiki/Design_by_contract) (**DbC**, [^1]) along the entire workflow of a software product creation.
 
+## The Suite Goal
+
+To provide a smooth Contract design, living documentation, construction and enforcement tools. OAS is a core of this. But the process asks for convenience and smoothness to become really productive.
+
+What it should look like:
+
+- design (write) the Contract as *modular* OAS definitions;
+- see the live documentation site as you write the definitions;
+- be able to continuously publish the Contract documentation;
+- be able to package Contract with its enforcement tools to apply it at consumers;
+
 ### The DbC Process
 
-The entire DbC process undergoes 3 phases: the concrete Contract definition, implementation (Contract realization in code) and application (consume Contract by other code). First two alternate between each other until the Contract stabilizes.
+The entire DbC process undergoes 3 phases: the concrete Contract design (definition), construction (Contract realization in code) and application (consume Contract by other code). First two alternate between each other until the Contract stabilizes.
 
-The definition is made via OpenAPI specification. The implementation and application require the common tools (frameworks, packages etc.) and specific **DbC** tools to provide Contract documentation and enforcement.
+The design is defined with OpenAPI specification. The construction and application require the common tools (frameworks, packages etc.) and specific **DbC** tools to provide Contract documentation and enforcement.
 
 #### Code-Contract Co-Design
 
