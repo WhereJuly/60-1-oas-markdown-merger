@@ -13,7 +13,6 @@
   - [The DbC Process](#the-dbc-process)
     - [Code-Contract Co-Design](#code-contract-co-design)
       - [The Solution](#the-solution)
-  - [The Suite Goals](#the-suite-goals)
 - [The Basic Motivation](#the-basic-motivation)
 - [The Big Picture](#the-big-picture)
 - [The Packages](#the-packages)
@@ -34,10 +33,25 @@ To provide a smooth Contract design, living documentation, construction and enfo
 
 What it should look like:
 
-- design (write) the Contract as *modular* OAS definitions;
+- design (write) the Contract as _modular_ OAS definitions;
 - see the live documentation site as you write the definitions;
 - be able to continuously publish the Contract documentation;
 - be able to package Contract with its enforcement tools to apply it at consumers;
+
+---
+
+The former version of goals
+
+- Definition and implementation phases: deliver convenient and flexible Contract documentation website (Looks Package);
+- All three phases: provide Contract enforcement tools (Contract Outlet);
+
+> TBW. this is just a draft. it will show itself with the time.
+
+The packages in the repository aim to provide tools to implement Design-by-Contract in NodeJS/TypeScript environments.
+
+- Create contracts: external packages to be used; Not sure if I have to describe it further here or at all;
+- Use contracts: OAS Contract Adapters: generic, Concrete Contract Outlet Generator;
+- Present: OAS Contract Looks;
 
 ### The DbC Process
 
@@ -66,19 +80,6 @@ Keeping the API contract and code design notes together would further strengthen
 ##### The Solution
 
 The small and very effective solution here could be a CLI package that allows merging the separate `.md` files located nearby the OAS contract into OAS `description` fields. It can be easily introduced into the OAS Contract build pipelines.
-
-### The Suite Goals
-
-- Definition and implementation phases: deliver convenient and flexible Contract documentation website (Looks Package);
-- All three phases: provide Contract enforcement tools (Contract Outlet);
-
-> TBW. this is just a draft. it will show itself with the time.
-
-The packages in the repository aim to provide tools to implement Design-by-Contract in NodeJS/TypeScript environments.
-
-- Create contracts: external packages to be used; Not sure if I have to describe it further here or at all;
-- Use contracts: OAS Contract Adapters: generic, Concrete Contract Outlet Generator;
-- Present: OAS Contract Looks;
 
 ## The Basic Motivation
 
