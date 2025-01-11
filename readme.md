@@ -9,4 +9,4 @@
 - [Usages](/packages/utilities/markdown-merger/.docs/design/usages.md)
 - [Classes and Responsibilities](/packages/utilities/markdown-merger/.docs/design/classes-and-responsibilities.md)
 - [Logging and Exceptions](/packages/utilities/markdown-merger/.docs/design/logging-and-exceptions.md)
-- [Test Cases](/packages/utilities/markdown-merger/.docs/test-cases.md)
+- [Test Cases](/packages/utilities/markdown-merger/.docs/design/test-cases.md)
