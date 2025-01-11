@@ -1,17 +1,18 @@
 {
-  "name": "oas-markdown-merger",
-  "version": "0.0.1-dev.0",
-  "description": "The tool to merge arbitrary markdown files into OpenAPI (3.1.0) `description` fields.",
-  "keywords": [
-    "openapi",
-    "description",
-    "merge"
-  ],
-  "license": "UNLICENCED",
-  "author": "valentineshi.dev@gmail.com",
-  "type": "module",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  }
+    "name": "oas-markdown-merger",
+    "version": "0.0.1-dev.0",
+    "description": "The tool to merge arbitrary markdown files into OpenAPI (3.1.0) `description` fields.",
+    "keywords": [
+        "openapi",
+        "description",
+        "merge",
+        "markdown"
+    ],
+    "license": "UNLICENSED",
+    "author": "valentineshi.dev@gmail.com",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
 }
