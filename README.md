@@ -9,7 +9,7 @@
 **Contents**
 
 - [Design by Contract](#design-by-contract)
-- [The Suite Goal](#the-suite-goal)
+  - [The Suite Goal](#the-suite-goal)
   - [The DbC Process](#the-dbc-process)
     - [Code-Contract Co-Design](#code-contract-co-design)
       - [The Solution](#the-solution)
@@ -28,7 +28,7 @@
 
 **IMPORTANT**: The Suite provides the tools to implement [Design-by-Contract](https://en.wikipedia.org/wiki/Design_by_contract) (**DbC**, [^1]) along the entire workflow of a software product creation.
 
-## The Suite Goal
+### The Suite Goal
 
 To provide a smooth Contract design, living documentation, construction and enforcement tools. OAS is a core of this. But the process asks for convenience and smoothness to become really productive.
 
