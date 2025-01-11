@@ -4,4 +4,4 @@
 
 ### Design
 
-- [The Flowchart](packages/utilities/description-merger/.docs/description-merger.flowchart.md)
+- [The Flowchart](/packages/utilities/description-merger/.docs/description-merger.flowchart.md)
