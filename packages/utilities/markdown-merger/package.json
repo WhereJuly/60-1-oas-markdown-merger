@@ -1,5 +1,5 @@
 {
-  "name": "oas-description-merger",
+  "name": "oas-markdown-merger",
   "version": "0.0.1-dev.0",
   "description": "The tool to merge arbitrary markdown files into OpenAPI (3.1.0) `description` fields.",
   "keywords": [

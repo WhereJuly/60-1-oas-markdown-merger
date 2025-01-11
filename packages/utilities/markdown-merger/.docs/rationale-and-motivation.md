@@ -1,4 +1,4 @@
-**OAS Description Merger Utility**
+**OAS Markdown Merger Utility**
 
 ## Rationale and Motivation
 

@@ -1,6 +1,6 @@
 ```mermaid
 ---
-title: OAS Description Merger Workflow
+title: OAS Markdown Merger Workflow
 ---
 
 flowchart TD
