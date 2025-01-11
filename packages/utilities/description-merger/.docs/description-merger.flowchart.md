@@ -1,4 +1,8 @@
 ```mermaid
+---
+title: OAS Description Merger Workflow
+---
+
 flowchart TD
   Start([Start])
   Stop([Stop])
@@ -21,4 +25,5 @@ flowchart TD
   M1 --> E
   M1 --> N[Write updated OAS JSON to new file]
   N --> Stop
+
 ```
