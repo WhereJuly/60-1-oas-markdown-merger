@@ -10,6 +10,8 @@
 
 - [Design by Contract](#design-by-contract)
   - [The DbC Process](#the-dbc-process)
+    - [Code-Contract Co-Design](#code-contract-co-design)
+      - [The Solution](#the-solution)
   - [The Suite Goals](#the-suite-goals)
 - [The Basic Motivation](#the-basic-motivation)
 - [The Big Picture](#the-big-picture)
@@ -31,6 +33,28 @@ The entire DbC process undergoes 3 phases: the concrete Contract definition, imp
 
 The definition is made via OpenAPI specification. The implementation and application require the common tools (frameworks, packages etc.) and specific **DbC** tools to provide Contract documentation and enforcement.
 
+#### Code-Contract Co-Design
+
+Along other projects design the necessity to design code simultaneously with APIs contract revealed.
+
+What I observed:
+
+- To design the Contract for the concrete endpoint you inevitably have to deeper understand the product requirements to model the data and the behavior of the endpoint. This understanding just begs to be documented nearby the endpoint documentation.
+
+- At present OAS does not allow to conveniently (modular, managed separately, presented together) write the extensive code design descriptions;
+
+- The possibility to document the details right away would immensely contribute to the ease of programming and the quality of product.
+
+More formally now:
+
+In DbC approach when designing an application API contract, it feels natural to document requirements, endpoint behavior, critical subtleties, code design rationale, and alternative solutions. Being able to do this would ensure robust contract design and support effective software construction.
+
+Keeping the API contract and code design notes together would further strengthen the contract as a single source of truth. It would also critically strengthen the Contract as a living documentation by enriching it with requirements, rationale, and solutions.
+
+##### The Solution
+
+The small and very effective solution here could be a CLI package that allows merging the separate `.md` files located nearby the OAS contract into OAS `description` fields. It can be easily introduced into the OAS Contract build pipelines.
+
 ### The Suite Goals
 
 - Definition and implementation phases: deliver convenient and flexible Contract documentation website (Looks Package);
@@ -51,8 +75,6 @@ Initially I needed the versatile and flexible OpenAPI documentation website tool
 The existing solutions were either not flexible enough to adopt my functional and visual design requirements or paid.
 
 Starting from that idea I am on the way to create better solution as I see it.
-
-
 
 ## The Big Picture
 
