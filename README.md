@@ -31,12 +31,14 @@
 
 To provide a smooth Contract design, living documentation, construction and enforcement tools. OAS is a core of this. But the process asks for convenience and smoothness to become really productive.
 
-What it should look like:
+How it should look like:
 
-- design (write) the Contract as _modular_ OAS definitions;
-- see the live documentation site as you write the definitions;
-- be able to continuously publish the Contract documentation;
-- be able to package Contract with its enforcement tools to apply it at consumers;
+- design (write) the Contract as
+  + _modular_ OAS definitions that is the Contract data shapes;
+  + AND the neighboring text and models (diagrams) - the Contract behavior;
+- see all that in the live Contract documentation site as you write the definitions and describe models;
+- be able to continuously publish the updated Contract documentation;
+- be able to package the OAS part of the Contract with its enforcement tools to apply the Contract at consumers;
 
 ---
 
@@ -108,12 +110,11 @@ The Concrete Contract Outlet adapter is used in backends to create the endpoints
 - [Generic OAS Adapter](packages/adapters/generic);
 - [Contract Outlet Adapter](packages/adapters/outlet);
 - [Looks](packages/looks);
-  + [Theme](packages/looks);
-  + [Adapter](packages/looks);
-  So far Looks Adapter and Looks Theme are under implicit development as the entire Looks package. They will be extracted into the dedicated packages as soon as they reveal themselves.
+  - [Theme](packages/looks);
+  - [Adapter](packages/looks);
+    So far Looks Adapter and Looks Theme are under implicit development as the entire Looks package. They will be extracted into the dedicated packages as soon as they reveal themselves.
 - [Utilities](packages/utilities);
-  + [Markdown Merger](packages/utilities/markdown-merger)
-
+  - [Markdown Merger](packages/utilities/markdown-merger)
 
 ## Operations
 
