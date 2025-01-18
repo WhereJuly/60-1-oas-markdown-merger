@@ -19,5 +19,8 @@
     },
     "devDependencies": {
         "@tsconfig/node20": "^20.1.4"
+    },
+    "dependencies": {
+        "openapi-types": "^12.1.3"
     }
 }
