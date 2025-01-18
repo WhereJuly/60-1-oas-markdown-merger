@@ -5,10 +5,11 @@
     - [Convenience](#convenience)
       - [HTTP Statuses](#http-statuses)
   - [Documenting](#documenting)
-  - [Development](#development)
+  - [Construction](#construction)
     - [Meaning \& Naming](#meaning--naming)
     - [Testing](#testing)
-    - [Publish Package](#publish-package)
+    - [Refactor](#refactor)
+  - [Publish Package](#publish-package)
 
 ### [Public Interface](#public-interface)
 
@@ -23,10 +24,9 @@ import { EHTTPStatusCodes, THTTPStatuses } from '@dcoupld/oas-generic-adapter';
 
 console.log(EHTTPStatusCodes.ACCEPTED); // 202
 console.log(THTTPStatuses.CREATED); // { code: 200, message: 'Operation successful' }
-
 ```
 
-You can also add HTTP codes and statuses if you need any. See the [example-extend-http-statuses.d.ts](src/core/types/example-extend-http-statuses.d.ts) 
+You can also add HTTP codes and statuses if you need any. See the [example-extend-http-statuses.d.ts](src/core/types/example-extend-http-statuses.d.ts)
 
 ### Documenting
 
@@ -43,12 +43,13 @@ Later I will decide where to publish it.
 The build commands available:
 
 ```bash
-npm run typedoc:build # For basic theme 
+npm run typedoc:build # For basic theme
 npx typedoc src --plugin typedoc-github-theme # For a little more structured theme
 ```
-### Development
 
-#### Meaning & Naming 
+### Construction
+
+#### Meaning & Naming
 
 `OASGenericAdapter` does convey the intended meaning that it is a programmatic object wrapper designed to serve as an intermediary between OpenAPI Specification (OAS) JSON definitions and the consumer. Here's how it communicates that:
 
@@ -60,7 +61,11 @@ npx typedoc src --plugin typedoc-github-theme # For a little more structured the
 
 The good [source](https://github.com/readmeio/oas-examples) of OAS 3.1 JSON definitions examples. The [dereferenced](https://editor-next.swagger.io/) (references resolved) petstore [fixture](./tests/foundation/.ancillary/fixtures/definitions/petstore.oas.json) used in tests is taken from there.
 
-#### Publish Package
+#### Refactor
+
+- The service `OASJSONDefinitionsRetrieveService` is also used in [OAS Markdown Merger Utility](packages/utilities/markdown-merger/readme.md). Will have to extract the service as a separate package to be used here and there.
+
+### Publish Package
 
 To publish the package to the specific registry other than `npmjs` <u>from the build folder</u> with the npm scripts like
 
@@ -68,7 +73,7 @@ To publish the package to the specific registry other than `npmjs` <u>from the b
 "package:publish": "cd ./.delivery/.builds/dist && npm publish"
 ```
 
-the `npm publish` command has to find the `.npmrc` file. Thus it is  mandatory the to set the respective env variable to for the `.npmrc` file to be found. 
+the `npm publish` command has to find the `.npmrc` file. Thus it is mandatory the to set the respective env variable to for the `.npmrc` file to be found.
 
 ```bash
 # Linux bash
@@ -84,4 +89,3 @@ The `package.json` `publishConfig` key is mostly for an information in this case
         "registry": "https://npm.pkg.github.com"
     },
 ```
-

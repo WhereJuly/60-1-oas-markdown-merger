@@ -10,6 +10,9 @@ import OASDBCException from '@src/exceptions/OASDBCException.js';
 type TActualRetrieveReturnType = Promise<string>;
 
 /**
+ * REFACTOR: On the dcoupld/oas package level it has to be available as the separate package
+ * as it is used at least in 2 places. Here and in `utilities/markdown-merger` package.
+ *  
  * Service for retrieving and parsing OpenAPI JSON definitions.
  * 
  * @group Core
