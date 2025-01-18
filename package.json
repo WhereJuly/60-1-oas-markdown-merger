@@ -13,6 +13,8 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "pre-push": "echo \"Success: this is the dummy script for husky pre-push hook\" && exit 0"
+
     }
 }
