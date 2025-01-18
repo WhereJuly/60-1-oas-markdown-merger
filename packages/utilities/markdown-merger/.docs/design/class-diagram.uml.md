@@ -1,23 +1,20 @@
 ```mermaid
 classDiagram
     class OASMarkdownMergerFacade {
-        +OASJSONSpecLoader specLoader
+        +OASJSONDefinitionsRetrieveService definitionsRetrieve
         +MarkdownMergeProcessor mergeProcessor
         +String inputFilePath
         +String outputFilePath
-        +OASMarkdownMergerFacade(specLoader: OASJSONSpecLoader, mergeProcessor: MarkdownMergeProcessor)
-        +static create(specLoader: OASJSONSpecLoader, mergeProcessor: MarkdownMergeProcessor): OASMarkdownMergerFacade
+        +OASMarkdownMergerFacade(definitionsRetrieve: OASJSONDefinitionsRetrieveService, mergeProcessor: MarkdownMergeProcessor)
+        +static create(definitionsRetrieve: OASJSONDefinitionsRetrieveService, mergeProcessor: MarkdownMergeProcessor): OASMarkdownMergerFacade
         +merge(sourceFile: String, destinationFile: String): void
         +writeOutputToFile(filePath: String, content: String): void
         +checkDirectoryExistence(filePath: String): Boolean
         +createDirectory(filePath: String): void
     }
     
-    class OASJSONSpecLoader {
-        +String filePath
-        +loadSpec(): Object
-        +validateSpec(spec: Object): Boolean
-        +extractDescriptionFields(spec: Object): Array
+    class OASJSONDefinitionsRetrieveService {
+        +retrieve(source: string): Promise<OpenAPIV3_1.Document>
     }
 
     class MarkdownMergeProcessor {
@@ -26,15 +23,17 @@ classDiagram
         +mergeContent(description: String, filePath: String): String
     }
 
-    class OASMergerException {
+    class OASDBCException {
         +String message
         +Error originalError
         +constructor(message: String, originalError: Error)
     }
 
-    OASMarkdownMergerFacade --> OASJSONSpecLoader : uses
+    OASMarkdownMergerFacade --> OASJSONDefinitionsRetrieveService : uses
     OASMarkdownMergerFacade --> MarkdownMergeProcessor : uses
-    MarkdownMergeProcessor --> OASMergerException : throws
-    OASJSONSpecLoader --> OASMergerException : throws
+    MarkdownMergeProcessor --> OASDBCException : throws
+    OASJSONDefinitionsRetrieveService --> OASDBCException : throws
 
+    note for OASJSONDefinitionsRetrieveService "So far copied from `dcoupld/oas/adapters/generic` package."
+    note for OASDBCException "So far copied from `dcoupld/oas/adapters/generic` package."
 ```

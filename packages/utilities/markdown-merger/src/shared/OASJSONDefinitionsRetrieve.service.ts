@@ -5,7 +5,7 @@ import path from 'path';
 import { readFile } from 'fs/promises';
 
 import { accessSync, constants } from 'fs';
-import OASDBCException from '@src/exceptions/OASDBCException.js';
+import OASDBCException from './OASDBCException.js';
 
 type TActualRetrieveReturnType = Promise<string>;
 
