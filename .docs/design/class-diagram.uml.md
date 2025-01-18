@@ -23,7 +23,7 @@ classDiagram
         +mergeContent(description: String, filePath: String): String
     }
 
-    class OASMergerException {
+    class OASDBCException {
         +String message
         +Error originalError
         +constructor(message: String, originalError: Error)
@@ -31,10 +31,9 @@ classDiagram
 
     OASMarkdownMergerFacade --> OASJSONDefinitionsRetrieveService : uses
     OASMarkdownMergerFacade --> MarkdownMergeProcessor : uses
-    MarkdownMergeProcessor --> OASMergerException : throws
-    OASJSONDefinitionsRetrieveService --> OASMergerException : throws
+    MarkdownMergeProcessor --> OASDBCException : throws
+    OASJSONDefinitionsRetrieveService --> OASDBCException : throws
 
     note for OASJSONDefinitionsRetrieveService "So far copied from `dcoupld/oas/adapters/generic` package."
-
-
+    note for OASDBCException "So far copied from `dcoupld/oas/adapters/generic` package."
 ```
