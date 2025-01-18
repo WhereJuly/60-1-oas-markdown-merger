@@ -13,11 +13,8 @@ classDiagram
         +createDirectory(filePath: String): void
     }
     
-    class OASJSONSpecLoader {
-        +String filePath
-        +loadSpec(): Object
-        +validateSpec(spec: Object): Boolean
-        +extractDescriptionFields(spec: Object): Array
+    class OASJSONDefinitionsRetrieveService {
+        +retrieve(source: string): Promise<OpenAPIV3_1.Document>
     }
 
     class MarkdownMergeProcessor {
@@ -32,9 +29,12 @@ classDiagram
         +constructor(message: String, originalError: Error)
     }
 
-    OASMarkdownMergerFacade --> OASJSONSpecLoader : uses
+    OASMarkdownMergerFacade --> OASJSONDefinitionsRetrieveService : uses
     OASMarkdownMergerFacade --> MarkdownMergeProcessor : uses
     MarkdownMergeProcessor --> OASMergerException : throws
-    OASJSONSpecLoader --> OASMergerException : throws
+    OASJSONDefinitionsRetrieveService --> OASMergerException : throws
+
+    note for OASJSONDefinitionsRetrieveService "So far copied from `dcoupld/oas/adapters/generic` package."
+
 
 ```
