@@ -13,8 +13,11 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test:foundation": "npm run check-types && vitest run --config tests/foundation/.ancillary/config/vitest.config.ts",
+        "check-types": "npx tsc --noEmit --project .",
         "pre-push": "echo \"Success: this is the dummy script for husky pre-push hook\" && exit 0"
-
+    },
+    "devDependencies": {
+        "@tsconfig/node20": "^20.1.4"
     }
 }
