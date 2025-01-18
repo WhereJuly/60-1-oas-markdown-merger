@@ -1,12 +1,12 @@
 ```mermaid
 classDiagram
     class OASMarkdownMergerFacade {
-        +OASJSONSpecLoader specLoader
+        +OASJSONDefinitionsRetrieveService definitionsRetrieve
         +MarkdownMergeProcessor mergeProcessor
         +String inputFilePath
         +String outputFilePath
-        +OASMarkdownMergerFacade(specLoader: OASJSONSpecLoader, mergeProcessor: MarkdownMergeProcessor)
-        +static create(specLoader: OASJSONSpecLoader, mergeProcessor: MarkdownMergeProcessor): OASMarkdownMergerFacade
+        +OASMarkdownMergerFacade(definitionsRetrieve: OASJSONDefinitionsRetrieveService, mergeProcessor: MarkdownMergeProcessor)
+        +static create(definitionsRetrieve: OASJSONDefinitionsRetrieveService, mergeProcessor: MarkdownMergeProcessor): OASMarkdownMergerFacade
         +merge(sourceFile: String, destinationFile: String): void
         +writeOutputToFile(filePath: String, content: String): void
         +checkDirectoryExistence(filePath: String): Boolean
