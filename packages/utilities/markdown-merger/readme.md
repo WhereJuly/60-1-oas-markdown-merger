@@ -1,4 +1,4 @@
-## Description Merger Utility
+## OAS Markdown Merger Utility
 
 - [Rationale and Motivation](.docs/rationale-and-motivation.md)
 
@@ -11,3 +11,11 @@
 - [Transform Markdown to HTML](.docs/design/transform-markdown-to-html.md)
 - [Logging and Exceptions](.docs/design/logging-and-exceptions.md)
 - [Test Cases](.docs/design/test-cases.md)
+
+### Construction
+
+#### Refactoring
+
+- OASJSONDefinitionsRetrieveService
+  So far it is just copied here from the [Generic Adapter Package](packages/adapters/generic/readme.md);
+  Will have to extract the service as a separate package to be used here an in the original package.
