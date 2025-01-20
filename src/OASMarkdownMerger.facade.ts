@@ -17,21 +17,19 @@ const MERGE_TAG_REGEX = /{% merge '.+' %}/;
 export default class OASMarkdownMergerFacade {
 
     #definitionsRetrieveService: OASJSONDefinitionsRetrieveService;
-    // #definitions: OpenAPIV3_1.Document | {};
-    #basePath: string;
+    #mergesBasePath: string;
 
     /**
      * NB: The class creation only available via `create` static method.
      * WRITE: TDD with explicit basePath
      */
-    private constructor(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, basePath?: string) {
+    private constructor(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath: string) {
         this.#definitionsRetrieveService = definitionsRetrieveService;
-        // this.#definitions = {};
-        this.#basePath = basePath ?? process.cwd();
+        this.#mergesBasePath = mergesBasePath;
     }
 
-    public static create(definitionsRetrieveService: OASJSONDefinitionsRetrieveService): OASMarkdownMergerFacade {
-        return new OASMarkdownMergerFacade(definitionsRetrieveService);
+    public static create(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath?: string): OASMarkdownMergerFacade {
+        return new OASMarkdownMergerFacade(definitionsRetrieveService, mergesBasePath ?? process.cwd());
     }
 
     public async merge(source: string, destinationFile: string): Promise<void> {
@@ -42,7 +40,7 @@ export default class OASMarkdownMergerFacade {
 
         // NB: Replace merge tags with actual content.
         descriptions.forEach(({ path, description }) => {
-            const html = this.produceHTML(description);
+            const html = this.produceHTML(description, this.#mergesBasePath);
             const updatedValue = description.replace(MERGE_TAG_REGEX, html);
             traverse(definitions).set(path, updatedValue);
         });
@@ -69,9 +67,7 @@ export default class OASMarkdownMergerFacade {
     // - Read the merged file, throw if not exist
     // - check it is text, throw it is not
     // - translate to HTML, return HTML.
-    private produceHTML(description: TMergeableDescription['description']): string {
-        console.log('description: ', description);
-
+    private produceHTML(description: TMergeableDescription['description'], mergesBasePath: string): string {
         const isValidMarkdownFilename = (filename: string | null | undefined) => {
             return filename && filename && /^[a-zA-Z0-9._/-]+$/.test(filename) && path.extname(filename) === '.md';
         };
@@ -85,7 +81,7 @@ export default class OASMarkdownMergerFacade {
         if (!isValidMarkdownFilename(filename)) { throw new OASDBCException(`Invalid filename in "merge" tag given "${filename}".`); }
 
         // WRITE: TDD non-existent file
-        const fullPath = path.resolve(this.#basePath, filename as string);
+        const fullPath = path.resolve(mergesBasePath, filename as string);
         if (!fs.existsSync(fullPath)) { throw new OASDBCException(`The file "${fullPath}" does not exist.`); }
 
         const markdown = fs.readFileSync(fullPath, 'utf-8');
