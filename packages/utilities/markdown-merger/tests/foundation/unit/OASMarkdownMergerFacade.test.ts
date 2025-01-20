@@ -30,10 +30,19 @@ describe('OASMarkdownMergerFacadeTest', () => {
         fs.existsSync(tempFolder) && fs.rmSync(tempFolder, { recursive: true, force: true });
     });
 
-    it('+static create(): Should create the expected OASMarkdownMergerFacade object', () => {
+    it('+constructor(): Should create the expected OASMarkdownMergerFacade object', () => {
         const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
 
         const actual = new OASMarkdownMergerFacade(definitionsRetrieveService);
+
+        expect(actual).toBeInstanceOf(OASMarkdownMergerFacade);
+        expect(actual.merge).toBeInstanceOf(Function);
+    });
+
+    it('+static create(): Should create the expected OASMarkdownMergerFacade object', () => {
+        const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
+
+        const actual = OASMarkdownMergerFacade.create();
 
         expect(actual).toBeInstanceOf(OASMarkdownMergerFacade);
         expect(actual.merge).toBeInstanceOf(Function);
@@ -96,7 +105,7 @@ describe('OASMarkdownMergerFacadeTest', () => {
     });
 
     describe('+merge() #4: Should throw for invalid or non-existent merged file', () => {
-        
+
         it.each(dataProvider_non_valid_merged_file_names())('Case #%# $name', async (data) => {
             const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
             const facade = new OASMarkdownMergerFacade(definitionsRetrieveService);
