@@ -5,9 +5,9 @@ import path from 'path';
 import fs from 'fs';
 import { marked } from 'marked';
 import DOMPurify from 'isomorphic-dompurify';
+import traverse from 'traverse';
 
 import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRetrieve.service.js';
-import traverse from 'traverse';
 import OASDBCException from '@src/shared/OASDBCException.js';
 
 type TMergeableDescription = { jsonPath: string[]; description: string; mergingFileName: string; };
@@ -32,16 +32,15 @@ export default class OASMarkdownMergerFacade {
     }
 
     public async merge(source: string, destinationFile: string): Promise<void> {
+        // Retrieve the OpenAPI document from source.
         const definitions = await this.#definitionsRetrieveService.retrieve(source);
 
         // NB: Collect mergeable descriptions.
         const descriptions = this.collectMergeableDescriptions(definitions);
 
-        // NB: Replace merge tags with actual content.
+        // NB: Replace merge tags with actual content of merging files.
         descriptions.forEach((mergeableDescription: TMergeableDescription) => {
-            const html = this.translateToHTML(this.#mergesBasePath, mergeableDescription.mergingFileName);
-            const updatedValue = mergeableDescription.description.replace(MERGE_TAG_REGEX, html);
-            traverse(definitions).set(mergeableDescription.jsonPath, updatedValue);
+            this.mergeIntoDefinitions(definitions, mergeableDescription);
         });
 
         // NB: Save the updated document to the destination file.
@@ -53,18 +52,29 @@ export default class OASMarkdownMergerFacade {
         const descriptions: TMergeableDescription[] = [];
 
         traverse(definitions).forEach(function (node) {
-            if (!facade.isMergeTag(this.key, node)) { return; }
-
-            // NB: The filename must be relative to project root (cwd()) or to given `mergesBasePath`.
-            const match = node.match(/{% merge ['"](.+?)['"] %}/);
-            const filename = match ? match[1] : null;
-
-            if (!facade.isValidMarkdownFilename(filename)) { throw new OASDBCException(`Invalid filename in "merge" tag given "${filename}".`); }
-
-            descriptions.push({ jsonPath: this.path, description: node, mergingFileName: filename });
+            const extracted = facade.extractMergeableDescription(this, node);
+            extracted && descriptions.push(extracted);
         });
 
         return descriptions;
+    }
+
+    private extractMergeableDescription(context: traverse.TraverseContext, node: any): TMergeableDescription | null {
+        if (!this.isMergeTag(context.key, node)) { return null; }
+
+        // NB: The filename must be relative to project root (cwd()) or to given `mergesBasePath`.
+        const match = node.match(/{% merge ['"](.+?)['"] %}/);
+        const filename = match ? match[1] : null;
+
+        if (!this.isValidMarkdownFilename(filename)) { throw new OASDBCException(`Invalid filename in "merge" tag given "${filename}".`); }
+
+        return { jsonPath: context.path, description: node, mergingFileName: filename };
+    }
+
+    private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document, mergeableDescription: TMergeableDescription): void {
+        const html = this.translateToHTML(this.#mergesBasePath, mergeableDescription.mergingFileName);
+        const updatedValue = mergeableDescription.description.replace(MERGE_TAG_REGEX, html);
+        traverse(definitions).set(mergeableDescription.jsonPath, updatedValue);
     }
 
     // WRITE: Produce the HTML value to update the description field with
@@ -72,7 +82,6 @@ export default class OASMarkdownMergerFacade {
     // - check it is text, throw it is not
     // - translate to HTML, return HTML.
     private translateToHTML(mergesBasePath: string, mergingFileName: string): string {
-        // WRITE: TDD non-existent file
         const fullPath = path.resolve(mergesBasePath, mergingFileName);
         if (!fs.existsSync(fullPath)) { throw new OASDBCException(`The file "${fullPath}" does not exist.`); }
 
