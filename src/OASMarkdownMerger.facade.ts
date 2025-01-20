@@ -3,17 +3,11 @@
 import { OpenAPIV3_1 } from 'openapi-types';
 import path from 'path';
 import fs from 'fs';
-import { marked } from 'marked';
-import DOMPurify from 'isomorphic-dompurify';
 import traverse from 'traverse';
 
 import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRetrieve.service.js';
 import OASDBCException from '@src/shared/OASDBCException.js';
 import MergeableDescriptionVO from '@src/MergeableDescription.valueobject.js';
-
-type TMergeableDescription = { jsonPath: string[]; description: string; mergingFileName: string; };
-
-const MERGE_TAG_REGEX = /{% merge '.+' %}/;
 
 export default class OASMarkdownMergerFacade {
 
@@ -51,29 +45,10 @@ export default class OASMarkdownMergerFacade {
         });
     }
 
-    private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document, mergeableDescription: TMergeableDescription | null): void {
+    private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document, mergeableDescription: MergeableDescriptionVO | null): void {
         if (!mergeableDescription) { return; }
 
-        const html = this.translateToHTML(this.#mergesBasePath, mergeableDescription.mergingFileName);
-        const updatedValue = mergeableDescription.description.replace(MERGE_TAG_REGEX, html);
-        traverse(definitions).set(mergeableDescription.jsonPath, updatedValue);
-    }
-
-    // WRITE: Produce the HTML value to update the description field with
-    // - Read the merged file, throw if not exist
-    // - check it is text, throw it is not
-    // - translate to HTML, return HTML.
-    private translateToHTML(mergesBasePath: string, mergingFileName: string): string {
-        const fullPath = path.resolve(mergesBasePath, mergingFileName);
-        if (!fs.existsSync(fullPath)) { throw new OASDBCException(`The file "${fullPath}" does not exist.`); }
-
-        const markdown = fs.readFileSync(fullPath, 'utf-8');
-        const html = marked(markdown) as string;
-
-        // WRITE: TDD sanitize HTML
-        const sanitizedHTML = DOMPurify.sanitize(html);
-
-        return sanitizedHTML;
+        traverse(definitions).set(mergeableDescription.jsonPath, mergeableDescription.merged(this.#mergesBasePath));
     }
 
     private writeToDestinationFile(definitions: OpenAPIV3_1.Document, destinationFile: string): void {
@@ -91,13 +66,5 @@ export default class OASMarkdownMergerFacade {
             throw new OASDBCException(`Could not stringify and write the updated definitions to the destination file. \n\rOriginal error message: ${error.message}`, error);
         }
     }
-
-    private isMergeTag(key: string | undefined, value: any): boolean {
-        return key === 'description' && typeof value === 'string' && MERGE_TAG_REGEX.test(value);
-    };
-
-    private isValidMarkdownFilename(filename: string | null | undefined) {
-        return filename && filename && /^[a-zA-Z0-9._/-]+$/.test(filename) && path.extname(filename) === '.md';
-    };
 
 }

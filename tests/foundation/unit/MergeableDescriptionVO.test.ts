@@ -14,6 +14,8 @@ describe('MergeableDescriptionVOTest', () => {
         const actual = MergeableDescriptionVO.create(...mergeable as TCreateArguments);
 
         expect(actual).toBeInstanceOf(MergeableDescriptionVO);
+        // expect(actual!.renderHTML).toBeInstanceOf(Function);
+        expect(actual!.merged).toBeInstanceOf(Function);
     });
 
     it('+static create() #2: Should return null for non-mergeable node', () => {
@@ -21,6 +23,14 @@ describe('MergeableDescriptionVOTest', () => {
 
         expect(actual).toEqual(null);
     });
-    
+
+    it('+merged(): Should return the "description" filed with merged md file as html', () => {
+        const valid = ['description', ['tags', '0', 'description'], "Everything about your Pets {% merge './simple.md' %}"];
+        const mergeable = MergeableDescriptionVO.create(...valid as TCreateArguments);
+
+        const actual = mergeable!.merged('./tests/foundation/.ancillary/fixtures/markdown');
+
+        expect(actual).toContain('Everything about your Pets <p>This is markdown file content.</p>\n');
+    });
 
 });
