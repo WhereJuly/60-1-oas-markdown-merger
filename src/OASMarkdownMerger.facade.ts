@@ -10,7 +10,7 @@ import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRet
 import traverse from 'traverse';
 import OASDBCException from '@src/shared/OASDBCException.js';
 
-type TMergeableDescription = { path: string[]; description: string; mergingFileName: string; };
+type TMergeableDescription = { jsonPath: string[]; description: string; mergingFileName: string; };
 
 const MERGE_TAG_REGEX = /{% merge '.+' %}/;
 
@@ -38,10 +38,10 @@ export default class OASMarkdownMergerFacade {
         const descriptions = this.collectMergeableDescriptions(definitions);
 
         // NB: Replace merge tags with actual content.
-        descriptions.forEach(({ path, description, mergingFileName }) => {
-            const html = this.translateToHTML(description, this.#mergesBasePath, mergingFileName);
-            const updatedValue = description.replace(MERGE_TAG_REGEX, html);
-            traverse(definitions).set(path, updatedValue);
+        descriptions.forEach((mergeableDescription: TMergeableDescription) => {
+            const html = this.translateToHTML(mergeableDescription.description, this.#mergesBasePath, mergeableDescription.mergingFileName);
+            const updatedValue = mergeableDescription.description.replace(MERGE_TAG_REGEX, html);
+            traverse(definitions).set(mergeableDescription.jsonPath, updatedValue);
         });
 
         // NB: Save the updated document to the destination file.
@@ -49,27 +49,20 @@ export default class OASMarkdownMergerFacade {
     }
 
     private collectMergeableDescriptions(definitions: OpenAPIV3_1.Document): TMergeableDescription[] {
-        const isMergeTag = (key: string | undefined, value: any): boolean => {
-            return key === 'description' && typeof value === 'string' && MERGE_TAG_REGEX.test(value);
-        };
-
-        const isValidMarkdownFilename = (filename: string | null | undefined) => {
-            return filename && filename && /^[a-zA-Z0-9._/-]+$/.test(filename) && path.extname(filename) === '.md';
-        };
-
+        const facade = this;
         const descriptions: TMergeableDescription[] = [];
 
         traverse(definitions).forEach(function (node) {
-            if (!isMergeTag(this.key, node)) { return; }
+            if (!facade.isMergeTag(this.key, node)) { return; }
 
             // NB: The filename must be relative to project root (cwd()) or to given `mergesBasePath`.
             const match = node.match(/{% merge ['"](.+?)['"] %}/);
             const filename = match ? match[1] : null;
 
             // WRITE: TDD invalid filename
-            if (!isValidMarkdownFilename(filename)) { throw new OASDBCException(`Invalid filename in "merge" tag given "${filename}".`); }
+            if (!facade.isValidMarkdownFilename(filename)) { throw new OASDBCException(`Invalid filename in "merge" tag given "${filename}".`); }
 
-            descriptions.push({ path: this.path, description: node, mergingFileName: filename });
+            descriptions.push({ jsonPath: this.path, description: node, mergingFileName: filename });
         });
 
         return descriptions;
@@ -108,5 +101,13 @@ export default class OASMarkdownMergerFacade {
             throw new OASDBCException(`Could not stringify and write the updated definitions to the destination file. \n\rOriginal error message: ${error.message}`, error);
         }
     }
+
+    private isMergeTag(key: string | undefined, value: any): boolean {
+        return key === 'description' && typeof value === 'string' && MERGE_TAG_REGEX.test(value);
+    };
+
+    private isValidMarkdownFilename(filename: string | null | undefined) {
+        return filename && filename && /^[a-zA-Z0-9._/-]+$/.test(filename) && path.extname(filename) === '.md';
+    };
 
 }
