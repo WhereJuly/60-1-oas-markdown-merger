@@ -9,22 +9,107 @@ import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRet
 import OASDBCException from '@src/shared/OASDBCException.js';
 import MergeableDescriptionVO from '@src/MergeableDescription.valueobject.js';
 
+/**
+ * A facade responsible for merging markdown files into descriptions 
+ * in an OpenAPI document and saving the updated document to a specified destination file.
+ * 
+ * It retrieves the OpenAPI document, processes mergeable descriptions, and 
+ * writes the modified document to a file.
+ * 
+ * @example
+ * 
+ * After merge The respective description in the destination JSON will contain the content
+ * from 'docs/example.md' file located at `${process.cwd()}/docs` directory 
+ * translated to HTML (sanitized). 
+ * 
+ * ```json
+ * "description": "Some inline text\n\r{% merge './docs/example.md' %}"
+ * ```
+ * 
+ * @example
+ * 
+ * Programmatic usage:
+ * 
+ * ```typescript
+ * import OASMarkdownMergerFacade from 'path/to/OASMarkdownMergerFacade';
+ * import OASJSONDefinitionsRetrieveService from 'path/to/OASJSONDefinitionsRetrieve.service.js';
+ * 
+ * const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
+ * const oasMarkdownMerger = OASMarkdownMergerFacade.create(definitionsRetrieveService, './merges');
+ * 
+ * // Merge the OpenAPI document from a source path and save it to a destination file
+ * await oasMarkdownMerger.merge('path/to/source.json', 'path/to/destination.json');
+ * ```
+ */
 export default class OASMarkdownMergerFacade {
 
     #definitionsRetrieveService: OASJSONDefinitionsRetrieveService;
     #mergesBasePath: string;
 
     /**
-     * NB: The class creation only available via `create` static method.
+     * Creates an instance of the `OASMarkdownMergerFacade` class.
+     * 
+     * @param {OASJSONDefinitionsRetrieveService} definitionsRetrieveService An instance 
+     * of the `OASJSONDefinitionsRetrieveService` class responsible for retrieving OpenAPI definition.
+     * 
+     * @param {string | undefined} mergesBasePath An optional base path for merging descriptions. 
+     * @default `process.cwd()`.
      */
-    private constructor(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath: string) {
+    constructor(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath?: string) {
         this.#definitionsRetrieveService = definitionsRetrieveService;
-        this.#mergesBasePath = mergesBasePath;
+        this.#mergesBasePath = mergesBasePath ?? process.cwd();
     }
 
-    public static create(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath?: string): OASMarkdownMergerFacade {
+    /**
+     * Factory method to create an instance of `OASMarkdownMergerFacade`.
+     * 
+     * Initializes the required dependencies internally, including an instance 
+     * of `OASJSONDefinitionsRetrieveService`, and creates the facade with an optional base 
+     * path for merging descriptions.
+     * 
+     * Used to simplify the facade initialization for otherwise decoupled public constructor.
+     * 
+     * @param {string | undefined} mergesBasePath An optional base path for merging descriptions. 
+     * @default `process.cwd()`.
+     * 
+     * @returns An instance of `OASMarkdownMergerFacade` initialized with the required dependencies.
+     * 
+     * @example
+     * // Creating an instance of OASMarkdownMergerFacade using the factory method
+     * import OASMarkdownMergerFacade from 'path/to/OASMarkdownMergerFacade';
+     * 
+     * const mergesBasePath = './merges';
+     * const oasMarkdownMerger = OASMarkdownMergerFacade.create(mergesBasePath);
+     * 
+     * // You can now use the created instance to merge OpenAPI documents
+     */
+
+    public static create(mergesBasePath?: string): OASMarkdownMergerFacade {
+        const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
+
         return new OASMarkdownMergerFacade(definitionsRetrieveService, mergesBasePath ?? process.cwd());
     }
+
+    /**
+     * Merges descriptions in the OpenAPI document retrieved from the specified source
+     * and saves the updated document to the specified destination file.
+     * 
+     * This method performs the following steps:
+     * 1. Retrieves the OpenAPI document from the source file.
+     * 2. Processes and merges mergeable descriptions in the document.
+     * 3. Saves the updated document to the destination file.
+     * 
+     * @param {string} source The relative file path or URL of the OpenAPI document to retrieve.
+     * @param {string} destinationFile The relative path to the destination file where the merged OpenAPI
+     * document will be saved.
+     * 
+     * The root for both `source` (when a file path) and `destinationFile` is `process.cwd()`.
+     * 
+     * @example
+     * 
+     * // Merging descriptions and saving the updated document
+     * await oasMarkdownMerger.merge('path/to/source.json', 'path/to/destination.json');
+     */
 
     public async merge(source: string, destinationFile: string): Promise<void> {
         // Retrieve the OpenAPI document from source.
