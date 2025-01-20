@@ -25,7 +25,7 @@
   "tags": [
     {
       "name": "pet",
-      "description": "Everything about your Pets\n\r{% merge './docs/example.md' %}",
+      "description": "Everything about your Pets\n\r{% merge 'tests/foundation/.ancillary/fixtures/markdown/simple.md' %}",
       "externalDocs": {
         "description": "Find out more",
         "url": "http://swagger.io"
@@ -60,7 +60,7 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "description": "Example ID description with merge tag {% merge './docs/example.md' %}",
+                    "description": "Example ID description with merge tag {% merge 'tests/foundation/.ancillary/fixtures/markdown/simple.md' %}",
                     "type": "integer",
                     "format": "int64",
                     "examples": [10]
@@ -153,7 +153,7 @@
                         "examples": [1]
                       },
                       "name": {
-                        "description": "{% merge './docs/example.md' %}",
+                        "description": "{% merge 'tests/foundation/.ancillary/fixtures/markdown/simple.md' %}",
                         "type": "string",
                         "examples": ["Dogs"]
                       }
