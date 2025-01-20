@@ -71,7 +71,7 @@ describe('OASMarkdownMergerFacadeTest', () => {
             const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
             const facade = OASMarkdownMergerFacade.create(definitionsRetrieveService);
 
-            const actual = async () => { await facade.merge(data.filename, 'missing output dummy'); };
+            const actual = async () => { await facade.merge(`${sourceFolder}/${data.filename}`, 'missing output dummy'); };
 
             await expect(() => actual()).rejects.toThrowError(data.errorContains);
         });
@@ -93,6 +93,26 @@ describe('OASMarkdownMergerFacadeTest', () => {
         };
 
         await expect(() => actual()).rejects.toThrowError('Invalid filename in "merge" tag given');
+    });
+
+    describe('+merge() #4: Should throw for invalid or non-existent merged file', () => {
+        
+        it.each(dataProvider_non_valid_merged_file_names())('Case #%# $name', async (data) => {
+            const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
+            const facade = OASMarkdownMergerFacade.create(definitionsRetrieveService);
+
+            const actual = async () => { await facade.merge(`${sourceFolder}/${data.filename}`, 'missing output dummy'); };
+
+            await expect(() => actual()).rejects.toThrowError(data.errorContains);
+        });
+
+        function dataProvider_non_valid_merged_file_names() {
+            return [
+                { name: 'No ".md" extension', filename: 'invalid-merged-file-name.oas.json', errorContains: 'Invalid filename in "merge" tag given' },
+                { name: 'Not an existing merging file', filename: 'non-existent-merged-file-name.oas.json', errorContains: 'valid-nonexistent.md" does not exist' },
+            ];
+        }
+
     });
 
 });
