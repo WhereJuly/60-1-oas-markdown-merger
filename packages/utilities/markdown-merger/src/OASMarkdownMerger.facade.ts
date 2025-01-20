@@ -9,6 +9,7 @@ import traverse from 'traverse';
 
 import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRetrieve.service.js';
 import OASDBCException from '@src/shared/OASDBCException.js';
+import MergeableDescriptionVO from '@src/MergeableDescription.valueobject.js';
 
 type TMergeableDescription = { jsonPath: string[]; description: string; mergingFileName: string; };
 
@@ -46,26 +47,13 @@ export default class OASMarkdownMergerFacade {
         const facade = this;
 
         traverse(definitions).forEach(function (node) {
-            const mergeable = facade.extractMergeableDescription(this, node);
-            facade.mergeIntoDefinitions(definitions, mergeable);
+            facade.mergeIntoDefinitions(definitions, MergeableDescriptionVO.create(this.key, this.path, node));
         });
-    }
-
-    private extractMergeableDescription(context: traverse.TraverseContext, node: any): TMergeableDescription | null {
-        if (!this.isMergeTag(context.key, node)) { return null; }
-
-        // NB: The filename must be relative to project root (cwd()) or to given `mergesBasePath`.
-        const match = node.match(/{% merge ['"](.+?)['"] %}/);
-        const filename = match ? match[1] : null;
-
-        if (!this.isValidMarkdownFilename(filename)) { throw new OASDBCException(`Invalid filename in "merge" tag given "${filename}".`); }
-
-        return { jsonPath: context.path, description: node, mergingFileName: filename };
     }
 
     private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document, mergeableDescription: TMergeableDescription | null): void {
         if (!mergeableDescription) { return; }
-        
+
         const html = this.translateToHTML(this.#mergesBasePath, mergeableDescription.mergingFileName);
         const updatedValue = mergeableDescription.description.replace(MERGE_TAG_REGEX, html);
         traverse(definitions).set(mergeableDescription.jsonPath, updatedValue);
