@@ -21,7 +21,6 @@ export default class OASMarkdownMergerFacade {
 
     /**
      * NB: The class creation only available via `create` static method.
-     * WRITE: TDD with explicit basePath
      */
     private constructor(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath: string) {
         this.#definitionsRetrieveService = definitionsRetrieveService;
@@ -40,12 +39,12 @@ export default class OASMarkdownMergerFacade {
 
         // NB: Replace merge tags with actual content.
         descriptions.forEach(({ path, description }) => {
-            const html = this.produceHTML(description, this.#mergesBasePath);
+            const html = this.translateToHTML(description, this.#mergesBasePath);
             const updatedValue = description.replace(MERGE_TAG_REGEX, html);
             traverse(definitions).set(path, updatedValue);
         });
 
-        // WRITE: TDD Save the updated document to the destination file.
+        // NB: Save the updated document to the destination file.
         this.writeToDestinationFile(definitions, destinationFile);
     }
 
@@ -67,13 +66,13 @@ export default class OASMarkdownMergerFacade {
     // - Read the merged file, throw if not exist
     // - check it is text, throw it is not
     // - translate to HTML, return HTML.
-    private produceHTML(description: TMergeableDescription['description'], mergesBasePath: string): string {
+    private translateToHTML(description: TMergeableDescription['description'], mergesBasePath: string): string {
         const isValidMarkdownFilename = (filename: string | null | undefined) => {
             return filename && filename && /^[a-zA-Z0-9._/-]+$/.test(filename) && path.extname(filename) === '.md';
         };
 
-        // NB: The filename must be relative to project root (cwd())
-        // WRITE: TDD 1) default basePath and 2) given basePath
+        // NB: The filename must be relative to project root (cwd()) or to given `mergesBasePath`.
+        // WRITE: TDD 1) default mergesBasePath and 2) given mergesBasePath
         const match = description.match(/{% merge ['"](.+?)['"] %}/);
         const filename = match ? match[1] : null;
 
