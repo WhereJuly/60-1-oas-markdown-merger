@@ -60,6 +60,30 @@ export default class OASMarkdownMergerFacade {
         this.#mergesBasePath = mergesBasePath ?? process.cwd();
     }
 
+    /**
+     * Factory method to create an instance of `OASMarkdownMergerFacade`.
+     * 
+     * Initializes the required dependencies internally, including an instance 
+     * of `OASJSONDefinitionsRetrieveService`, and creates the facade with an optional base 
+     * path for merging descriptions.
+     * 
+     * Used to simplify the facade initialization for otherwise decoupled public constructor.
+     * 
+     * @param {string | undefined} mergesBasePath An optional base path for merging descriptions. 
+     * @default `process.cwd()`.
+     * 
+     * @returns An instance of `OASMarkdownMergerFacade` initialized with the required dependencies.
+     * 
+     * @example
+     * // Creating an instance of OASMarkdownMergerFacade using the factory method
+     * import OASMarkdownMergerFacade from 'path/to/OASMarkdownMergerFacade';
+     * 
+     * const mergesBasePath = './merges';
+     * const oasMarkdownMerger = OASMarkdownMergerFacade.create(mergesBasePath);
+     * 
+     * // You can now use the created instance to merge OpenAPI documents
+     */
+
     public static create(mergesBasePath?: string): OASMarkdownMergerFacade {
         const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
 
