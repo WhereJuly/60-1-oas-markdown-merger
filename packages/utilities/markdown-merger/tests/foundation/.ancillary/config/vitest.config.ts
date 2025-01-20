@@ -9,9 +9,6 @@ import _excluded from './excluded.js';
 const root = pathToFileURL(cwd()).toString();
 const excluded = _excluded(configDefaults.exclude);
 
-// console.log(fileURLToPath(new URL('../../../', import.meta.url)));
-// console.log(fileURLToPath(new URL('../../../../', import.meta.url)) + 'src/**/*.{ts,tsx}');
-
 export default defineConfig({
     plugins: [],
     resolve: {
@@ -23,12 +20,10 @@ export default defineConfig({
     },
     test: {
         /**
-         * WARNING: To prevent errors from multiple disk Postgres DB initializations in parallel test
-         * set `fileParallelism` to `false`. SQLite in-memory tests do not cause the error.
-         * `NODE_ENV=test` configured to run in-memory tests. Thus the option is set conditionally. 
-         * @see config implementation/src/config/database.json#test
+         * WARNING: To prevent errors from using same temp files in parallel test
+         * Could also countermeasure this with dynamic temp files. Will keep as is so far.
          */
-        // fileParallelism: false,
+        fileParallelism: false,
 
         /**
          * WARNING: To prevent tests hanging.
