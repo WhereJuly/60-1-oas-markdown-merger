@@ -2,6 +2,13 @@
     "name": "oas-markdown-merger",
     "version": "0.0.1-dev.0",
     "description": "Merge arbitrary markdown files (translated to HTML) into OpenAPI (3.1.0) `description` fields.",
+    "type": "module",
+    "main": "./code/index.js",
+    "module": "./code/index.js",
+    "types": "./types/index.d.ts",
+    "bin": {
+        "oas-markdown-merger": "./bin/cli.js"
+    },
     "keywords": [
         "openapi",
         "description",
@@ -10,8 +17,6 @@
     ],
     "license": "UNLICENSED",
     "author": "valentineshi.dev@gmail.com",
-    "type": "module",
-    "main": "index.js",
     "scripts": {
         "test:foundation": "npm run check-types && vitest run --config tests/foundation/.ancillary/config/vitest.config.ts",
         "check-types": "npx tsc --noEmit --project .",
@@ -22,6 +27,7 @@
     },
     "dependencies": {
         "@types/traverse": "^0.6.37",
+        "commander": "^13.0.0",
         "isomorphic-dompurify": "^2.20.0",
         "marked": "^15.0.6",
         "openapi-types": "^12.1.3",
