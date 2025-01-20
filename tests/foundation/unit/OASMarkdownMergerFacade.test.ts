@@ -40,8 +40,6 @@ describe('OASMarkdownMergerFacadeTest', () => {
     });
 
     it('+static create(): Should create the expected OASMarkdownMergerFacade object', () => {
-        const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
-
         const actual = OASMarkdownMergerFacade.create();
 
         expect(actual).toBeInstanceOf(OASMarkdownMergerFacade);
