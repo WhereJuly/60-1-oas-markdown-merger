@@ -51,14 +51,14 @@ export default class OASMarkdownMergerFacade {
      * The constructor is private to enforce the use of the static `create` method to ensure
      * controlled instantiation of the class with the necessary dependencies.
      */
-    private constructor(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath: string) {
+    constructor(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath?: string) {
         this.#definitionsRetrieveService = definitionsRetrieveService;
-        this.#mergesBasePath = mergesBasePath;
+        this.#mergesBasePath = mergesBasePath ?? process.cwd();
     }
 
-    public static create(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath?: string): OASMarkdownMergerFacade {
-        return new OASMarkdownMergerFacade(definitionsRetrieveService, mergesBasePath ?? process.cwd());
-    }
+    // public static create(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath?: string): OASMarkdownMergerFacade {
+    //     return new OASMarkdownMergerFacade(definitionsRetrieveService, mergesBasePath ?? process.cwd());
+    // }
 
     public async merge(source: string, destinationFile: string): Promise<void> {
         // Retrieve the OpenAPI document from source.

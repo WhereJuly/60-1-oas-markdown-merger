@@ -33,7 +33,7 @@ describe('OASMarkdownMergerFacadeTest', () => {
     it('+static create(): Should create the expected OASMarkdownMergerFacade object', () => {
         const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
 
-        const actual = OASMarkdownMergerFacade.create(definitionsRetrieveService);
+        const actual = new OASMarkdownMergerFacade(definitionsRetrieveService);
 
         expect(actual).toBeInstanceOf(OASMarkdownMergerFacade);
         expect(actual.merge).toBeInstanceOf(Function);
@@ -42,7 +42,7 @@ describe('OASMarkdownMergerFacadeTest', () => {
     describe('+merge() #1: Should successfully merge markdown files and save the destination file', async () => {
 
         it.each(dataProvider_merging_base_paths())('Case #%# $name', async (data) => {
-            const facade = OASMarkdownMergerFacade.create(definitionsRetrieveService, data.mergedBasePath);
+            const facade = new OASMarkdownMergerFacade(definitionsRetrieveService, data.mergedBasePath);
 
             await facade.merge(`${sourceFolder}/${data.sourceFile}`, destinationFile);
 
@@ -69,7 +69,7 @@ describe('OASMarkdownMergerFacadeTest', () => {
             const source = './tests/foundation/.ancillary/fixtures/definitions/petstore.oas.json';
 
             const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
-            const facade = OASMarkdownMergerFacade.create(definitionsRetrieveService);
+            const facade = new OASMarkdownMergerFacade(definitionsRetrieveService);
 
             const actual = async () => { await facade.merge(`${sourceFolder}/${data.filename}`, 'missing output dummy'); };
 
@@ -86,7 +86,7 @@ describe('OASMarkdownMergerFacadeTest', () => {
     });
 
     it('+merge() #3: Should throw for invalid merged file name', async () => {
-        const facade = OASMarkdownMergerFacade.create(definitionsRetrieveService);
+        const facade = new OASMarkdownMergerFacade(definitionsRetrieveService);
 
         const actual = async () => {
             await facade.merge(`${sourceFolder}/invalid-merged-file-name.oas.json`, destinationFile);
@@ -99,7 +99,7 @@ describe('OASMarkdownMergerFacadeTest', () => {
         
         it.each(dataProvider_non_valid_merged_file_names())('Case #%# $name', async (data) => {
             const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
-            const facade = OASMarkdownMergerFacade.create(definitionsRetrieveService);
+            const facade = new OASMarkdownMergerFacade(definitionsRetrieveService);
 
             const actual = async () => { await facade.merge(`${sourceFolder}/${data.filename}`, 'missing output dummy'); };
 
