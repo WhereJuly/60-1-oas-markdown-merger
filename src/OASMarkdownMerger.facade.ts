@@ -9,6 +9,37 @@ import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRet
 import OASDBCException from '@src/shared/OASDBCException.js';
 import MergeableDescriptionVO from '@src/MergeableDescription.valueobject.js';
 
+/**
+ * A facade responsible for merging markdown files into descriptions 
+ * in an OpenAPI document and saving the updated document to a specified destination file.
+ * 
+ * It retrieves the OpenAPI document, processes mergeable descriptions, and 
+ * writes the modified document to a file.
+ * 
+ * @example
+ * 
+ * After merge The respective description in the destination JSON will contain the content
+ * from 'docs/example.md' file located at project root 'docs' directory translated to HTML (sanitized). 
+ * 
+ * ```json
+ * "description": "Some inline text\n\r{% merge './docs/example.md' %}"
+ * ```
+ * 
+ * @example
+ * 
+ * Programmatic usage:
+ * 
+ * ```typescript
+ * import OASMarkdownMergerFacade from 'path/to/OASMarkdownMergerFacade';
+ * import OASJSONDefinitionsRetrieveService from 'path/to/OASJSONDefinitionsRetrieve.service.js';
+ * 
+ * const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
+ * const oasMarkdownMerger = OASMarkdownMergerFacade.create(definitionsRetrieveService, './merges');
+ * 
+ * // Merge the OpenAPI document from a source path and save it to a destination file
+ * await oasMarkdownMerger.merge('path/to/source.json', 'path/to/destination.json');
+ * ```
+ */
 export default class OASMarkdownMergerFacade {
 
     #definitionsRetrieveService: OASJSONDefinitionsRetrieveService;
@@ -16,6 +47,9 @@ export default class OASMarkdownMergerFacade {
 
     /**
      * NB: The class creation only available via `create` static method.
+     * 
+     * The constructor is private to enforce the use of the static `create` method to ensure
+     * controlled instantiation of the class with the necessary dependencies.
      */
     private constructor(definitionsRetrieveService: OASJSONDefinitionsRetrieveService, mergesBasePath: string) {
         this.#definitionsRetrieveService = definitionsRetrieveService;
