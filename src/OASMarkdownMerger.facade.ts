@@ -35,28 +35,20 @@ export default class OASMarkdownMergerFacade {
         // Retrieve the OpenAPI document from source.
         const definitions = await this.#definitionsRetrieveService.retrieve(source);
 
-        // NB: Collect mergeable descriptions.
-        const descriptions = this.collectMergeableDescriptions(definitions);
-
-        // NB: Replace merge tags with actual content of merging files.
-        descriptions.forEach((mergeableDescription: TMergeableDescription) => {
-            this.mergeIntoDefinitions(definitions, mergeableDescription);
-        });
+        // NB: Walk along the definitions and merge mergeable descriptions.
+        this.processMergeableDescriptions(definitions);
 
         // NB: Save the updated document to the destination file.
         this.writeToDestinationFile(definitions, destinationFile);
     }
 
-    private collectMergeableDescriptions(definitions: OpenAPIV3_1.Document): TMergeableDescription[] {
+    private processMergeableDescriptions(definitions: OpenAPIV3_1.Document): void {
         const facade = this;
-        const descriptions: TMergeableDescription[] = [];
 
         traverse(definitions).forEach(function (node) {
-            const extracted = facade.extractMergeableDescription(this, node);
-            extracted && descriptions.push(extracted);
+            const mergeable = facade.extractMergeableDescription(this, node);
+            facade.mergeIntoDefinitions(definitions, mergeable);
         });
-
-        return descriptions;
     }
 
     private extractMergeableDescription(context: traverse.TraverseContext, node: any): TMergeableDescription | null {
@@ -71,7 +63,9 @@ export default class OASMarkdownMergerFacade {
         return { jsonPath: context.path, description: node, mergingFileName: filename };
     }
 
-    private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document, mergeableDescription: TMergeableDescription): void {
+    private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document, mergeableDescription: TMergeableDescription | null): void {
+        if (!mergeableDescription) { return; }
+        
         const html = this.translateToHTML(this.#mergesBasePath, mergeableDescription.mergingFileName);
         const updatedValue = mergeableDescription.description.replace(MERGE_TAG_REGEX, html);
         traverse(definitions).set(mergeableDescription.jsonPath, updatedValue);
