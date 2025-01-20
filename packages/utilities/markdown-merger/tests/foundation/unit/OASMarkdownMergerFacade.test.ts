@@ -85,4 +85,14 @@ describe('OASMarkdownMergerFacadeTest', () => {
 
     });
 
+    it('+merge() #3: Should throw for invalid merged file name', async () => {
+        const facade = OASMarkdownMergerFacade.create(definitionsRetrieveService);
+
+        const actual = async () => {
+            await facade.merge(`${sourceFolder}/invalid-merged-file-name.oas.json`, destinationFile);
+        };
+
+        await expect(() => actual()).rejects.toThrowError('Invalid filename in "merge" tag given');
+    });
+
 });
