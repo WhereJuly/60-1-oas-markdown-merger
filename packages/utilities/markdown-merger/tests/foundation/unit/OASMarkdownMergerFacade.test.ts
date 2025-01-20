@@ -56,8 +56,8 @@ describe('OASMarkdownMergerFacadeTest', () => {
 
         function dataProvider_merging_base_paths() {
             return [
-                { name: 'With merges default base path (cwd)', sourceFile: 'petstore-default-merges-path.oas.json', mergedBasePath: undefined },
-                { name: 'With merges custom base path', sourceFile: 'petstore-custom-merges-path.oas.json', mergedBasePath: './tests/foundation/.ancillary/fixtures/markdown' },
+                { name: 'With merges default base path (cwd)', sourceFile: 'petstore.oas.json', mergedBasePath: undefined },
+                { name: 'With merges custom base path', sourceFile: 'custom-merges-path.oas.json', mergedBasePath: './tests/foundation/.ancillary/fixtures/markdown' },
             ];
         }
 
