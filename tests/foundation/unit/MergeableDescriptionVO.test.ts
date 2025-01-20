@@ -14,7 +14,6 @@ describe('MergeableDescriptionVOTest', () => {
         const actual = MergeableDescriptionVO.create(...mergeable as TCreateArguments);
 
         expect(actual).toBeInstanceOf(MergeableDescriptionVO);
-        // expect(actual!.renderHTML).toBeInstanceOf(Function);
         expect(actual!.merged).toBeInstanceOf(Function);
     });
 
