@@ -3,7 +3,7 @@ name: OAS Markdown Merger test, coverage, subtree push
 on:
   push:
     branches:
-      # - never # Skip the workflow for debugging purposes;
+      # - never # Skip the workflow for debugging purposes; 
       - implement/utilities/markdown-merger/implement-package-ci # NB: For debugging only
       - develop
       - master
