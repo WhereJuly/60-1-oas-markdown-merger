@@ -12,7 +12,7 @@ export const colors = {
 */
 export default function excluded(defaults: string[]) {
     const base = [...defaults, 'e2e/*'];
-    const additional = ['**/examples', '**/explorations', '**/integration/.external'];
+    const additional = ['**/examples', '**/explorations', '**/integration/.external', '.usage'];
 
     const toInclude = process.env.TEST_INCLUDE?.split(',') || [];
 
