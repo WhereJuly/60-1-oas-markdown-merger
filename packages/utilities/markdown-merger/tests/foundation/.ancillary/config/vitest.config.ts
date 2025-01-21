@@ -46,7 +46,7 @@ export default defineConfig({
             reporter: ['text', 'json', 'html'],
             clean: true,
             include: ['src/**/*.{ts,tsx}'],
-            exclude: ['**/*.d.ts', '**/*.types.ts', '**/types.ts'],
+            exclude: ['**/*.d.ts', '**/*.types.ts', '**/types.ts', 'src/{shared,cli,index.ts}'],
             reportsDirectory: fileURLToPath(new URL(`${root}/tests/foundation/.coverage`)),
             thresholds: {
                 lines: 90

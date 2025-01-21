@@ -1,30 +1,30 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import type { PackageJson } from 'types-package-json';
 
 import { colors } from '@src/cli/colors.js';
 import OASMarkdownMergerFacade from '@src/core/OASMarkdownMerger.facade.js';
 
-import * as pkg from '../../package.json' assert {type: 'json' };
-
-const packageName = pkg.default.name;
-const packageVersion = pkg.default.version;
+import { createRequire } from "module";
+const pkg = createRequire(import.meta.url)("../../package.json") as PackageJson;
 
 const program = new Command();
 
 await program
-    .name(packageName)
-    .version(packageVersion)
-    .description('Merges the content of markdown files mentioned with "{% merge ./docs/example.md\' %}" tags into respective OpenAPI JSON "description" fields.')
-    .usage("--input <input> --output <output>")
-    .requiredOption('-i, --input <input>', 'Input OAS file path. ')
-    .requiredOption('-o, --output <output>', 'Output OAS file path with descriptions merged (if any).')
-    .action(async (options: { input: string; output: string; }) => {
+    .name(pkg.name)
+    .version(pkg.version)
+    .description('Merges the content of markdown files mentioned with "{% merge \'./docs/example.md\' %}" tags into respective OpenAPI JSON "description" fields.')
+    .usage("--source <file> --destination <file> [--merges-base <path>]")
+    .requiredOption('-i, --source <file>', 'Source OpenAPI definitions file path.')
+    .requiredOption('-o, --destination <file>', 'Destination OAS file path with descriptions merged (if any).')
+    .option('-m, --merges-base <path>', 'The base path for files mentioned in the "merge" tags.')
+    .action(async (options: { source: string; destination: string; mergesBase?: string; }) => {
         try {
-            const facade = OASMarkdownMergerFacade.create();
-            await facade.merge(options.input, options.output);
+            const facade = OASMarkdownMergerFacade.create(options.mergesBase);
+            await facade.merge(options.source, options.destination);
 
-            console.log(`\n[${colors.green}INFO${colors.reset}] Successfully merged to "${options.output}" file.\n`);
+            console.log(`\n[${colors.green}INFO${colors.reset}] Successfully merged to "${options.destination}" file.\n`);
 
         } catch (_error) {
             const error = _error as Error;
