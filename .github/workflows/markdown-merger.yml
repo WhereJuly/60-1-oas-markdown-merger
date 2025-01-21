@@ -1,0 +1,51 @@
+name: OAS Markdown Merger test, coverage, subtree push
+
+on:
+  push:
+    branches:
+      # - never # Skip the workflow for debugging purposes;
+      - implement/utilities/markdown-merger/implement-package-ci # NB: For debugging only
+      - develop
+      - master
+    paths:
+      - ".github/workflows/markdown-merger.yml"
+      - "packages/utilities/markdown-merger/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_AUTH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }} # NB: Cannot use 'GITHUB_' prefix
+
+    name: Test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install dependencies for .usage subfolder
+        working-directory: ./.usage
+        run: npm install
+
+      - name: Run tests and collect coverage
+        # NB: See https://app.codecov.io/gh/WhereJuly/60-1-oas-markdown-merger/tests/new
+        # NB: See https://app.codecov.io/gh/WhereJuly/60-1-oas-markdown-merger/new
+        run: npm run test:foundation -- --coverage
+
+      - name: Push to dedicated repo
+        run: |
+          git remote add split/markdown-merger https://github.com/WhereJuly/60-1-oas-markdown-merger.git
+          git subtree push --prefix=packages/utilities/markdown-merger split/markdown-merger master
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
