@@ -8,8 +8,6 @@
  */
 export default class OASDBCException extends Error {
 
-    #originalError: Error | undefined;
-
     constructor(message: string, originalError?: Error) {
         const originalMessage = originalError ? ` (original message: ${originalError.message})` : '';
 
@@ -21,8 +19,6 @@ export default class OASDBCException extends Error {
         }
 
         this.name = this.constructor.name;
-        this.#originalError = originalError;
     }
-
 
 }
