@@ -3,7 +3,7 @@ name: OAS Markdown Merger test, coverage, subtree push
 on:
   push:
     branches:
-      # - never # Skip the workflow for debugging purposes;  
+      # - never # Skip the workflow for debugging purposes;
       - implement/utilities/markdown-merger/implement-package-ci # NB: For debugging only
       - develop
       - master
@@ -28,7 +28,7 @@ jobs:
           node-version: 20
 
       # WARNING: This step requires private package dependency for packages/looks package.
-      # I removed it temporary. 
+      # I removed it temporary.
       # Will see if I should still need it when return to the dependant package development.
       - name: Install the top-level monorepo packages
         run: npm install
@@ -53,7 +53,7 @@ jobs:
 
       - name: Push the package subtree to a dedicated repo
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}  # Your PAT secret in GitHub      
+          GITHUB_TOKEN: ${{ secrets.GH_AUTH_TOKEN }} # Your PAT secret in GitHub
         run: |
           # Extract version from package.json
           PACKAGE_VERSION=$(jq -r '.version' packages/utilities/markdown-merger/package.json)
@@ -78,5 +78,3 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: WhereJuly/60-1-oas-markdown-merger
-
-
