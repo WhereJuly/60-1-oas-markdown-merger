@@ -52,6 +52,8 @@ jobs:
         run: npm run test:foundation -- --coverage
 
       - name: Push the package subtree to a dedicated repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}  # Your PAT secret in GitHub      
         run: |
           # Extract version from package.json
           PACKAGE_VERSION=$(jq -r '.version' packages/utilities/markdown-merger/package.json)
@@ -61,7 +63,8 @@ jobs:
           echo "Preparing tag $TAG"
 
           # Push the subtree to the dedicated repository
-          git remote add split/markdown-merger https://github.com/WhereJuly/60-1-oas-markdown-merger.git
+          # git remote add split/markdown-merger https://github.com/WhereJuly/60-1-oas-markdown-merger.git
+          git remote add split/markdown-merger https://x-access-token:${GITHUB_TOKEN}@github.com/WhereJuly/60-1-oas-markdown-merger.git
           git subtree push --prefix=packages/utilities/markdown-merger split/markdown-merger master
 
           # Tag the release
