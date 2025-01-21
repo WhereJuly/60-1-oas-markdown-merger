@@ -40,17 +40,28 @@ describe('OASMarkdownMergerFacadeTest', () => {
         expect(actual.merge).toBeInstanceOf(Function);
     });
 
-    it('+static create(): Should create the expected OASMarkdownMergerFacade object', () => {
-        const actual = OASMarkdownMergerFacade.create();
+    describe('+static create(): Should create the expected OASMarkdownMergerFacade object', () => {
 
-        expect(actual).toBeInstanceOf(OASMarkdownMergerFacade);
-        expect(actual.merge).toBeInstanceOf(Function);
+        it.each(dataProvider_merging_base_paths_1())('Case #%# $name', (data) => {
+            const actual = OASMarkdownMergerFacade.create(data.mergesBasePath);
+
+            expect(actual).toBeInstanceOf(OASMarkdownMergerFacade);
+            expect(actual.merge).toBeInstanceOf(Function);
+        });
+
+        function dataProvider_merging_base_paths_1() {
+            return [
+                { name: 'With merges default base path (cwd)', mergesBasePath: undefined },
+                { name: 'With merges custom base path', mergesBasePath: './tests/foundation/.ancillary/fixtures/markdown' },
+            ];
+        }
+
     });
 
     describe('+merge() #1: Should successfully merge markdown files and save the destination file', () => {
 
-        it.each(dataProvider_merging_base_paths())('Case #%# $name', async (data) => {
-            const facade = new OASMarkdownMergerFacade(definitionsRetrieveService, data.mergedBasePath);
+        it.each(dataProvider_merging_base_paths_2())('Case #%# $name', async (data) => {
+            const facade = new OASMarkdownMergerFacade(definitionsRetrieveService, data.mergesBasePath);
 
             await facade.merge(`${sourceFolder}/${data.sourceFile}`, destinationFile);
 
@@ -62,10 +73,10 @@ describe('OASMarkdownMergerFacadeTest', () => {
             expect(actual).toEqual(3);
         });
 
-        function dataProvider_merging_base_paths() {
+        function dataProvider_merging_base_paths_2() {
             return [
-                { name: 'With merges default base path (cwd)', sourceFile: 'petstore.oas.json', mergedBasePath: undefined },
-                { name: 'With merges custom base path', sourceFile: 'custom-merges-path.oas.json', mergedBasePath: './tests/foundation/.ancillary/fixtures/markdown' },
+                { name: 'With merges default base path (cwd)', sourceFile: 'petstore.oas.json', mergesBasePath: undefined },
+                { name: 'With merges custom base path', sourceFile: 'custom-merges-path.oas.json', mergesBasePath: './tests/foundation/.ancillary/fixtures/markdown' },
             ];
         }
 
@@ -105,8 +116,8 @@ describe('OASMarkdownMergerFacadeTest', () => {
 
         function dataProvider_invalid_destination_file() {
             return [
-                { name: 'Non-existent folder', destination: 'non-existent-folder'},
-                { name: 'Does not have .json extension', destination: `${tempFolder}/no-json-extension`},
+                { name: 'Non-existent folder', destination: 'non-existent-folder' },
+                { name: 'Does not have .json extension', destination: `${tempFolder}/no-json-extension` },
             ];
         }
 
