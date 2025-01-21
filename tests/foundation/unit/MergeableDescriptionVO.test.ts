@@ -1,6 +1,6 @@
 'use strict';
 
-import MergeableDescriptionVO from '@src/MergeableDescription.valueobject.js';
+import MergeableDescriptionVO from '@src/core/MergeableDescription.valueobject.js';
 import { describe, expect, it } from 'vitest';
 
 type TCreateArguments = [string, string[], string];

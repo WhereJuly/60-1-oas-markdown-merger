@@ -4,7 +4,7 @@ import { afterAll, afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import fs from 'fs';
 
-import OASMarkdownMergerFacade from '@src/OASMarkdownMerger.facade.js';
+import OASMarkdownMergerFacade from '@src/core/OASMarkdownMerger.facade.js';
 
 import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRetrieve.service.js';
 
