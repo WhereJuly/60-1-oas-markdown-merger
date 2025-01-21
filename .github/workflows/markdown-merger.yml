@@ -77,3 +77,6 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          slug: WhereJuly/60-1-oas-markdown-merger
+
+
