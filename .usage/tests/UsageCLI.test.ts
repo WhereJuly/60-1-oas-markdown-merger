@@ -22,7 +22,7 @@ describe('Usage CLI Application', () => {
         fs.existsSync(tempFolder) && fs.rmSync(tempFolder, { recursive: true, force: true });
     });
 
-    it('merge #1: Should successfully merge markdown files from custom merges base directory', () => {
+    it('merge: Should successfully merge markdown files from custom merges base directory', () => {
         const expectedMarkdown = '../tests/foundation/.ancillary/fixtures/markdown/simple.md';
 
         const destinationFile = `${tempFolder}/output.json`;
