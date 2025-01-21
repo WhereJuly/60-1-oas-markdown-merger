@@ -25,13 +25,13 @@ describe('CLI Application', () => {
     it('Should successfully merge OAS file', () => {
         const expectedMarkdown = './tests/foundation/.ancillary/fixtures/markdown/simple.md';
 
-        const outputFile = `${tempFolder}/output.json`;
-        const output = execSync(`tsx src/cli/cli.ts --input ./tests/foundation/.ancillary/fixtures/definitions/petstore.oas.json --output ${outputFile}`).toString();
+        const destinationFile = `${tempFolder}/output.json`;
+        const output = execSync(`tsx src/cli/cli.ts --source ./tests/foundation/.ancillary/fixtures/definitions/petstore.oas.json --destination ${destinationFile}`).toString();
 
         expect(output).toEqual(expect.stringContaining('Successfully merged to'));
 
         const expected = fs.readFileSync(expectedMarkdown).toString('utf-8');
-        const merged = fs.readFileSync(outputFile).toString('utf-8');
+        const merged = fs.readFileSync(destinationFile).toString('utf-8');
 
         const actual = merged.split(`<p>${expected}</p>`).length - 1;
 
@@ -41,13 +41,13 @@ describe('CLI Application', () => {
     // eslint-disable-next-line @typescript-eslint/require-await
     it('Should handle errors gracefully', async () => {
         try {
-            exec('tsx src/cli/cli.ts --input input.json --output output.json');
+            exec('tsx src/cli/cli.ts --source source.json --destination destination.json');
 
         } catch (_error) {
             const error = _error as Error;
 
             expect(error.message).toEqual(expect.stringContaining('ERROR'));
-            expect(error.message).toEqual(expect.stringContaining('input.json" does not exist'));
+            expect(error.message).toEqual(expect.stringContaining('source.json" does not exist'));
         }
     });
 
