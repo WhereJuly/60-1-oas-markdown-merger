@@ -21,7 +21,10 @@
         "test:foundation": "npm run check-types && vitest run --config tests/foundation/.ancillary/config/vitest.config.ts",
         "check-types": "npx tsc --noEmit --project .",
         "pre-push": "npm run test:foundation",
-        "lint": "npx eslint ./src && npx eslint ./.usage"
+        "lint": "npx eslint ./src && npx eslint ./.usage",
+        "package:build": "npm run test:foundation && npm run lint && rimraf ./.delivery/.builds/package && tsc -p ./.delivery/configuration/tsconfig.json && npm run package:de-alias && npm run package:bundle:copy",
+        "package:de-alias": "npx tsc-alias -p ./.delivery/configuration/tsconfig.json --verbose",
+        "package:bundle:copy": "cpy ./package.json ./LICENSE ./readme.md ./.delivery/.builds/dist"
     },
     "devDependencies": {
         "@tsconfig/node20": "^20.1.4"
