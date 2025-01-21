@@ -7,7 +7,7 @@ import traverse from 'traverse';
 
 import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRetrieve.service.js';
 import OASDBCException from '@src/shared/OASDBCException.js';
-import MergeableDescriptionVO from '@src/MergeableDescription.valueobject.js';
+import MergeableDescriptionVO from '@src/core/MergeableDescription.valueobject.js';
 
 /**
  * A facade responsible for merging markdown files into descriptions 

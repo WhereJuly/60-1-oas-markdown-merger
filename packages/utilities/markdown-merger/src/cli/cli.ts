@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 
 import { colors } from '@src/cli/colors.js';
-import OASMarkdownMergerFacade from '@src/OASMarkdownMerger.facade.js';
+import OASMarkdownMergerFacade from '@src/core/OASMarkdownMerger.facade.js';
 
 import * as pkg from '../../package.json' assert {type: 'json' };
 
