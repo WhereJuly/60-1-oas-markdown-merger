@@ -52,6 +52,7 @@ jobs:
         run: npm run test:foundation -- --coverage
 
       - name: Push the package subtree to a dedicated repo
+        working-directory: ./packages/utilities/markdown-merger
         run: |
           # Extract version from package.json
           PACKAGE_VERSION=$(jq -r '.version' packages/utilities/markdown-merger/package.json)
