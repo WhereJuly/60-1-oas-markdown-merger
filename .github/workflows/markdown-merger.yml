@@ -55,7 +55,7 @@ jobs:
         working-directory: ./packages/utilities/markdown-merger
         run: |
           # Extract version from package.json
-          PACKAGE_VERSION=$(jq -r '.version' packages/utilities/markdown-merger/package.json)
+          PACKAGE_VERSION=$(jq -r '.version' package.json)
 
           # Prepare the tag
           TAG="v$PACKAGE_VERSION"
