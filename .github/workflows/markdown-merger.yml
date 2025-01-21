@@ -17,7 +17,7 @@ jobs:
     env:
       GITHUB_AUTH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }} # NB: Cannot use 'GITHUB_' prefix
 
-    name: Test
+    name: Test, coverage, subtree push
 
     steps:
       - uses: actions/checkout@v4
@@ -26,6 +26,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
+
+      - name: Install the top-level monorepo packages
+        run: npm install
 
       - name: Build the package to test in .usage folder
         working-directory: ./packages/utilities/markdown-merger
