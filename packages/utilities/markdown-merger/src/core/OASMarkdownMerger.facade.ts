@@ -32,13 +32,10 @@ import MergeableDescriptionVO from '@src/core/MergeableDescription.valueobject.j
  * 
  * ```typescript
  * import OASMarkdownMergerFacade from 'path/to/OASMarkdownMergerFacade';
- * import OASJSONDefinitionsRetrieveService from 'path/to/OASJSONDefinitionsRetrieve.service.js';
- * 
- * const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
- * const oasMarkdownMerger = OASMarkdownMergerFacade.create(definitionsRetrieveService, './merges');
+ * const merger = OASMarkdownMergerFacade.create('./merges');
  * 
  * // Merge the OpenAPI document from a source path and save it to a destination file
- * await oasMarkdownMerger.merge('path/to/source.json', 'path/to/destination.json');
+ * await merger.merge('path/to/source.json', 'path/to/destination.json');
  * ```
  */
 export default class OASMarkdownMergerFacade {
@@ -79,7 +76,7 @@ export default class OASMarkdownMergerFacade {
      * import OASMarkdownMergerFacade from 'path/to/OASMarkdownMergerFacade';
      * 
      * const mergesBasePath = './merges';
-     * const oasMarkdownMerger = OASMarkdownMergerFacade.create(mergesBasePath);
+     * const merger = OASMarkdownMergerFacade.create(mergesBasePath);
      * 
      * // You can now use the created instance to merge OpenAPI documents
      */
@@ -108,7 +105,7 @@ export default class OASMarkdownMergerFacade {
      * @example
      * 
      * // Merging descriptions and saving the updated document
-     * await oasMarkdownMerger.merge('path/to/source.json', 'path/to/destination.json');
+     * await merger.merge('path/to/source.json', 'path/to/destination.json');
      */
 
     public async merge(source: string, destinationFile: string): Promise<void> {
