@@ -48,6 +48,7 @@ jobs:
       - name: Run tests and collect coverage
         # NB: See https://app.codecov.io/gh/WhereJuly/60-1-oas-markdown-merger/tests/new
         # NB: See https://app.codecov.io/gh/WhereJuly/60-1-oas-markdown-merger/new
+        working-directory: ./packages/utilities/markdown-merger
         run: npm run test:foundation -- --coverage
 
       - name: Push the package subtree to a dedicated repo
