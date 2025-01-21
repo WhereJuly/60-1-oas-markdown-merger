@@ -27,6 +27,9 @@ jobs:
         with:
           node-version: 20
 
+      # WARNING: This step requires private package dependency for packages/looks package.
+      # I removed it temporary. 
+      # Will see if I should still need it when return to the dependant package development.
       - name: Install the top-level monorepo packages
         run: npm install
 
