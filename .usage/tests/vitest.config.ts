@@ -19,6 +19,7 @@ export default defineConfig({
          * @see https://vitest.dev/guide/common-errors.html#failed-to-terminate-worker
          */
         pool: 'forks',
+        fileParallelism: false,
         cache: false,
         reporters: ['verbose'],
         globals: true,
