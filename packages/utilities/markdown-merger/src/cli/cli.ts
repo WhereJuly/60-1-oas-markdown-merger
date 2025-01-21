@@ -9,23 +9,21 @@ import OASMarkdownMergerFacade from '@src/core/OASMarkdownMerger.facade.js';
 import { createRequire } from "module";
 const pkg = createRequire(import.meta.url)("../../package.json") as PackageJson;
 
-// console.dir(PJSON);
-
 const program = new Command();
 
 await program
     .name(pkg.name)
     .version(pkg.version)
     .description('Merges the content of markdown files mentioned with "{% merge ./docs/example.md\' %}" tags into respective OpenAPI JSON "description" fields.')
-    .usage("--input <input> --output <output>")
-    .requiredOption('-i, --input <input>', 'Input OAS file path. ')
-    .requiredOption('-o, --output <output>', 'Output OAS file path with descriptions merged (if any).')
-    .action(async (options: { input: string; output: string; }) => {
+    .usage("--source <source> --destination <destination>")
+    .requiredOption('-i, --source <source>', 'Source OpenAPI definitions file path.')
+    .requiredOption('-o, --destination <destination>', 'Destination OAS file path with descriptions merged (if any).')
+    .action(async (options: { source: string; destination: string; }) => {
         try {
             const facade = OASMarkdownMergerFacade.create();
-            await facade.merge(options.input, options.output);
+            await facade.merge(options.source, options.destination);
 
-            console.log(`\n[${colors.green}INFO${colors.reset}] Successfully merged to "${options.output}" file.\n`);
+            console.log(`\n[${colors.green}INFO${colors.reset}] Successfully merged to "${options.destination}" file.\n`);
 
         } catch (_error) {
             const error = _error as Error;
