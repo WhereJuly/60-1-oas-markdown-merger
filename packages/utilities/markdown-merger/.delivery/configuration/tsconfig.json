@@ -8,6 +8,7 @@
         "skipLibCheck": true, // Skip type checking of declaration files for faster builds
         "forceConsistentCasingInFileNames": true, // Ensure consistent casing in file names
         "baseUrl": "../../",
+        "rootDir": "../../src",
         "paths": {
             "@src/*": ["./src/*"]
         },

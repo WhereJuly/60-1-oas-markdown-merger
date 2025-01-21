@@ -7,24 +7,29 @@
     "module": "./code/index.js",
     "types": "./types/index.d.ts",
     "bin": {
-        "oas-markdown-merger": "./bin/cli.js"
+        "oas-markdown-merger": "./code/cli/cli.js"
     },
     "keywords": [
         "openapi",
+        "translate",
+        "html",
         "description",
         "merge",
         "markdown"
     ],
-    "license": "UNLICENSED",
+    "license": "MIT",
     "author": "valentineshi.dev@gmail.com",
     "scripts": {
         "test:foundation": "npm run check-types && vitest run --config tests/foundation/.ancillary/config/vitest.config.ts",
         "check-types": "npx tsc --noEmit --project .",
         "pre-push": "npm run test:foundation",
         "lint": "npx eslint ./src && npx eslint ./.usage",
-        "package:build": "npm run test:foundation && npm run lint && rimraf ./.delivery/.builds/package && tsc -p ./.delivery/configuration/tsconfig.json && npm run package:de-alias && npm run package:bundle:copy",
+        "package:build": "npm run test:foundation && npm run lint && rimraf ./.delivery/.builds/dist && tsc -p ./.delivery/configuration/tsconfig.json && npm run package:de-alias && npm run package:bundle:copy",
         "package:de-alias": "npx tsc-alias -p ./.delivery/configuration/tsconfig.json --verbose",
-        "package:bundle:copy": "cpy ./package.json ./LICENSE ./readme.md ./.delivery/.builds/dist"
+        "package:bundle:copy": "cpy ./package.json ./LICENSE ./readme.md ./.delivery/.builds/dist",
+        "package:lint:readme": "npx markdown-link-check --progress --quiet ./readme.md ./.docs",
+        "package:changelog:generate": "rimraf ./.docs/changelog/changelog.readonly.md && bash ../../../.ci/generate-merge-release-notes.sh > ./.docs/changelog/changelog.readonly.md",
+        "package:publish": "cd ./.delivery/.builds/dist && npm publish"
     },
     "devDependencies": {
         "@tsconfig/node20": "^20.1.4"
