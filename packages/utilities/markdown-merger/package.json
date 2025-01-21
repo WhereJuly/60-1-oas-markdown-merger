@@ -34,6 +34,7 @@
     },
     "devDependencies": {
         "@tsconfig/node20": "^20.1.4",
+        "@vitest/coverage-v8": "^2.1.5",
         "types-package-json": "^2.0.39"
     },
     "dependencies": {
