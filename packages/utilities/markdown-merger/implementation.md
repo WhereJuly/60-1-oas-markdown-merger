@@ -6,6 +6,9 @@
   - [Design](#design)
   - [Construction](#construction)
     - [Refactoring](#refactoring)
+  - [Testing](#testing)
+    - [Development](#development)
+    - [Usage](#usage)
 
 ## Implementation
 
@@ -28,3 +31,32 @@
 - OASJSONDefinitionsRetrieveService
   So far it is just copied here from the [Generic Adapter Package](packages/adapters/generic/readme.md);
   Will have to extract the service as a separate package to be used here an in the original package.
+
+### Testing
+
+#### Development
+
+Basic testing: 
+``` bash
+npm run test:foundation
+```
+
+Including code coverage (find coverage in `tests/foundation/.coverage`):
+
+```bash
+npm run test:foundation -- --coverage
+```
+
+#### Usage
+
+Before running usage tests build the package with  `npm run package:build` and install it in the `.usage` folder.`:
+
+```bash
+cd .usage
+npm install
+
+# Now run the usage tests in the .usage folder
+npm run test:usage
+``` 
+
+
