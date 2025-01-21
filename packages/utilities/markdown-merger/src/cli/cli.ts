@@ -1,20 +1,21 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import type { PackageJson } from 'types-package-json';
 
 import { colors } from '@src/cli/colors.js';
 import OASMarkdownMergerFacade from '@src/core/OASMarkdownMerger.facade.js';
 
-import * as pkg from '../../package.json' assert {type: 'json' };
+import { createRequire } from "module";
+const pkg = createRequire(import.meta.url)("../../package.json") as PackageJson;
 
-const packageName = pkg.default.name;
-const packageVersion = pkg.default.version;
+// console.dir(PJSON);
 
 const program = new Command();
 
 await program
-    .name(packageName)
-    .version(packageVersion)
+    .name(pkg.name)
+    .version(pkg.version)
     .description('Merges the content of markdown files mentioned with "{% merge ./docs/example.md\' %}" tags into respective OpenAPI JSON "description" fields.')
     .usage("--input <input> --output <output>")
     .requiredOption('-i, --input <input>', 'Input OAS file path. ')

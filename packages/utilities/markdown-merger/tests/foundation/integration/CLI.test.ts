@@ -1,6 +1,6 @@
 'use strict';
 
-import { afterAll, afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import fs from 'fs';
 import { exec, execSync } from 'child_process';
@@ -11,12 +11,14 @@ describe('CLI Application', () => {
 
     // Ensure a clean state for written files before each test.
     beforeEach(() => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         fs.existsSync(tempFolder) && fs.rmSync(tempFolder, { recursive: true, force: true });
         fs.mkdirSync(tempFolder);
     });
 
     // Clean up after tests
     afterEach(() => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         fs.existsSync(tempFolder) && fs.rmSync(tempFolder, { recursive: true, force: true });
     });
 
@@ -36,9 +38,10 @@ describe('CLI Application', () => {
         expect(actual).toEqual(3);
     });
 
+    // eslint-disable-next-line @typescript-eslint/require-await
     it('Should handle errors gracefully', async () => {
         try {
-            const output = exec('tsx src/cli/cli.ts --input input.json --output output.json').toString();
+            exec('tsx src/cli/cli.ts --input input.json --output output.json');
 
         } catch (_error) {
             const error = _error as Error;
