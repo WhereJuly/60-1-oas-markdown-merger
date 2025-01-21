@@ -61,8 +61,8 @@ export default class MergeableDescriptionVO {
         if (!this.isMergeTag(key, node)) { return null; }
 
         // NB: The filename must be relative to project root (cwd()) or to given `mergesBasePath`.
-        const match = (node as string).match(/{% merge ['"](.+?)['"] %}/);
-        const filename = match ? match[1] : null;
+        // NB: `match[1]` must not be null as it was tested above with `this.isMergeTag()`
+        const filename = (node as string).match(/{% merge ['"](.+?)['"] %}/)![1];
 
         if (!this.isValidMarkdownFilename(filename)) { throw new OASDBCException(`Invalid filename in "merge" tag given "${filename}".`); }
 

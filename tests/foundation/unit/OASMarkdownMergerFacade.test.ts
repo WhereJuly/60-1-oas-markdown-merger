@@ -91,14 +91,25 @@ describe('OASMarkdownMergerFacadeTest', () => {
 
     });
 
-    it('+merge() #3: Should throw for invalid merged file name', async () => {
-        const facade = new OASMarkdownMergerFacade(definitionsRetrieveService);
+    describe('+merge() #3: Should throw for invalid destination file name', () => {
 
-        const actual = async () => {
-            await facade.merge(`${sourceFolder}/invalid-merged-file-name.oas.json`, destinationFile);
-        };
+        it.each(dataProvider_invalid_destination_file())('Case #%# $name', async (data) => {
+            const facade = new OASMarkdownMergerFacade(definitionsRetrieveService);
 
-        await expect(() => actual()).rejects.toThrowError('Invalid filename in "merge" tag given');
+            const actual = async () => {
+                await facade.merge(`${sourceFolder}/petstore.oas.json`, data.destination);
+            };
+
+            await expect(() => actual()).rejects.toThrowError('Invalid destination');
+        });
+
+        function dataProvider_invalid_destination_file() {
+            return [
+                { name: 'Non-existent folder', destination: 'non-existent-folder'},
+                { name: 'Does not have .json extension', destination: `${tempFolder}/no-json-extension`},
+            ];
+        }
+
     });
 
     describe('+merge() #4: Should throw for invalid or non-existent merged file', () => {
