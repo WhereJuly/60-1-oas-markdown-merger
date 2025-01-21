@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 
 import { colors } from '@src/cli/colors.js';
-import OASMarkdownMergerFacade from '@src/OASMarkdownMerger.facade.js';
+import OASMarkdownMergerFacade from '@src/core/OASMarkdownMerger.facade.js';
 
 import * as pkg from '../../package.json' assert {type: 'json' };
 
@@ -12,14 +12,14 @@ const packageVersion = pkg.default.version;
 
 const program = new Command();
 
-program
+await program
     .name(packageName)
     .version(packageVersion)
-    .description('Merges the content of markdown files mentioned with "{% merge \./docs/example.md\' %}" tags into respective OpenAPI JSON "description" fields.')
+    .description('Merges the content of markdown files mentioned with "{% merge ./docs/example.md\' %}" tags into respective OpenAPI JSON "description" fields.')
     .usage("--input <input> --output <output>")
     .requiredOption('-i, --input <input>', 'Input OAS file path. ')
     .requiredOption('-o, --output <output>', 'Output OAS file path with descriptions merged (if any).')
-    .action(async (options) => {
+    .action(async (options: { input: string; output: string; }) => {
         try {
             const facade = OASMarkdownMergerFacade.create();
             await facade.merge(options.input, options.output);

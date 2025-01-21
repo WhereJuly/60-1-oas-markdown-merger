@@ -7,7 +7,7 @@ import traverse from 'traverse';
 
 import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRetrieve.service.js';
 import OASDBCException from '@src/shared/OASDBCException.js';
-import MergeableDescriptionVO from '@src/MergeableDescription.valueobject.js';
+import MergeableDescriptionVO from '@src/core/MergeableDescription.valueobject.js';
 
 /**
  * A facade responsible for merging markdown files into descriptions 
@@ -123,6 +123,7 @@ export default class OASMarkdownMergerFacade {
     }
 
     private processMergeableDescriptions(definitions: OpenAPIV3_1.Document): void {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
         const facade = this;
 
         traverse(definitions).forEach(function (node) {
