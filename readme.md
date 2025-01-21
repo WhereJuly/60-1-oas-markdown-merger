@@ -1,8 +1,15 @@
-## OAS Markdown Merger Utility
+# OAS Markdown Merger Utility
 
-- [Rationale and Motivation](.docs/rationale-and-motivation.md)
+- [Implementation](#implementation)
+  - [Design](#design)
+  - [Construction](#construction)
+    - [Refactoring](#refactoring)
+
+## Implementation
 
 ### Design
+
+- [Rationale and Motivation](.docs/rationale-and-motivation.md)
 
 - [The Flowchart](.docs/design/flowchart.md)
 - [The Class Diagram](.docs/design/class-diagram.uml.md)
