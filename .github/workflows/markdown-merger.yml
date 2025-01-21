@@ -27,25 +27,43 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: npm install
+      - name: Build the package to test in .usage folder
+        working-directory: ./packages/utilities/markdown-merger
+        run: |
+          npm install
+          npm run package:build
 
-      - name: Install dependencies for .usage subfolder
-        working-directory: ./.usage
-        run: npm install
+      - name: Testing the latest build at usage .usage subfolder
+        working-directory: ./packages/utilities/markdown-merger/.usage
+        run: |
+          npm install
+          npm run test:usage
 
       - name: Run tests and collect coverage
         # NB: See https://app.codecov.io/gh/WhereJuly/60-1-oas-markdown-merger/tests/new
         # NB: See https://app.codecov.io/gh/WhereJuly/60-1-oas-markdown-merger/new
         run: npm run test:foundation -- --coverage
 
-      - name: Push to dedicated repo
+      - name: Push the package subtree to a dedicated repo
         run: |
+          # Extract version from package.json
+          PACKAGE_VERSION=$(jq -r '.version' packages/utilities/markdown-merger/package.json)
+
+          # Prepare the tag
+          TAG="v$PACKAGE_VERSION"
+          echo "Preparing tag $TAG"
+
+          # Push the subtree to the dedicated repository
           git remote add split/markdown-merger https://github.com/WhereJuly/60-1-oas-markdown-merger.git
           git subtree push --prefix=packages/utilities/markdown-merger split/markdown-merger master
+
+          # Tag the release
+          git tag -a "$TAG" -m "Release $TAG"
+
+          # Push the tag to the dedicated repository
+          git push split/markdown-merger "$TAG"
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-
