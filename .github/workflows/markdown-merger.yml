@@ -19,10 +19,21 @@ jobs:
 
     name: Test, coverage, subtree push
 
-    permissions:
-      contents: write
-      actions: write
-      packages: read
+    permissions: write-all
+      # actions: write
+      # attestations: write
+      # checks: write
+      # contents: write
+      # deployments: write
+      # id-token: write
+      # issues: write
+      # discussions: write
+      # packages: write
+      # pages: write
+      # pull-requests: write
+      # repository-projects: write
+      # security-events: write
+      # statuses: write
 
     steps:
       - uses: actions/checkout@v4
