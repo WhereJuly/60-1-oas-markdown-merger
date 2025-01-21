@@ -8,7 +8,7 @@
     "scripts": {
         "test:usage": "npm run types:check && vitest run --config tests/vitest.config.ts",
         "types:check": "npx tsc --noEmit --project .",
-        "pre-push": "npm run test:consumption"
+        "pre-push": "npm run test:usage"
     },
     "license": "UNLICENSED",
     "dependencies": {

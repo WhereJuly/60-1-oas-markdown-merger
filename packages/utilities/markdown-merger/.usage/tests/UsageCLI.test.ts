@@ -7,7 +7,7 @@ import { execSync } from 'child_process';
 
 const tempFolder = '../tests/foundation/.ancillary/fixtures/.temp';
 
-describe('Usage CLI Application', () => {
+describe('CLI Application Usage Test', () => {
 
     // Ensure a clean state for written files before each test.
     beforeEach(() => {
