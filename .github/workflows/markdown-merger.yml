@@ -27,6 +27,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Configure Git user and email
+        run: |
+          git config --global user.name "WhereJuly"
+          git config --global user.email "where.july@googlemail.com"
+
       - name: Set up Node 20
         uses: actions/setup-node@v3
         with:
