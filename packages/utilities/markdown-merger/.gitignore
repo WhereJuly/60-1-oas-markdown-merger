@@ -1,0 +1,9 @@
+# NB: Necessary here as it is published as a separate repository as well.
+
+node_modules
+*.log
+logs
+.builds
+.tsbuildinfo
+.temp
+.coverage
