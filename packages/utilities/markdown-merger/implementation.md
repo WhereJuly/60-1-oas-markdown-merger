@@ -10,6 +10,7 @@
     - [Development](#development)
     - [Usage](#usage)
 - [Release](#release)
+- [Manage Public Version with Git Subtree](#manage-public-version-with-git-subtree)
 
 ## Implementation
 
@@ -75,8 +76,38 @@ The release workflow on the monorepo.
   - No test coverage publish;
 - Locally in `master` branch run `npm run package:build` and `npm run package:publish`.
   - Will test and build the package;
-  - Pushes the subtree to the remote dedicated public repository;
+  - Pushes the [subtree](#manage-public-version-with-git-subtree) to the remote dedicated public repository;
 - Merge the release branch to `master`; Push to remote;
   - The commit to master will trigger the CI; Check its success;
   - The CI must create and push the `oas-markdown-merger@vX.X.X` tag to the monorepo;
   - The CI must publish test coverage;
+
+## Manage Public Version with Git Subtree
+
+Use Git Subtree to be able to expose code publicly and accept the OSS contributions.
+
+Separate the package-subfolder-only commits to a dedicated temporary branch:
+
+```bash
+git subtree split --prefix=packages/utilities/markdown-merger -b split/markdown-merger
+```
+
+Create the remote repository and push the temp branch content there:
+
+```bash
+git push https://github.com/WhereJuly/60-1-oas-markdown-merger.git split/markdown-merger:master
+```
+
+Remove the temp branch; Conduct the development as usual committing and pushing to the remote monorepo as usual;
+
+When need to update the subtree repository from local repository make:
+
+```bash
+git subtree push --prefix=packages/utilities/markdown-merger https://github.com/WhereJuly/60-1-oas-markdown-merger.git master
+```
+
+When need to pull the subtree repository changes (e.g. if it is exposed as open source) make:
+
+```bash
+git subtree pull --prefix=packages/utilities/markdown-merger https://github.com/WhereJuly/60-1-oas-markdown-merger.git master
+```
