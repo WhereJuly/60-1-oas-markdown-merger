@@ -51,17 +51,18 @@ jobs:
         working-directory: ./packages/utilities/markdown-merger
         run: npm run test:foundation -- --coverage
 
-      - name: Debug - show the ref names
-        run: |
-          echo ref ${{ github.ref }}"
-          echo ref name ${{ github.ref_name }}
+      # - name: Debug - show the ref names
+      #   run: |
+      #     echo ref ${{ github.ref }}
+      #     echo ref name ${{ github.ref_name }}
 
       # I need this step only run for the paths mentioned above AND for only `master` branch;`
       # create and push the `<package-name>@v<package-version>` tag to the monorepo
       # Take the package name and version from package.json
       - name: Create and push tag on master branch only
         working-directory: ./packages/utilities/markdown-merger
-        if: github.ref == 'refs/heads/master'
+        if: github.ref_name == 'implement/utilities/markdown-merger/implement-package-ci'
+        # if: github.ref_name == 'master'
         run: |
           # Extract package name and version from package.json
           PACKAGE_NAME=$(jq -r .name package.json)
