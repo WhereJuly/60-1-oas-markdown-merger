@@ -78,6 +78,7 @@ The release workflow on the monorepo.
   - Will test and build the package;
   - Pushes the [subtree](#manage-public-version-with-git-subtree) to the remote dedicated public repository;
 - Merge the release branch to `master`; Push to remote;
+  - Amend the merge commit message with `[markdown-merger] Release (package): vX.X.X`;
   - The commit to master will trigger the CI; Check its success;
   - The CI must create and push the `oas-markdown-merger@vX.X.X` tag to the monorepo;
   - The CI must publish test coverage;
