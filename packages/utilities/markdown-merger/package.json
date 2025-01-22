@@ -17,6 +17,12 @@
         "merge",
         "markdown"
     ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/WhereJuly/60-1-oas-markdown-merger.git"
+    },
+    "homepage": "https://github.com/WhereJuly/60-1-oas-markdown-merger#readme",
+    "issues": "https://github.com/WhereJuly/60-1-oas-markdown-merger/issues",
     "license": "MIT",
     "author": "valentineshi.dev@gmail.com",
     "scripts": {
