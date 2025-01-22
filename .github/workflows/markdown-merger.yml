@@ -53,8 +53,8 @@ jobs:
 
       - name: Debug - show the ref names
         run: |
-          echo github.ref
-          echo github.ref_name
+          echo ref ${{ github.ref }}"
+          echo ref name ${{ github.ref_name }}
 
       # I need this step only run for the paths mentioned above AND for only `master` branch;`
       # create and push the `<package-name>@v<package-version>` tag to the monorepo
