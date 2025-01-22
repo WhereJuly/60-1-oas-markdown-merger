@@ -14,21 +14,16 @@ The key idea of this approach is to design code alongside the OpenAPI contract. 
 
 **Scalability and Maintainability**: As the API and its design evolve, you can update the contract and code design separately without redundancy, improving maintainability and scalability.
 
-**Tool Integration**: Use a custom build tool or script to merge external documentation into the OAS JSON definition. This tool resolves {% include %} placeholders and integrates the design documents into the final API spec, making it seamless to view and maintain the complete design.
+**Tool Integration**: Use a custom build tool or script to merge external documentation into the OAS JSON definition. This tool resolves `{% merge %}` placeholders and integrates the design documents into the final API spec, making it seamless to view and maintain the complete design.
 
 ### Implementation Draft
 
-Tool for Merging Docs:
-
 A custom TypeScript tool (or a similar preprocessor) is required to process the OAS JSON file. It should:
 
-Parse the JSON.
-
-Find {% include %} placeholders.
-
-Replace them with the content of the referenced external Markdown files.
-
-Output the final, merged JSON OpenAPI definition.
+- Parse the JSON.
+- Find `{% merge %}` placeholders.
+- Replace them with the content of the referenced external Markdown files.
+- Output the final, merged JSON OpenAPI definition.
 
 Example OAS Spec (JSON format) with include:
 

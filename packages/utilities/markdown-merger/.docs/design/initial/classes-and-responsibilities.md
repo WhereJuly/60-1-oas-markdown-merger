@@ -19,9 +19,9 @@ Here is the updated version of the description reflecting the markdown-to-HTML t
      - `checkDirectoryExistence(filePath: String)`: Checks if the specified directory exists.
      - `createDirectory(filePath: String)`: Creates the directory if it doesn't exist.
      - **Static Method:**
-       - `create(specLoader: OASJSONSpecLoader, mergeProcessor: MarkdownMergeProcessor)`: Static factory method that initializes the `OASMarkdownMergerFacade` with the necessary dependencies.
+       - `create(specLoader: OASJSONDefinitionsRetrieveService, mergeProcessor: MarkdownMergeProcessor)`: Static factory method that initializes the `OASMarkdownMergerFacade` with the necessary dependencies.
 
-2. **OASJSONSpecLoader**
+2. **OASJSONDefinitionsRetrieveService**
 
    - **Responsibility:** Loads and validates the OAS 3.1 JSON spec file. It is also responsible for extracting the description fields that contain merge commands.
    - **Methods:**
@@ -52,12 +52,12 @@ Here is the updated version of the description reflecting the markdown-to-HTML t
 
 2. **Loading the OAS Spec:**
 
-   - The `OASMarkdownMergerFacade` calls the `OASJSONSpecLoader` to load the OAS spec from the source file.
-   - The `OASJSONSpecLoader` validates that the spec is a valid OAS 3.1 document.
+   - The `OASMarkdownMergerFacade` calls the `OASJSONDefinitionsRetrieveService` to load the OAS spec from the source file.
+   - The `OASJSONDefinitionsRetrieveService` validates that the spec is a valid OAS 3.1 document.
 
 3. **Extracting Description Fields:**
 
-   - The `OASJSONSpecLoader` extracts all the description fields in the OAS spec that contain merge commands (e.g., `merge('./docs/example.md')`).
+   - The `OASJSONDefinitionsRetrieveService` extracts all the description fields in the OAS spec that contain merge commands (e.g., `merge('./docs/example.md')`).
 
 4. **Processing the Descriptions:**
 
@@ -67,7 +67,7 @@ Here is the updated version of the description reflecting the markdown-to-HTML t
 
 5. **Handling Errors:**
 
-   - If any errors occur (e.g., invalid spec format, missing Markdown file), the `OASMergerException` is thrown.
+   - If any errors occur (e.g., invalid spec format, missing Markdown file), the `OASDBCException` is thrown.
 
 6. **Writing the Output:**
 
@@ -78,4 +78,4 @@ Here is the updated version of the description reflecting the markdown-to-HTML t
 
 ---
 
-This class hierarchy ensures that each component has a clear responsibility, follows the single responsibility principle, and allows for easy unit testing by decoupling the functionalities into separate classes. The facade (`OASMarkdownMergerFacade`) orchestrates the entire workflow, while the individual classes (`OASJSONSpecLoader`, `MarkdownMergeProcessor`) handle the loading, processing, and merging tasks. Additionally, markdown content is now translated to HTML before being merged into the OAS spec.
+This class hierarchy ensures that each component has a clear responsibility, follows the single responsibility principle, and allows for easy unit testing by decoupling the functionalities into separate classes. The facade (`OASMarkdownMergerFacade`) orchestrates the entire workflow, while the individual classes (`OASJSONDefinitionsRetrieveService`, `MarkdownMergeProcessor`) handle the loading, processing, and merging tasks. Additionally, markdown content is now translated to HTML before being merged into the OAS spec.

@@ -5,7 +5,7 @@ import path from 'path';
 import { readFile } from 'fs/promises';
 
 import { accessSync, constants } from 'fs';
-import OASDBCException from '@src/exceptions/OASDBCException.js';
+import OASDBCException from './OASDBCException.js';
 
 type TActualRetrieveReturnType = Promise<string>;
 
@@ -128,7 +128,7 @@ export default class OASJSONDefinitionsRetrieveService {
         try {
             accessSync(absoluteFilePath, constants.R_OK);
             return true;
-        } catch (err) {
+        } catch (_err) {
             throw new OASDBCException(`The file "${absoluteFilePath}" does not exist.`);
         }
     }
@@ -144,7 +144,8 @@ export default class OASJSONDefinitionsRetrieveService {
         }
 
         try {
-            return this.isStringMaybeJSON(content) ? JSON.parse(content as string) : content;
+            return this.isStringMaybeJSON(content) ?
+                (JSON.parse(content as string) as OpenAPIV3_1.Document) : content as OpenAPIV3_1.Document;
         } catch (_err) {
             const error = _err as Error;
             throw new OASDBCException('Could not parse the given content as JSON.', error);

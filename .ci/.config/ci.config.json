@@ -1,4 +1,4 @@
 {
-    "monorepo": ["packages/adapters/generic", "packages/looks", "packages/utilities/markdown-merger"],
+    "monorepo": ["packages/adapters/generic", "packages/looks", "packages/utilities/markdown-merger", "packages/utilities/markdown-merger/.usage"],
     "branches": ["develop", "master"]
 }
