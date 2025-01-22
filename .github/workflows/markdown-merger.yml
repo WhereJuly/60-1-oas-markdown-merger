@@ -62,8 +62,9 @@ jobs:
       # Take the package name and version from package.json
       - name: Create and push tag on master branch only
         working-directory: ./packages/utilities/markdown-merger
-        if: github.ref_name == 'implement/utilities/markdown-merger/implement-package-ci'
-        # if: github.ref_name == 'master'
+        # NB: For debugging
+        # if: github.ref_name == 'implement/utilities/markdown-merger/implement-package-ci'
+        if: github.ref_name == 'master'
         run: |
           # Extract package name and version from package.json
           PACKAGE_NAME=$(jq -r .name package.json)
@@ -80,6 +81,7 @@ jobs:
       # NB: See the code for this step in https://lean-web-enterprise.atlassian.net/browse/DCPLDOAS-68
 
       - name: Upload coverage reports to Codecov
+        if: github.ref_name == 'master'
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
