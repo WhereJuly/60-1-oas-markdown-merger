@@ -1,4 +1,4 @@
-name: OAS Markdown Merger test, coverage, subtree push
+name: OAS Markdown Merger test, coverage
 
 on:
   push:
@@ -17,31 +17,10 @@ jobs:
     env:
       GITHUB_AUTH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }} # NB: Cannot use 'GITHUB_' prefix
 
-    name: Test, coverage, subtree push
-
-    permissions: write-all
-      # actions: write
-      # attestations: write
-      # checks: write
-      # contents: write
-      # deployments: write
-      # id-token: write
-      # issues: write
-      # discussions: write
-      # packages: write
-      # pages: write
-      # pull-requests: write
-      # repository-projects: write
-      # security-events: write
-      # statuses: write
+    name: Test, publish coverage
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Configure Git user and email
-        run: |
-          git config --global user.name "WhereJuly"
-          git config --global user.email "where.july@googlemail.com"
 
       - name: Set up Node 20
         uses: actions/setup-node@v3
@@ -72,27 +51,31 @@ jobs:
         working-directory: ./packages/utilities/markdown-merger
         run: npm run test:foundation -- --coverage
 
-      - name: Push the package subtree to a dedicated repo
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_AUTH_TOKEN }} # Your PAT secret in GitHub
+      - name: Debug - show the ref names
         run: |
-          # Extract version from package.json
-          PACKAGE_VERSION=$(jq -r '.version' packages/utilities/markdown-merger/package.json)
+          echo github.ref
+          echo github.ref_name
 
-          # Prepare the tag
-          TAG="v$PACKAGE_VERSION"
-          echo "Preparing tag $TAG"
+      # I need this step only run for the paths mentioned above AND for only `master` branch;`
+      # create and push the `<package-name>@v<package-version>` tag to the monorepo
+      # Take the package name and version from package.json
+      - name: Create and push tag on master branch only
+        working-directory: ./packages/utilities/markdown-merger
+        if: github.ref == 'refs/heads/master'
+        run: |
+          # Extract package name and version from package.json
+          PACKAGE_NAME=$(jq -r .name package.json)
+          PACKAGE_VERSION=$(jq -r .version package.json)
+          
+          # Create the tag
+          TAG="${PACKAGE_NAME}@${PACKAGE_VERSION}"
+          git tag $TAG
+          
+          # Push the tag to the repository
+          git push origin $TAG
 
-          # Push the subtree to the dedicated repository
-          # git remote add split/markdown-merger https://github.com/WhereJuly/60-1-oas-markdown-merger.git
-          git remote add split/markdown-merger https://${{ secrets.GH_AUTH_TOKEN }}@github.com/WhereJuly/60-1-oas-markdown-merger.git
-          git subtree push --prefix=packages/utilities/markdown-merger split/markdown-merger master
-
-          # Tag the release
-          # git tag -a "$TAG" -m "Release $TAG"
-
-          # Push the tag to the dedicated repository
-          # git push split/markdown-merger "$TAG"
+      # - name: Push the package subtree to a dedicated repo
+      # NB: See the code for this step in https://lean-web-enterprise.atlassian.net/browse/DCPLDOAS-68
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
