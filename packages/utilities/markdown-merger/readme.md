@@ -4,6 +4,7 @@
 ![npm downloads](https://img.shields.io/npm/dm/oas-markdown-merger.svg)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/oas-markdown-merger)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/oas-markdown-merger)
+[![codecov](https://codecov.io/gh/WhereJuly/60-1-oas-markdown-merger/branch/master/graph/badge.svg?token=WYEMY7V466)](https://codecov.io/gh/WhereJuly/60-1-oas-markdown-merger)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # OAS Markdown Merger
