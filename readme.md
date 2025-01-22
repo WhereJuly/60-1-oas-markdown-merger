@@ -22,7 +22,7 @@ Allows to expand the [OpenAPI JSON specification](https://spec.openapis.org/#ope
 
 ## Overview
 
-Assume we have the specification in `contract/definitions/my-api-definitions.oas.json` file in the project with this folder structure.
+Assume we have the OpenAPI specification definitions in `contract/definitions/my-api-definitions.oas.json` file in the project with this folder structure.
 
 ```
 contract
