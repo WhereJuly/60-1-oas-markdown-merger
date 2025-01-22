@@ -1,6 +1,6 @@
 {
     "name": "oas-markdown-merger",
-    "version": "0.9.0-dev.3",
+    "version": "0.9.0-dev.4",
     "description": "Merge arbitrary markdown files (translated to HTML) into OpenAPI (3.1.0) `description` fields.",
     "type": "module",
     "main": "./code/index.js",
@@ -23,8 +23,8 @@
         "test:foundation": "npm run check-types && vitest run --config tests/foundation/.ancillary/config/vitest.config.ts",
         "check-types": "npx tsc --noEmit --project .",
         "pre-push": "npm run test:foundation",
-        "lint": "npx eslint ./src && npx eslint ./.usage",
         "package:build": "npm run test:foundation && npm run lint && rimraf ./.delivery/.builds/dist && tsc -p ./.delivery/configuration/tsconfig.json && npm run package:de-alias && npm run package:bundle:copy && npm run package:pack",
+        "lint": "npx eslint ./src",
         "package:de-alias": "npx tsc-alias -p ./.delivery/configuration/tsconfig.json --verbose",
         "package:bundle:copy": "cpy ./package.json ./LICENSE ./readme.md ./.delivery/.builds/dist",
         "package:pack": "cd ./.delivery/.builds/dist && npm pack",
