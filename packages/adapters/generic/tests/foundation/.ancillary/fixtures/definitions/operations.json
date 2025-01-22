@@ -33,6 +33,7 @@
                 }
             ],
             "requestBody": {
+                "required": true,
                 "description": "The entry to create or update",
                 "content": {
                     "application/json": {

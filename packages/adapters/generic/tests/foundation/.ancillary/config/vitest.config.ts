@@ -29,7 +29,7 @@ export default defineConfig({
          * `NODE_ENV=test` configured to run in-memory tests. Thus the option is set conditionally. 
          * @see config implementation/src/config/database.json#test
          */
-        fileParallelism: false,
+        // fileParallelism: false,
 
         /**
          * WARNING: To prevent tests hanging.
