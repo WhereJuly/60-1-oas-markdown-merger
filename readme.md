@@ -63,7 +63,7 @@ We can combine tags with inlined description text as for the first example. Then
 
 Or you can use "merge" tag alone in a `description` field as for the second example.
 
-Using `oas-markdown-merger` you wil get the content of the markdown files merged into the `description` fields like this:
+Assuming the [above](#overview) project you wil get the markdown files content merged into the `description` fields using the following `oas-markdown-merger` basic CLI usage example:
 
 ```bash
 npx oas-markdown-merger --source ./definitions/my-api-definitions.oas.json \
