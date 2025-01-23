@@ -27,24 +27,6 @@ describe('Programmatic Usage Test', () => {
         fs.existsSync(tempFolder) && fs.rmSync(tempFolder, { recursive: true, force: true });
     });
 
-    // describe('+static create(): Should create the expected OASMarkdownMergerFacade object', () => {
-
-    //     it.each(dataProvider_merging_base_paths_1())('Case #%# $name', (data) => {
-    //         const actual = OASMarkdownMergerFacade.create(data.mergesBasePath);
-
-    //         expect(actual).toBeInstanceOf(OASMarkdownMergerFacade);
-    //         expect(actual.merge).toBeInstanceOf(Function);
-    //     });
-
-    //     function dataProvider_merging_base_paths_1() {
-    //         return [
-    //             { name: 'With merges default base path (cwd)', mergesBasePath: undefined },
-    //             { name: 'With merges custom base path', mergesBasePath: './tests/foundation/.ancillary/fixtures/markdown' },
-    //         ];
-    //     }
-
-    // });
-
     describe('+merge(): Should successfully merge markdown files and save the destination file', () => {
 
         it.each(dataProvider_merging_base_paths_2())('Case #%# $name', async (data) => {
