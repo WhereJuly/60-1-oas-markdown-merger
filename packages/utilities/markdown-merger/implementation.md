@@ -69,8 +69,9 @@ The release workflow on the monorepo.
 - Merge finished feature branch to `develop` branch.
 - Branch out from `develop` to `release/markdown-merger/vX.X.X` branch (keep the name standard as it triggers the CI).
   - Prepare the release: bump up version; later, when released, push tag and create release notes on Github;
+  - Run `npm run package:build` to check the version builds fine;
 - Merge the release branch back to `develop`; Push to remote.
-  - The commit to `develop` will trigger the CI;
+  - The push to `develop` will trigger the CI;
   - Check its success;
   - No release tagging for `develop` branch;
   - No test coverage publish;
@@ -80,6 +81,7 @@ The release workflow on the monorepo.
   - Push to remote.
   - Pushes the [subtree](#manage-public-version-with-git-subtree) to the remote dedicated public repository;
 - Merge the release branch to `master`; Push to remote;
+  - Amend the merge commit message with `[markdown-merger] Release (package): vX.X.X`;
   - The commit to master will trigger the CI; Check its success;
   - The CI must create and push the `oas-markdown-merger@vX.X.X` tag to the monorepo;
   - The CI must publish test coverage;
