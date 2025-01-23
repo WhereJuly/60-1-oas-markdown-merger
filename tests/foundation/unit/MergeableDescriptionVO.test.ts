@@ -3,11 +3,11 @@
 import MergeableDescriptionVO from '@src/core/MergeableDescription.valueobject.js';
 import { describe, expect, it } from 'vitest';
 
-type TCreateArguments = [string, string, string[], string];
+type TCreateArguments = [string, string[], string, string?];
 
 const mergeFileBasePath = './tests/foundation/.ancillary/fixtures/markdown';
-const nonMergeable = [mergeFileBasePath, 'version', ['info', 'version'], '1.0.11'];
-const mergeable = [mergeFileBasePath, 'description', ['tags', '0', 'description'], "Everything about your Pets {% merge './valid-nonexistent.md' %}"];
+const mergeable = ['description', ['tags', '0', 'description'], "Everything about your Pets {% merge './valid-nonexistent.md' %}", mergeFileBasePath];
+const nonMergeable = ['version', ['info', 'version'], '1.0.11'];
 
 describe('MergeableDescriptionVOTest', () => {
 
@@ -25,7 +25,7 @@ describe('MergeableDescriptionVOTest', () => {
     });
 
     it('+merged(): Should return the "description" filed with merged md file as html', () => {
-        const valid = [mergeFileBasePath, 'description', ['tags', '0', 'description'], "Everything about your Pets {% merge './simple.md' %}"];
+        const valid = ['description', ['tags', '0', 'description'], "Everything about your Pets {% merge './simple.md' %}", mergeFileBasePath];
         const mergeable = MergeableDescriptionVO.create(...valid as TCreateArguments);
 
         const actual = mergeable!.merged();

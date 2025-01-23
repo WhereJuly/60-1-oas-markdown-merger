@@ -107,7 +107,6 @@ export default class OASMarkdownMergerFacade {
      * // Merging descriptions and saving the updated document
      * await merger.merge('path/to/source.json', 'path/to/destination.json');
      */
-
     public async merge(source: string, destinationFile: string): Promise<void> {
         // Retrieve the OpenAPI document from source.
         const definitions = await this.#definitionsRetrieveService.retrieve(source);
@@ -119,12 +118,24 @@ export default class OASMarkdownMergerFacade {
         this.writeToDestinationFile(definitions, destinationFile);
     }
 
+    /**
+     * Merges the provided OpenAPI definitions into memory by traversing and processing each node.
+     * 
+     * Note the method mutates {@link definitions} in-place replacing `description` fields
+     * that contain "merge" tags with themselves including merged content.
+     * 
+     * The merged content is added into the existing `description` field content replacing
+     * only the "merge" tag.
+     * 
+     * @param definitions - The OpenAPI document or a generic record to be merged.
+     * @returns void
+     */
     public mergeInMemory(definitions: OpenAPIV3_1.Document | Record<string, any>): void {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const facade = this;
 
         traverse(definitions).forEach(function (node) {
-            facade.mergeIntoDefinitions(definitions, MergeableDescriptionVO.create(facade.#mergesBasePath, this.key, this.path, node));
+            facade.mergeIntoDefinitions(definitions, MergeableDescriptionVO.create(this.key, this.path, node, facade.#mergesBasePath));
         });
     }
 
