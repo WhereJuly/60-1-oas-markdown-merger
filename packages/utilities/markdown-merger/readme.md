@@ -18,7 +18,7 @@ Allows to expand the [OpenAPI JSON specification](https://spec.openapis.org/#ope
   - [Programmatic Usage](#programmatic-usage)
     - [Merging using Files](#merging-using-files)
     - [In-Memory Merge](#in-memory-merge)
-      - [Merge Pieces of JSON](#merge-pieces-of-json)
+      - [Merge JSON Documents](#merge-json-documents)
       - [Merge in Single Descriptions](#merge-in-single-descriptions)
       - [In-Memory Merge Usage](#in-memory-merge-usage)
   - [Documentation](#documentation)
@@ -130,11 +130,11 @@ await facade.merge(source, destination);
 
 The package does not restrict the source and destination to be files only. For consumers desiring to build the markdown merge into their code it is possible to use memory variables for source and destination.
 
-There are several scenarios for this use case. They assume using the [above](#overview) folders structure and content. Importing some dependencies omitted in the following examples.
+There are several scenarios for this use case. They assume using the [above](#overview) folders structure and content.
 
-##### Merge Pieces of JSON
+##### Merge JSON Documents
 
-Merge the entire OAS definitions document or just a piece of JSON potentially containing `description` fields with "merge" tags. Note that the merge operation **mutates the source in-place**.
+Merge the entire OAS definitions document or just a part of any JSON document potentially containing `description` fields with "merge" tags. Note that the merge operation **mutates the source in-place** in case there are mergeable (containing "merge" tags) `description` field.
 
 **Example 1: Default `mergesBasePath`**
 
@@ -173,8 +173,6 @@ You could use the in-memory merge even more granularly, for a single `descriptio
 
 **Example 3: Custom `mergesBasePath`**
 
-Here `merged` variable will contain `keyValue` merged with the HTML-translated markdown from `./docs/one.md`
-
 ```typescript
 import { MergeableDescriptionVO } from 'oas-markdown-merger';
 
@@ -184,18 +182,23 @@ const keyValue = `Everything about your Pets {% merge './one.md' %}`;
 const mergesBasePath = './docs';
 
 const mergeable = MergeableDescriptionVO.create(key, jsonPath, keyValue, mergesBasePath);
-const merged = mergeable.merged(); 
+
+if (mergeable) {
+ const merged = mergeable.merged();
+}
 ```
 
-Note the `jsonPath` (see (JSON Path Segments)(https://www.rfc-editor.org/rfc/rfc9535#section-1.4.2)) parameter / argument is not essential in this particular example and can be set to `[]`.
+Here `merged` variable will contain `keyValue` merged with the HTML-translated markdown from `./docs/one.md`. The `MergeableDescriptionVO.create()` can return `null`. This denotes the provided input is not not actually mergeable due to either its `key` is not equal `description` value or `keyValue` not contain the valid "merge" tag.
 
-But in real life it allows to decouple the OAS / JSON traversing from merging by keeping the location in JSON document where the mergeable value should be assigned to along with the value itself (hence one of the `MergeableDescriptionVO` value object reasons to exist).
+Note in this particular example the `jsonPath` (see (JSON Path Segments)(https://www.rfc-editor.org/rfc/rfc9535#section-1.4.2)) parameter / argument is not essential and can be set to `[]`.
+
+But in real life it keeps the target location of the mergeable value in the source JSON document nearby the the value itself (hence one of the `MergeableDescriptionVO` value object reasons to exist). It allows to decouple the OAS / JSON traversing from merging markdown files and from further merged value assignment.
 
 ##### In-Memory Merge Usage
 
-In-memory merge can be useful in scenarios where the consumer code e.g. bundles OpenAPI `$ref`'ed files into single OAS definitions bundle like [swagger-cli](https://www.npmjs.com/package/swagger-cli) `bundle` command does.
+In-memory merge can be useful in scenarios where the consumer code e.g. bundles OpenAPI [`$ref`'ed](https://spec.openapis.org/oas/latest.html#fixed-fields-6) files into single OAS definitions bundle like [swagger-cli](https://www.npmjs.com/package/swagger-cli) `bundle` command does.
 
-Note, however `swagger-cli` is mentioned here just as an OAS bundler example, it does implement using `oas-markdown-merger`. Nevertheless you can use both `oas-markdown-merger` in your OAS definitions build pipelines on earlier bundled files.
+Note, however `swagger-cli` is mentioned here just as an OAS bundler example, it does use `oas-markdown-merger`. Nevertheless you can use `oas-markdown-merger` in your OAS definitions build pipelines on OAS definitions previously bundled with any desired tool.
 
 ### Documentation
 
