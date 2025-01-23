@@ -1,18 +1,18 @@
 **Package Status**
 
-![npm version](https://img.shields.io/npm/v/oas-markdown-merger.svg)
-![npm downloads](https://img.shields.io/npm/dm/oas-markdown-merger.svg)
-![npm bundle size](https://img.shields.io/bundlephobia/min/oas-markdown-merger)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/oas-markdown-merger)
-[![codecov](https://codecov.io/gh/WhereJuly/60-1-oas-markdown-merger/branch/master/graph/badge.svg?token=WYEMY7V466)](https://codecov.io/gh/WhereJuly/60-1-oas-markdown-merger)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
+![Codecov](https://img.shields.io/codecov/c/github/WhereJuly/60-1-oas-markdown-merger?color=%2308A108)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+
+![npm bundle size](https://img.shields.io/bundlephobia/min/oas-markdown-merger)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/oas-markdown-merger)
+![npm version](https://img.shields.io/npm/v/oas-markdown-merger?color=green)
+![npm downloads](https://img.shields.io/npm/dm/oas-markdown-merger.svg?color=green)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?color=green)](https://opensource.org/licenses/MIT)
 
 # OAS Markdown Merger
 
