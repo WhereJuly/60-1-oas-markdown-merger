@@ -26,6 +26,6 @@
         "skipLibCheck": true
     },
 
-    "include": ["./src", "./tests/foundation/**/*.ts", "./tests/foundation/integration/.external/**/*.ts", "./tests/foundation/.ancillary/**/*.*", "./.usage/**/*.ts"],
+    "include": ["./src", "./tests/foundation/**/*.ts", "./tests/foundation/integration/.external/**/*.ts", "./tests/foundation/.ancillary/**/*.*", "./.usage/**/*.ts", ".delivery/scripts"],
     "exclude": ["node_modules", ".usage"]
 }

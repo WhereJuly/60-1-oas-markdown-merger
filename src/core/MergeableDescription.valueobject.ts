@@ -17,15 +17,18 @@ const MERGE_TAG_REGEX = /{% merge '.+' %}/;
  */
 export default class MergeableDescriptionVO {
 
-    private description: string;
-    private mergingFileName: string;
+    private readonly mergeFileBasePath: string;
+    private readonly description: string;
+    private readonly mergingFileName: string;
 
     public jsonPath: string[];
 
-    private constructor(jsonPath: string[], description: string, mergingFileName: string) {
-        this.jsonPath = jsonPath;
+    private constructor(jsonPath: string[], description: string, mergeFileBasePath: string = '', mergingFileName: string) { // NOSONAR
+        this.mergeFileBasePath = mergeFileBasePath;
         this.description = description;
         this.mergingFileName = mergingFileName;
+
+        this.jsonPath = jsonPath;
     }
 
     /**
@@ -35,10 +38,17 @@ export default class MergeableDescriptionVO {
      * @param {string | undefined} key - The key of the current JSON property being traversed.
      * For the valid mergeable description expected to be `"description"`.
      * 
-     * @param {string[]} jsonPath The JSON path segments as array for to the current node in the OpenAPI document.
+     * @param {string[]} jsonPath The [JSON path segments](https://www.rfc-editor.org/rfc/rfc9535#section-1.4.2)
+     * as an array for the current node in the OpenAPI document.
+     * 
+     * It is kept here to be used by the consumer of the {@link MergeableDescriptionVO} object to denote
+     * the respective place in the parent OAS document where the merged value has to be assigned to.
      * 
      * @param {any} node The value of the current OpenAPI document property being processed.
      * For `description` property may contain the merge tag.
+     * 
+     * @param {string | undefined} mergeFileBasePath The optional merge file base path.
+     * When omitted the process current working directory is used.
      * 
      * @returns An instance of `MergeableDescriptionVO` if the node contains a valid merge tag; otherwise, `null`.
      * 
@@ -57,25 +67,26 @@ export default class MergeableDescriptionVO {
      * const mergeableDescription = MergeableDescriptionVO.create(key, jsonPath, node);
      */
 
-    public static create(key: string | undefined, jsonPath: string[], node: any): MergeableDescriptionVO | null {
+    public static create(key: string | undefined, jsonPath: string[], node: any, mergeFileBasePath?: string): MergeableDescriptionVO | null {
         if (!this.isMergeTag(key, node)) { return null; }
 
         // NB: The filename must be relative to project root (cwd()) or to given `mergesBasePath`.
         // NB: `match[1]` must not be null as it was tested above with `this.isMergeTag()`
-        const filename = (node as string).match(/{% merge ['"](.+?)['"] %}/)![1];
+        // const filename = (node as string).match(/{% merge ['"](.+?)['"] %}/)![1];
+        const regex = RegExp(/{% merge ['"](.+?)['"] %}/);
+        const filename = regex.exec(node as string)![1];
 
         if (!this.isValidMarkdownFilename(filename)) { throw new OASDBCException(`Invalid filename in "merge" tag given "${filename}".`); }
 
-        return new MergeableDescriptionVO(jsonPath, node as string, filename as string);
+        return new MergeableDescriptionVO(jsonPath, node as string, mergeFileBasePath, filename as string);
     }
 
     /**
      * Replaces the merge tag in the description with the sanitized HTML content
      * rendered from the corresponding markdown file.
      * 
-     * @param {string} mergeFileBasePath Th base path to locate the markdown file referenced in the merge tag.
-     * 
-     * @returns A string containing the updated description with the merge tag replaced by the rendered HTML.
+     * @returns A string containing the updated description with the merge tag 
+     * replaced by the rendered HTML. The content outer to the merge tag is preserved.
      * 
      * @throws {OASDBCException} 
      * - if the markdown file referenced in the merge tag does not exist
@@ -89,23 +100,23 @@ export default class MergeableDescriptionVO {
      *   'example.md'
      * );
      * 
-     * const mergeFileBasePath = './merges';
-     * const updatedDescription = mergeableDescription.merged(mergeFileBasePath);
+     * const updatedDescription = mergeableDescription.merged();
      * 
      * console.log(updatedDescription);
      * // Output: "This is a <sanitized HTML content> description."
      */
-    public merged(mergeFileBasePath: string): string {
-        const html = this.renderHTML(mergeFileBasePath);
+    public merged(): string {
+        const fullPath = path.resolve(this.mergeFileBasePath, this.mergingFileName);
+        if (!fs.existsSync(fullPath)) { throw new OASDBCException(`The file "${fullPath}" does not exist.`); }
+
+        const markdown = fs.readFileSync(fullPath, 'utf-8');
+
+        const html = this.renderHTML(markdown);
 
         return this.description.replace(MERGE_TAG_REGEX, html);
     }
 
-    private renderHTML(mergeFileBasePath: string): string {
-        const fullPath = path.resolve(mergeFileBasePath, this.mergingFileName);
-        if (!fs.existsSync(fullPath)) { throw new OASDBCException(`The file "${fullPath}" does not exist.`); }
-
-        const markdown = fs.readFileSync(fullPath, 'utf-8');
+    private renderHTML(markdown: string): string {
         const html = marked(markdown) as string;
 
         // WRITE: TDD sanitize HTML
@@ -119,7 +130,7 @@ export default class MergeableDescriptionVO {
     };
 
     private static isValidMarkdownFilename(filename: string | null | undefined) {
-        return filename && filename && /^[a-zA-Z0-9._/-]+$/.test(filename) && path.extname(filename) === '.md';
+        return !!filename && filename && /^[a-zA-Z0-9._/-]+$/.test(filename) && path.extname(filename) === '.md';
     };
 
 }
