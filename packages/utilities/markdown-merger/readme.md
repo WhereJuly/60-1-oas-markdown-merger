@@ -1,12 +1,5 @@
 **Package Status**
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
-
 ![npm version](https://img.shields.io/npm/v/oas-markdown-merger.svg)
 ![npm downloads](https://img.shields.io/npm/dm/oas-markdown-merger.svg)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/oas-markdown-merger)
@@ -17,8 +10,8 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 
 # OAS Markdown Merger
