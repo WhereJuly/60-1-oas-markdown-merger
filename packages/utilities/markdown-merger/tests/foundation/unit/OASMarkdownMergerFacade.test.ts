@@ -112,13 +112,14 @@ describe('OASMarkdownMergerFacadeTest', () => {
                 await facade.merge(`${sourceFolder}/petstore.oas.json`, data.destination);
             };
 
-            await expect(() => actual()).rejects.toThrowError('Invalid destination');
+            await expect(() => actual()).rejects.toThrowError(data.error);
         });
 
         function dataProvider_invalid_destination_file() {
             return [
-                { name: 'Non-existent folder', destination: 'non-existent-folder' },
-                { name: 'Does not have .json extension', destination: `${tempFolder}/no-json-extension` },
+                { name: 'Non-existent folder', destination: 'non-existent-folder', error: 'Invalid destination' },
+                { name: 'Does not have .json extension', destination: `${tempFolder}/no-json-extension`, error: 'Invalid destination' },
+                { name: 'Invalid file name should throw something different', destination: `${tempFolder}/invalid|file.json`, error: 'no such file or directory' },
             ];
         }
 
