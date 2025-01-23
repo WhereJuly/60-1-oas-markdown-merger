@@ -8,11 +8,12 @@ import OASMarkdownMergerFacade from '@src/core/OASMarkdownMerger.facade.js';
 
 import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRetrieve.service.js';
 
-const tempFolder = './tests/foundation/.ancillary/fixtures/.temp';
-
-const sourceFolder = './tests/foundation/.ancillary/fixtures/definitions';
+const root = './tests/foundation/.ancillary/fixtures';
+const tempFolder = `${root}/.temp`;
+const sourceFolder = `${root}/definitions`;
 const destinationFile = `${tempFolder}/petstore-merged.oas.json`;
-const expectedMarkdown = './tests/foundation/.ancillary/fixtures/markdown/simple.md';
+const expectedMarkdown = `${root}/markdown/simple.md`;
+const mergesBasePath = `${root}/markdown`;
 
 const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
 
@@ -52,7 +53,7 @@ describe('OASMarkdownMergerFacadeTest', () => {
         function dataProvider_merging_base_paths_1() {
             return [
                 { name: 'With merges default base path (cwd)', mergesBasePath: undefined },
-                { name: 'With merges custom base path', mergesBasePath: './tests/foundation/.ancillary/fixtures/markdown' },
+                { name: 'With merges custom base path', mergesBasePath: mergesBasePath },
             ];
         }
 
@@ -111,13 +112,16 @@ describe('OASMarkdownMergerFacadeTest', () => {
                 await facade.merge(`${sourceFolder}/petstore.oas.json`, data.destination);
             };
 
-            await expect(() => actual()).rejects.toThrowError('Invalid destination');
+            await expect(() => actual()).rejects.toThrowError(data.error);
         });
 
         function dataProvider_invalid_destination_file() {
             return [
-                { name: 'Non-existent folder', destination: 'non-existent-folder' },
-                { name: 'Does not have .json extension', destination: `${tempFolder}/no-json-extension` },
+                { name: 'Non-existent folder', destination: 'non-existent-folder', error: 'Invalid destination' },
+                { name: 'Does not have .json extension', destination: `${tempFolder}/no-json-extension`, error: 'Invalid destination' },
+
+                // WARNING: This worked on Windows: fs.writeFileSync("invalid|file.json", "data"); Not sure for Linux thiugh.
+                { name: 'Invalid file name should throw something different', destination: `${tempFolder}/invalid|file.json`, error: 'no such file or directory' },
             ];
         }
 
@@ -140,6 +144,37 @@ describe('OASMarkdownMergerFacadeTest', () => {
                 { name: 'Not an existing merging file', filename: 'non-existent-merged-file-name.oas.json', errorContains: 'valid-nonexistent.md" does not exist' },
             ];
         }
+
+    });
+
+    describe('+mergeInMemory(): Should process arbitrary JSON in memory', async () => {
+
+        const fixtures = await import('@fixtures/arbitrary/index.js');
+        const facade = OASMarkdownMergerFacade.create(mergesBasePath);
+
+        it('Should successfully merge the file', () => {
+            // WARNING: Here and further it is to keep the original fixture unchanged. 
+            const fixture = JSON.parse(JSON.stringify(fixtures.happy_case)) as Record<string, any>;
+            const expected = fs.readFileSync(expectedMarkdown).toString('utf-8');
+
+            facade.mergeInMemory(fixture);
+
+            const actual = JSON.stringify(fixture).split(`<p>${expected}</p>`).length - 1;
+            expect(actual).toEqual(2);
+        });
+
+        it('Should not change the source JSON (no merge tag, no description field)', () => {
+            const actual = {
+                no_merge: JSON.parse(JSON.stringify(fixtures.no_merge)) as Record<string, any>,
+                no_description: JSON.parse(JSON.stringify(fixtures.no_description)) as Record<string, any>
+            };
+
+            facade.mergeInMemory(actual.no_merge);
+            facade.mergeInMemory(actual.no_description);
+
+            expect(fixtures.no_merge).toEqual(actual.no_merge);
+            expect(fixtures.no_description).toEqual(actual.no_description);
+        });
 
     });
 

@@ -40,8 +40,8 @@ import MergeableDescriptionVO from '@src/core/MergeableDescription.valueobject.j
  */
 export default class OASMarkdownMergerFacade {
 
-    #definitionsRetrieveService: OASJSONDefinitionsRetrieveService;
-    #mergesBasePath: string;
+    readonly #definitionsRetrieveService: OASJSONDefinitionsRetrieveService;
+    readonly #mergesBasePath: string;
 
     /**
      * Creates an instance of the `OASMarkdownMergerFacade` class.
@@ -107,37 +107,48 @@ export default class OASMarkdownMergerFacade {
      * // Merging descriptions and saving the updated document
      * await merger.merge('path/to/source.json', 'path/to/destination.json');
      */
-
     public async merge(source: string, destinationFile: string): Promise<void> {
         // Retrieve the OpenAPI document from source.
         const definitions = await this.#definitionsRetrieveService.retrieve(source);
 
         // NB: Walk along the definitions and merge mergeable descriptions.
-        this.processMergeableDescriptions(definitions);
+        this.mergeInMemory(definitions);
 
         // NB: Save the updated document to the destination file.
         this.writeToDestinationFile(definitions, destinationFile);
     }
 
-    private processMergeableDescriptions(definitions: OpenAPIV3_1.Document): void {
+    /**
+     * Merges the provided OpenAPI definitions into memory by traversing and processing each node.
+     * 
+     * Note the method mutates {@link definitions} in-place replacing `description` fields
+     * that contain "merge" tags with themselves including merged content.
+     * 
+     * The merged content is added into the existing `description` field content replacing
+     * only the "merge" tag.
+     * 
+     * @param definitions - The OpenAPI document or a generic record to be merged.
+     * @returns void
+     */
+    public mergeInMemory(definitions: OpenAPIV3_1.Document | Record<string, any>): void {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const facade = this;
 
         traverse(definitions).forEach(function (node) {
-            facade.mergeIntoDefinitions(definitions, MergeableDescriptionVO.create(this.key, this.path, node));
+            facade.mergeIntoDefinitions(definitions, MergeableDescriptionVO.create(this.key, this.path, node, facade.#mergesBasePath));
         });
     }
 
-    private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document, mergeableDescription: MergeableDescriptionVO | null): void {
+    private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document | Record<string, any>, mergeableDescription: MergeableDescriptionVO | null): void {
         if (!mergeableDescription) { return; }
 
-        traverse(definitions).set(mergeableDescription.jsonPath, mergeableDescription.merged(this.#mergesBasePath));
+        traverse(definitions).set(mergeableDescription.jsonPath, mergeableDescription.merged());
     }
 
     private writeToDestinationFile(definitions: OpenAPIV3_1.Document, destinationFile: string): void {
-        const isValidJsonFilePath = (filePath: string) => path.extname(filePath) === '.json' && fs.existsSync(path.dirname(filePath));
+        const isValidDestinationFile = (filePath: string) => path.extname(filePath) === '.json' && fs.existsSync(path.dirname(filePath));
 
-        if (!isValidJsonFilePath(destinationFile)) {
+        if (!isValidDestinationFile(destinationFile)) {
             throw new OASDBCException(`Invalid destination file path "${destinationFile}". The destination folder must exist. The file must be a JSON file (.json).`);
         }
 

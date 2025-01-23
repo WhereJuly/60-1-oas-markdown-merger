@@ -1,0 +1,46 @@
+{
+  "tags": [
+    {
+      "name": "pet",
+      "description": "Everything about your Pets\n\r{% merge './simple.md' %}",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/pet": {
+      "put": {
+        "tags": ["pet"],
+        "summary": "Update an existing pet",
+        "description": "Update an existing pet by Id",
+        "operationId": "updatePet",
+        "requestBody": {
+          "description": "Update an existent pet in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": ["name", "photoUrls"],
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "description": "Example ID description with merge tag {% merge './simple.md' %}",
+                    "type": "integer",
+                    "format": "int64",
+                    "examples": [10]
+                  },
+                  "name": {
+                    "type": "string",
+                    "examples": ["doggie"]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}
