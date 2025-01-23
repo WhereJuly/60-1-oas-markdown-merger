@@ -4,13 +4,17 @@ import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 
 import fs from 'fs';
 
-import { OASMarkdownMergerFacade } from 'oas-markdown-merger';
+import { MergeableDescriptionVO, OASMarkdownMergerFacade } from 'oas-markdown-merger';
+
+type TCreateArguments = [string, string[], string, string?];
 
 const root = '../tests/foundation/.ancillary/fixtures';
 const tempFolder = `${root}/.temp`;
 const sourceFolder = `${root}/definitions`;
 const destinationFile = `${tempFolder}/petstore-merged.oas.json`;
 const expectedMarkdown = `${root}/markdown/simple.md`;
+
+const mergeFileBasePath = `${root}/markdown`;
 
 describe('Programmatic Usage Test', () => {
 
@@ -27,7 +31,7 @@ describe('Programmatic Usage Test', () => {
         fs.existsSync(tempFolder) && fs.rmSync(tempFolder, { recursive: true, force: true });
     });
 
-    describe('+merge(): Should successfully merge markdown files and save the destination file', () => {
+    describe('+OASMarkdownMergerFacade.merge(): Should successfully merge markdown files and save the destination file', () => {
 
         it.each(dataProvider_merging_base_paths_2())('Case #%# $name', async (data) => {
             const facade = OASMarkdownMergerFacade.create(data.mergesBasePath);
@@ -49,6 +53,22 @@ describe('Programmatic Usage Test', () => {
             ];
         }
 
+    });
+
+    it('+OASMarkdownMergerFacade.mergeInMemory(): Should be available publicly', () => {
+        const facade = OASMarkdownMergerFacade.create();
+
+        facade.mergeInMemory({});
+    });
+
+    it('+MergeableDescriptionVO: create() and merged() methods should be available publicly', () => {
+        const valid = ['description', ['tags', '0', 'description'], "Everything about your Pets {% merge './simple.md' %}", mergeFileBasePath];
+
+        const mergeable = MergeableDescriptionVO.create(...valid as TCreateArguments);
+
+        expect(mergeable).not.toBeNull();
+        const actual = mergeable!.merged();
+        expect(actual).toEqual(expect.stringContaining('<p>This is markdown file content.</p>'));
     });
 
 });
