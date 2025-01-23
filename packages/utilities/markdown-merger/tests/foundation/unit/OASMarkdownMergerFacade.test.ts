@@ -8,7 +8,7 @@ import OASMarkdownMergerFacade from '@src/core/OASMarkdownMerger.facade.js';
 
 import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRetrieve.service.js';
 
-const root = '../tests/foundation/.ancillary/fixtures';
+const root = './tests/foundation/.ancillary/fixtures';
 const tempFolder = `${root}/.temp`;
 const sourceFolder = `${root}/definitions`;
 const destinationFile = `${tempFolder}/petstore-merged.oas.json`;
@@ -144,13 +144,33 @@ describe('OASMarkdownMergerFacadeTest', () => {
 
     });
 
-    describe('+mergeInMemory(): Should process arbitrary JSON in memory', () => {
+    describe('+mergeInMemory(): Should process arbitrary JSON in memory', async () => {
+
+        const fixtures = await import('@fixtures/arbitrary/index.js');
+        const facade = OASMarkdownMergerFacade.create(mergesBasePath);
 
         it('Should successfully merge the file', () => {
-            const facade = OASMarkdownMergerFacade.create(mergesBasePath);
+            // WARNING: Here and further it is to keep the original fixture unchanged. 
+            const fixture = JSON.parse(JSON.stringify(fixtures.happy_case)) as Record<string, any>;
+            const expected = fs.readFileSync(expectedMarkdown).toString('utf-8');
 
-            
+            facade.mergeInMemory(fixture);
 
+            const actual = JSON.stringify(fixture).split(`<p>${expected}</p>`).length - 1;
+            expect(actual).toEqual(2);
+        });
+
+        it('Should not change the source JSON (no merge tag, no description field)', () => {
+            const actual = {
+                no_merge: JSON.parse(JSON.stringify(fixtures.no_merge)) as Record<string, any>,
+                no_description: JSON.parse(JSON.stringify(fixtures.no_description)) as Record<string, any>
+            };
+
+            facade.mergeInMemory(actual.no_merge);
+            facade.mergeInMemory(actual.no_description);
+
+            expect(fixtures.no_merge).toEqual(actual.no_merge);
+            expect(fixtures.no_description).toEqual(actual.no_description);
         });
 
     });
