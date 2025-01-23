@@ -17,15 +17,18 @@ const MERGE_TAG_REGEX = /{% merge '.+' %}/;
  */
 export default class MergeableDescriptionVO {
 
+    private mergeFileBasePath: string;
     private description: string;
     private mergingFileName: string;
 
     public jsonPath: string[];
 
-    private constructor(jsonPath: string[], description: string, mergingFileName: string) {
-        this.jsonPath = jsonPath;
+    private constructor(mergeFileBasePath: string, jsonPath: string[], description: string, mergingFileName: string) {
+        this.mergeFileBasePath = mergeFileBasePath;
         this.description = description;
         this.mergingFileName = mergingFileName;
+
+        this.jsonPath = jsonPath;
     }
 
     /**
@@ -57,7 +60,7 @@ export default class MergeableDescriptionVO {
      * const mergeableDescription = MergeableDescriptionVO.create(key, jsonPath, node);
      */
 
-    public static create(key: string | undefined, jsonPath: string[], node: any): MergeableDescriptionVO | null {
+    public static create(mergeFileBasePath: string, key: string | undefined, jsonPath: string[], node: any): MergeableDescriptionVO | null {
         if (!this.isMergeTag(key, node)) { return null; }
 
         // NB: The filename must be relative to project root (cwd()) or to given `mergesBasePath`.
@@ -66,7 +69,7 @@ export default class MergeableDescriptionVO {
 
         if (!this.isValidMarkdownFilename(filename)) { throw new OASDBCException(`Invalid filename in "merge" tag given "${filename}".`); }
 
-        return new MergeableDescriptionVO(jsonPath, node as string, filename as string);
+        return new MergeableDescriptionVO(mergeFileBasePath, jsonPath, node as string, filename as string);
     }
 
     /**
@@ -95,10 +98,10 @@ export default class MergeableDescriptionVO {
      * console.log(updatedDescription);
      * // Output: "This is a <sanitized HTML content> description."
      */
-    public merged(mergeFileBasePath: string): string {
-        const fullPath = path.resolve(mergeFileBasePath, this.mergingFileName);
+    public merged(): string {
+        const fullPath = path.resolve(this.mergeFileBasePath, this.mergingFileName);
         if (!fs.existsSync(fullPath)) { throw new OASDBCException(`The file "${fullPath}" does not exist.`); }
-    
+
         const markdown = fs.readFileSync(fullPath, 'utf-8');
 
         const html = this.renderHTML(markdown);
