@@ -38,7 +38,11 @@ export default class MergeableDescriptionVO {
      * @param {string | undefined} key - The key of the current JSON property being traversed.
      * For the valid mergeable description expected to be `"description"`.
      * 
-     * @param {string[]} jsonPath The JSON path segments as array for to the current node in the OpenAPI document.
+     * @param {string[]} jsonPath The [JSON path segments](https://www.rfc-editor.org/rfc/rfc9535#section-1.4.2)
+     * as an array for the current node in the OpenAPI document.
+     * 
+     * It is kept here to be used by the consumer of the {@link MergeableDescriptionVO} object to denote
+     * the respective place in the parent OAS document where the merged value has to be assigned to.
      * 
      * @param {any} node The value of the current OpenAPI document property being processed.
      * For `description` property may contain the merge tag.
