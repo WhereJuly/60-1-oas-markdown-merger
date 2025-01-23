@@ -119,7 +119,7 @@ export default class OASMarkdownMergerFacade {
         this.writeToDestinationFile(definitions, destinationFile);
     }
 
-    private mergeInMemory(definitions: OpenAPIV3_1.Document): void {
+    public mergeInMemory(definitions: OpenAPIV3_1.Document | Record<string, any>): void {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const facade = this;
 
@@ -128,16 +128,16 @@ export default class OASMarkdownMergerFacade {
         });
     }
 
-    private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document, mergeableDescription: MergeableDescriptionVO | null): void {
+    private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document | Record<string, any>, mergeableDescription: MergeableDescriptionVO | null): void {
         if (!mergeableDescription) { return; }
 
         traverse(definitions).set(mergeableDescription.jsonPath, mergeableDescription.merged(this.#mergesBasePath));
     }
 
     private writeToDestinationFile(definitions: OpenAPIV3_1.Document, destinationFile: string): void {
-        const isValidJsonFilePath = (filePath: string) => path.extname(filePath) === '.json' && fs.existsSync(path.dirname(filePath));
+        const isValidDestinationFile = (filePath: string) => path.extname(filePath) === '.json' && fs.existsSync(path.dirname(filePath));
 
-        if (!isValidJsonFilePath(destinationFile)) {
+        if (!isValidDestinationFile(destinationFile)) {
             throw new OASDBCException(`Invalid destination file path "${destinationFile}". The destination folder must exist. The file must be a JSON file (.json).`);
         }
 
