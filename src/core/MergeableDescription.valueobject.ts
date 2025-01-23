@@ -17,9 +17,9 @@ const MERGE_TAG_REGEX = /{% merge '.+' %}/;
  */
 export default class MergeableDescriptionVO {
 
-    private mergeFileBasePath: string;
-    private description: string;
-    private mergingFileName: string;
+    private readonly mergeFileBasePath: string;
+    private readonly description: string;
+    private readonly mergingFileName: string;
 
     public jsonPath: string[];
 
@@ -72,7 +72,9 @@ export default class MergeableDescriptionVO {
 
         // NB: The filename must be relative to project root (cwd()) or to given `mergesBasePath`.
         // NB: `match[1]` must not be null as it was tested above with `this.isMergeTag()`
-        const filename = (node as string).match(/{% merge ['"](.+?)['"] %}/)![1];
+        // const filename = (node as string).match(/{% merge ['"](.+?)['"] %}/)![1];
+        const regex = RegExp(/{% merge ['"](.+?)['"] %}/);
+        const filename = regex.exec(node as string)![1];
 
         if (!this.isValidMarkdownFilename(filename)) { throw new OASDBCException(`Invalid filename in "merge" tag given "${filename}".`); }
 
@@ -128,7 +130,7 @@ export default class MergeableDescriptionVO {
     };
 
     private static isValidMarkdownFilename(filename: string | null | undefined) {
-        return filename && filename && /^[a-zA-Z0-9._/-]+$/.test(filename) && path.extname(filename) === '.md';
+        return !!filename && filename && /^[a-zA-Z0-9._/-]+$/.test(filename) && path.extname(filename) === '.md';
     };
 
 }

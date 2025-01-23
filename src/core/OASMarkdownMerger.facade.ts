@@ -40,8 +40,8 @@ import MergeableDescriptionVO from '@src/core/MergeableDescription.valueobject.j
  */
 export default class OASMarkdownMergerFacade {
 
-    #definitionsRetrieveService: OASJSONDefinitionsRetrieveService;
-    #mergesBasePath: string;
+    readonly #definitionsRetrieveService: OASJSONDefinitionsRetrieveService;
+    readonly #mergesBasePath: string;
 
     /**
      * Creates an instance of the `OASMarkdownMergerFacade` class.
