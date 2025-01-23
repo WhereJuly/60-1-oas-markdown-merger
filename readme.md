@@ -1,5 +1,12 @@
 **Package Status**
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+
 ![npm version](https://img.shields.io/npm/v/oas-markdown-merger.svg)
 ![npm downloads](https://img.shields.io/npm/dm/oas-markdown-merger.svg)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/oas-markdown-merger)
@@ -7,6 +14,12 @@
 [![codecov](https://codecov.io/gh/WhereJuly/60-1-oas-markdown-merger/branch/master/graph/badge.svg?token=WYEMY7V466)](https://codecov.io/gh/WhereJuly/60-1-oas-markdown-merger)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 # OAS Markdown Merger
 
 Allows to expand the [OpenAPI JSON specification](https://spec.openapis.org/#openapi-specification) `description` fields with the arbitrary markdown files translated to HTML.
