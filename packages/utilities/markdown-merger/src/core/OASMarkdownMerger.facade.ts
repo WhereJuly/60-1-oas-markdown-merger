@@ -124,14 +124,14 @@ export default class OASMarkdownMergerFacade {
         const facade = this;
 
         traverse(definitions).forEach(function (node) {
-            facade.mergeIntoDefinitions(definitions, MergeableDescriptionVO.create(this.key, this.path, node));
+            facade.mergeIntoDefinitions(definitions, MergeableDescriptionVO.create(facade.#mergesBasePath, this.key, this.path, node));
         });
     }
 
     private mergeIntoDefinitions(definitions: OpenAPIV3_1.Document | Record<string, any>, mergeableDescription: MergeableDescriptionVO | null): void {
         if (!mergeableDescription) { return; }
 
-        traverse(definitions).set(mergeableDescription.jsonPath, mergeableDescription.merged(this.#mergesBasePath));
+        traverse(definitions).set(mergeableDescription.jsonPath, mergeableDescription.merged());
     }
 
     private writeToDestinationFile(definitions: OpenAPIV3_1.Document, destinationFile: string): void {
