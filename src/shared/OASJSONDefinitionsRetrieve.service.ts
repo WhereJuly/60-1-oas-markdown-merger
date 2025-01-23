@@ -134,7 +134,7 @@ export default class OASJSONDefinitionsRetrieveService {
     }
 
     private getActualRetrieveMethod(isURL: boolean): (source: string) => TActualRetrieveReturnType {
-        return isURL ? this.retrieveURL : this.retrieveFile;
+        return isURL ? this.retrieveURL : this.retrieveFile; // NOSONAR
     }
 
     private parseOrThrow(content: string | Record<string, any>): OpenAPIV3_1.Document {

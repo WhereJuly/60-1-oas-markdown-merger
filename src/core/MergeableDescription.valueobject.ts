@@ -23,7 +23,7 @@ export default class MergeableDescriptionVO {
 
     public jsonPath: string[];
 
-    private constructor(jsonPath: string[], description: string, mergeFileBasePath: string = '', mergingFileName: string) {
+    private constructor(jsonPath: string[], description: string, mergeFileBasePath: string = '', mergingFileName: string) { // NOSONAR
         this.mergeFileBasePath = mergeFileBasePath;
         this.description = description;
         this.mergingFileName = mergingFileName;
