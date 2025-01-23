@@ -11,7 +11,7 @@ export {
 export const petstore = _petstore as unknown as OpenAPIV3_1.Document;
 
 const index = {
-    petstore: petstore as OpenAPIV3_1.Document,
+    petstore: petstore
 };
 
 export default index;
