@@ -16,10 +16,10 @@ Allows to expand the [OpenAPI JSON specification](https://spec.openapis.org/#ope
   - [Installation](#installation)
   - [CLI](#cli)
   - [Programmatic Usage](#programmatic-usage)
-    - [Merging using Files](#merging-using-files)
+    - [Files As Source/Destination](#files-as-sourcedestination)
     - [In-Memory Merge](#in-memory-merge)
       - [Merge JSON Documents](#merge-json-documents)
-      - [Merge in Single Descriptions](#merge-in-single-descriptions)
+      - [Merge into Single Descriptions](#merge-into-single-descriptions)
       - [In-Memory Merge Usage](#in-memory-merge-usage)
   - [Documentation](#documentation)
 - [Maintenance](#maintenance)
@@ -100,7 +100,7 @@ Using optional `--merge-base` parameter we can place our markdown documents into
 
 ### Programmatic Usage
 
-#### Merging using Files
+#### Files As Source/Destination
 
 The usage similar to the CLI above with files containing OAS definitions, but now programmatically.
 
@@ -167,7 +167,7 @@ const merger = OASMarkdownMergerFacade.create('./docs');
 merger.mergeInMemory(oas);
 ```
 
-##### Merge in Single Descriptions
+##### Merge into Single Descriptions
 
 You could use the in-memory merge even more granularly, for a single `description` value.
 
@@ -206,11 +206,13 @@ The package is written in TypeScript with the careful JSDoc blocks available on 
 
 ## Maintenance
 
+The project is production-ready and actively maintained.
+
 ### Contributions
 
-Potentially valuable use cases / functionality suggestions are welcome either in [Discussions](https://github.com/WhereJuly/60-1-oas-markdown-merger/discussions) or as [pull requests](https://github.com/WhereJuly/60-1-oas-markdown-merger/pulls).
+Potentially valuable use cases / functionality suggestions as well as usage questions are welcome in [Discussions](https://github.com/WhereJuly/60-1-oas-markdown-merger/discussions).
 
-If there is a Pull Request contribution, I would receive it on `integration` branch for discussion and manual merge.
+If there is a [pull request](https://github.com/WhereJuly/60-1-oas-markdown-merger/pulls), I would receive it on `integration` branch for discussion and manual merge.
 
 ### License
 
