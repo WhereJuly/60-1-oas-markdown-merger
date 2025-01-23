@@ -8,11 +8,12 @@ import OASMarkdownMergerFacade from '@src/core/OASMarkdownMerger.facade.js';
 
 import OASJSONDefinitionsRetrieveService from '@src/shared/OASJSONDefinitionsRetrieve.service.js';
 
-const tempFolder = './tests/foundation/.ancillary/fixtures/.temp';
-
-const sourceFolder = './tests/foundation/.ancillary/fixtures/definitions';
+const root = '../tests/foundation/.ancillary/fixtures';
+const tempFolder = `${root}/.temp`;
+const sourceFolder = `${root}/definitions`;
 const destinationFile = `${tempFolder}/petstore-merged.oas.json`;
-const expectedMarkdown = './tests/foundation/.ancillary/fixtures/markdown/simple.md';
+const expectedMarkdown = `${root}/markdown/simple.md`;
+const mergesBasePath = `${root}/markdown`;
 
 const definitionsRetrieveService = new OASJSONDefinitionsRetrieveService();
 
@@ -52,7 +53,7 @@ describe('OASMarkdownMergerFacadeTest', () => {
         function dataProvider_merging_base_paths_1() {
             return [
                 { name: 'With merges default base path (cwd)', mergesBasePath: undefined },
-                { name: 'With merges custom base path', mergesBasePath: './tests/foundation/.ancillary/fixtures/markdown' },
+                { name: 'With merges custom base path', mergesBasePath: mergesBasePath },
             ];
         }
 
@@ -140,6 +141,17 @@ describe('OASMarkdownMergerFacadeTest', () => {
                 { name: 'Not an existing merging file', filename: 'non-existent-merged-file-name.oas.json', errorContains: 'valid-nonexistent.md" does not exist' },
             ];
         }
+
+    });
+
+    describe('+mergeInMemory(): Should process arbitrary JSON in memory', () => {
+
+        it('Should successfully merge the file', () => {
+            const facade = OASMarkdownMergerFacade.create(mergesBasePath);
+
+            
+
+        });
 
     });
 
