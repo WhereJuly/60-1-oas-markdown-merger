@@ -74,8 +74,10 @@ The release workflow on the monorepo.
   - Check its success;
   - No release tagging for `develop` branch;
   - No test coverage publish;
-- Locally in `master` branch run `npm run package:build` and `npm run package:publish`.
+- Merge the release branch into `master`;
+  - Locally in `master` branch run `npm run package:build` and `npm run package:publish`.
   - Will test and build the package;
+  - Push to remote.
   - Pushes the [subtree](#manage-public-version-with-git-subtree) to the remote dedicated public repository;
 - Merge the release branch to `master`; Push to remote;
   - The commit to master will trigger the CI; Check its success;
