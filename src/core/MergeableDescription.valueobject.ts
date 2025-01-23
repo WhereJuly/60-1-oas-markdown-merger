@@ -96,16 +96,17 @@ export default class MergeableDescriptionVO {
      * // Output: "This is a <sanitized HTML content> description."
      */
     public merged(mergeFileBasePath: string): string {
-        const html = this.renderHTML(mergeFileBasePath);
+        const fullPath = path.resolve(mergeFileBasePath, this.mergingFileName);
+        if (!fs.existsSync(fullPath)) { throw new OASDBCException(`The file "${fullPath}" does not exist.`); }
+    
+        const markdown = fs.readFileSync(fullPath, 'utf-8');
+
+        const html = this.renderHTML(markdown);
 
         return this.description.replace(MERGE_TAG_REGEX, html);
     }
 
-    private renderHTML(mergeFileBasePath: string): string {
-        const fullPath = path.resolve(mergeFileBasePath, this.mergingFileName);
-        if (!fs.existsSync(fullPath)) { throw new OASDBCException(`The file "${fullPath}" does not exist.`); }
-
-        const markdown = fs.readFileSync(fullPath, 'utf-8');
+    private renderHTML(markdown: string): string {
         const html = marked(markdown) as string;
 
         // WRITE: TDD sanitize HTML
