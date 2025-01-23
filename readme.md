@@ -40,19 +40,23 @@ contract
 In the desired places of the specification in the `description` fields we add the merge tags of the kind `{% merge 'path/file.md' %}`.
 
 ```json
-//...
 {
-    "name": "pet",
-    "description": "Everything about your Pets\n\r{% merge './one.md' %}",
-},
-// ...
-"id": {
-    "description": "{% merge './nested/two.md' %}",
-    "type": "integer",
-},
+ "tags": [
+  {
+   "name": "pet",
+   "description": "Everything about your Pets\n\r{% merge './one.md' %}"
+  }
+ ],
+ "id": {
+  "description": "{% merge './nested/two.md' %}",
+  "type": "integer"
+ }
+}
 ```
 
-We can combine tags with inlined description text as for the first example above or use them alone as for the second one.
+We can combine tags with inlined description text as for the first example. Then the merged content is added into the existing `description` field preserving the content outer to the merge tag. This way you can insert the merged markdown content within the `description` field content.
+
+Or you can use "merge" tag alone in a `description` field as for the second example.
 
 Using `oas-markdown-merger` you wil get the content of the markdown files merged into the `description` fields like this:
 
