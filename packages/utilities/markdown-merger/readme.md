@@ -20,6 +20,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=WhereJuly_60-1-oas-markdown-merger&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=WhereJuly_60-1-oas-markdown-merger)
+
 # OAS Markdown Merger
 
 Allows to expand the [OpenAPI JSON specification](https://spec.openapis.org/#openapi-specification) `description` fields with the arbitrary markdown files translated to HTML.
