@@ -121,7 +121,7 @@ describe('OASMarkdownMergerFacadeTest', () => {
                 { name: 'Does not have .json extension', destination: `${tempFolder}/no-json-extension`, error: 'Invalid destination' },
 
                 // WARNING: This worked on Windows: fs.writeFileSync("invalid|file.json", "data"); Not working in Linux though.
-                { name: 'Invalid file name should throw something different', destination: `${tempFolder}/?invalid|file:name.NUL.json`, error: 'no such file or directory' },
+                // { name: 'Invalid file name should throw something different', destination: `${tempFolder}/?invalid|file:name.NUL.json`, error: 'no such file or directory' },
             ];
         }
 
