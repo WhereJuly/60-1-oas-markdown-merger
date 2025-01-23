@@ -113,13 +113,13 @@ export default class OASMarkdownMergerFacade {
         const definitions = await this.#definitionsRetrieveService.retrieve(source);
 
         // NB: Walk along the definitions and merge mergeable descriptions.
-        this.processMergeableDescriptions(definitions);
+        this.mergeInMemory(definitions);
 
         // NB: Save the updated document to the destination file.
         this.writeToDestinationFile(definitions, destinationFile);
     }
 
-    private processMergeableDescriptions(definitions: OpenAPIV3_1.Document): void {
+    private mergeInMemory(definitions: OpenAPIV3_1.Document): void {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const facade = this;
 
