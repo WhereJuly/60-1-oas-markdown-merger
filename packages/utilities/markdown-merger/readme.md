@@ -195,7 +195,7 @@ if (mergeable) {
 }
 ```
 
-Here `merged` variable will contain `keyValue` merged with the HTML-translated markdown from `./docs/one.md`. The `MergeableDescriptionVO.create()` can return `null`. This denotes the provided input is not not actually mergeable due to either its `key` is not equal `description` value or `keyValue` not contain the valid "merge" tag.
+Here `merged` variable will contain `keyValue` merged with the HTML-translated markdown from `./docs/one.md`. The `MergeableDescriptionVO.create()` can return `null`. This denotes the provided input is not actually mergeable due to either its `key` is not equal `description` value or `keyValue` not contain the valid "merge" tag.
 
 Note in this particular example the `jsonPath` (see (JSON Path Segments)(https://www.rfc-editor.org/rfc/rfc9535#section-1.4.2)) parameter / argument is not essential and can be set to `[]`.
 
