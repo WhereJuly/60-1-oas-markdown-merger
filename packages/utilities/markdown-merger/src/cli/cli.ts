@@ -14,10 +14,10 @@ const program = new Command();
 await program
     .name(pkg.name)
     .version(pkg.version)
-    .description('Merges the content of markdown files mentioned with "{% merge \'./docs/example.md\' %}" tags into respective OpenAPI JSON "description" fields.')
+    .description('Merges the (translated to HTML, sanitized) content of markdown files mentioned with "{% merge \'./docs/example.md\' %}" tags into respective OpenAPI JSON "description" fields.')
     .usage("--source <file> --destination <file> [--merges-base <path>]")
-    .requiredOption('-i, --source <file>', 'Source OpenAPI definitions file path.')
-    .requiredOption('-o, --destination <file>', 'Destination OAS file path with descriptions merged (if any).')
+    .requiredOption('-s, --source <file>', 'Source OpenAPI definitions file.')
+    .requiredOption('-d, --destination <file>', 'Destination OpenAPI definitions file with descriptions merged.')
     .option('-m, --merges-base <path>', 'The base path for files mentioned in the "merge" tags.')
     .action(async (options: { source: string; destination: string; mergesBase?: string; }) => {
         try {
